@@ -1,0 +1,71 @@
+.body {
+  background: var(--color-scheme-1-background);
+}
+.header {
+  padding: 18px 0;
+}
+
+.tab {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-scheme-1-text);
+  padding: 12px 24px;
+  width: 167px;
+}
+.tabs {
+  margin-bottom: 32px;
+}
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--color-scheme-1-text);
+  padding-bottom: 24px;
+}
+.subtitle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--color-scheme-1-text);
+}
+.lable {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-scheme-1-text);
+}
+.input {
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 335px;
+  height: 40px;
+  background: var(--opacity-transparent);
+}
+.button {
+  border: 1px solid var(--color-mantis-dark);
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: 335px;
+  height: 44px;
+  background: var(--color-mantis-dark);
+}
+.main {
+  width: 335px;
+  height: 668px;
+  max-width: 1280px;
+}
+.inputsForm {
+  margin-bottom: 24px;
+}
+.subtitleAll {
+  margin-bottom: 32px;
+}
