@@ -1,0 +1,32 @@
+import Link from 'next/link';
+import css from './Register.module.css';
+import AuthHeader from '@/components/RegisterPage/AuthHeader/AuthHeader';
+import MainAuthNav from '@/components/RegisterPage/MainAuthNav/MainAuthNav';
+import RegistrationForm from '@/components/RegisterPage/RegistrationForm/RegistrationForm';
+import AuthFooter from '@/components/RegisterPage/AuthFooter/AuthFooter';
+export default function RegisterPage() {
+  return (
+    <div className="container">
+      <AuthHeader />
+
+      <main className={css.main}>
+        <div className={css.container}>
+          <div className={css.authBox}>
+            <MainAuthNav />
+            <div className={css.subtitleAll}>
+              <h1 className={css.title}>Реєстрація</h1>
+
+              <p className={css.subtitle}>
+                Раді вас бачити у спільноті
+                <br />
+                мандрівників!
+              </p>
+            </div>
+            <RegistrationForm />
+            <AuthFooter />
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
