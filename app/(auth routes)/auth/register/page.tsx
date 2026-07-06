@@ -6,27 +6,27 @@ import RegistrationForm from '@/components/RegisterPage/RegistrationForm/Registr
 import AuthFooter from '@/components/RegisterPage/AuthFooter/AuthFooter';
 export default function RegisterPage() {
   return (
-    <div className="container">
-      <AuthHeader />
+    <div className={css.page}>
+      <div className="container">
+        <AuthHeader />
 
-      <main className={css.main}>
-        <div className={css.container}>
-          <div className={css.authBox}>
-            <MainAuthNav />
-            <div className={css.subtitleAll}>
-              <h1 className={css.title}>Реєстрація</h1>
+        <main className={css.main}>
+          <div className={css.container}>
+            <div className={css.authBox}>
+              <MainAuthNav />
+              <div className={css.subtitleAll}>
+                <h1 className={css.title}>Реєстрація</h1>
 
-              <p className={css.subtitle}>
-                Раді вас бачити у спільноті
-                <br />
-                мандрівників!
-              </p>
+                <p className={css.subtitle}>
+                  Раді вас бачити у спільноті мандрівників!
+                </p>
+              </div>
+              <RegistrationForm />
+              <AuthFooter />
             </div>
-            <RegistrationForm />
-            <AuthFooter />
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

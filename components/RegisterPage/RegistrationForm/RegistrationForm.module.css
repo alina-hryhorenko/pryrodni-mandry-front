@@ -143,3 +143,11 @@
 .form {
   margin-bottom: 53px;
 }
+@media (min-width: 1440px) {
+  .label {
+    font-size: 18px;
+  }
+  .form {
+    margin-bottom: 111px;
+  }
+}
