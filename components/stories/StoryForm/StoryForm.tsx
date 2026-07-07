@@ -2,7 +2,7 @@
 
 // import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from 'yup';
-import { Formik, Form, Field, ErrorMessage} from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import css from './StoryForm.module.css';
 import { StoryFormData } from '@/types/story';
 
@@ -65,11 +65,10 @@ export default function StoryForm() {
             </label>
             <div className={css.formUploadWrapper}>
               {/* Upload image component */}
-              <div className={css.imagePlaceholder}>
-            </div>
-            <button type="button" className={css.uploadButton} /*onClick={}*/>
-              Завантажити фото
-            </button>
+              <div className={css.imagePlaceholder}></div>
+              <button type="button" className={css.uploadButton} /*onClick={}*/>
+                Завантажити фото
+              </button>
             </div>
           </div>
           <div className={css.formGroup}>
@@ -137,10 +136,7 @@ export default function StoryForm() {
           <button type="submit" className={css.submitButton} disabled={true}>
             Зберегти
           </button>
-          <button
-            type="button"
-            className={css.cancelButton} /*onClick={onCancel}*/
-          >
+          <button type="button" className={css.cancelButton}>
             Відмінити
           </button>
         </div>

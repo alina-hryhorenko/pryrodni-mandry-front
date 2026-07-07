@@ -8,15 +8,15 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .form {
-        width: 1091px;
-    }
+  .form {
+    width: 1091px;
+  }
 }
 
-.formContent{
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .formGroup {
@@ -34,9 +34,9 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .formLabel {
-        font-size: 18px;
-    }
+  .formLabel {
+    font-size: 18px;
+  }
 }
 
 .formField {
@@ -52,10 +52,10 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .formField {
-        font-size: 18px;
-        height: 43px;
-    }
+  .formField {
+    font-size: 18px;
+    height: 43px;
+  }
 }
 
 .formTextarea {
@@ -73,9 +73,9 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .formTextarea {
-        font-size: 18px;
-    }
+  .formTextarea {
+    font-size: 18px;
+  }
 }
 
 .errorMessage {
@@ -87,7 +87,7 @@
 .imagePlaceholder {
   height: 200px;
   background-color: rgb(147, 145, 145);
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .uploadButton {
@@ -105,12 +105,12 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .uploadButton {
-        font-size: 20px;
+  .uploadButton {
+    font-size: 20px;
 
-        width: 217px;
-        height: 38px;
-    }
+    width: 217px;
+    height: 38px;
+  }
 }
 
 /* Form actions */
@@ -125,8 +125,8 @@
 
 @media only screen and (min-width: 768px) {
   .actions {
-      flex-direction: row;
-      margin-right: auto;
+    flex-direction: row;
+    margin-right: auto;
   }
 }
 
@@ -150,9 +150,9 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .submitButton {
-        font-size: 18px;
-    }
+  .submitButton {
+    font-size: 18px;
+  }
 }
 
 .submitButton:disabled {
@@ -160,26 +160,26 @@
 }
 
 .cancelButton {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: var(--color-mantis-darkest);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-mantis-darkest);
 
-    height: 48px;
-    padding: 6px 12px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.05);
+  height: 48px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media only screen and (min-width: 768px) {
-    .cancelButton {
-        width: 203px;
-    }
+  .cancelButton {
+    width: 203px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
-    .cancelButton {
-        font-size: 18px;
-    }
+  .cancelButton {
+    font-size: 18px;
+  }
 }
