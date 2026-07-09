@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 
 import AppLayout from '@/components/layout/AppLayout/AppLayout';
+import QueryProvider from '@/components/providers/QueryProvider';
 
 import './globals.css';
 
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="uk">
       <body className={montserrat.className}>
-        <AppLayout>{children}</AppLayout>
+        <QueryProvider>
+          <AppLayout>{children}</AppLayout>
+        </QueryProvider>
       </body>
     </html>
   );
