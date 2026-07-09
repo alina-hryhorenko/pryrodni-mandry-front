@@ -1,14 +1,14 @@
 'use client';
 
-// import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from 'yup';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import css from './StoryForm.module.css';
 import { StoryFormData } from '@/types/story';
 
-// interface StoryFormProps {
-//   onCancel: () => void;
-// }
+interface StoryFormProps {
+  onCancel: () => void;
+}
 
 const initialValues: StoryFormData = {
   title: '',
@@ -33,22 +33,29 @@ const validationSchema = Yup.object().shape({
     .required('Story is required'),
 });
 
-export default function StoryForm() {
-  // const queryClient = useQueryClient();
+//lib api.ts
+const createStory = async (newStory: StoryFormData) => {};
 
-  // const mutation = useMutation({
-  //   mutationFn: createStory,
-  //   onSuccess() {
-  //     queryClient.invalidateQueries({queryKey})
-  //   }
-  // });
+// const createStory = async (data: StoryFormData) => {
+// axios.post(...)
+// };
+
+export default function StoryForm({ onCancel }: StoryFormProps) {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createStory,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['stories'] });
+    },
+  });
 
   const handleSubmit = (
-    // e: StoryFormData,
-    // actions: FormikHelpers<StoryFormData>,
+    e: StoryFormData,
+    actions: FormikHelpers<StoryFormData>,
   ) => {
-    // mutation.mutate(e);
-    // actions.resetForm();
+    mutation.mutate(e);
+    actions.resetForm();
   };
 
   return (
@@ -136,7 +143,7 @@ export default function StoryForm() {
           <button type="submit" className={css.submitButton} disabled={true}>
             Зберегти
           </button>
-          <button type="button" className={css.cancelButton}>
+          <button type="button" className={css.cancelButton} onClick={onCancel}>
             Відмінити
           </button>
         </div>

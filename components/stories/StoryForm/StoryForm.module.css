@@ -51,6 +51,11 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
+.formField:focus {
+  border: 1px solid var(--color-mantis);
+  outline: none;
+}
+
 @media screen and (min-width: 1440px) {
   .formField {
     font-size: 18px;
@@ -70,6 +75,11 @@
   background-color: rgba(0, 0, 0, 0);
   resize: vertical;
   overflow: hidden;
+}
+
+.formTextarea:focus {
+  border: 1px solid var(--color-mantis);
+  outline: none;
 }
 
 @media screen and (min-width: 1440px) {
