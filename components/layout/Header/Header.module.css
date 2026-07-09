@@ -77,10 +77,6 @@
     min-height: 72px;
   }
 
-  .logoIcon {
-    height: 40px;
-  }
-
   .navigation {
     display: flex;
     align-items: center;
