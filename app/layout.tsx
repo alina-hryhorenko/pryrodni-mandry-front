@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
+
+import AppLayout from '@/components/layout/AppLayout/AppLayout';
+import QueryProvider from '@/components/providers/QueryProvider';
+
 import './globals.css';
 
 const montserrat = Montserrat({
@@ -17,15 +21,17 @@ export const metadata: Metadata = {
     'Платформа для еко-мандрівок Україною, історій мандрівників та корисних маршрутів.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type RootLayoutProps = {
   children: React.ReactNode;
-}>) {
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="uk">
       <body className={montserrat.className}>
-        <main>{children}</main>
+        <QueryProvider>
+          <AppLayout>{children}</AppLayout>
+        </QueryProvider>
       </body>
     </html>
   );
