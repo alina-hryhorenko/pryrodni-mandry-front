@@ -69,10 +69,7 @@ export default function StoryForm() {
               <div className={css.formUploadWrapper}>
                 {/* Upload image component */}
                 <div className={css.imagePlaceholder}></div>
-                <button
-                  type="button"
-                  className={css.uploadButton} /*onClick={}*/
-                >
+                <button type="button" className={css.uploadButton}>
                   Завантажити фото
                 </button>
               </div>
