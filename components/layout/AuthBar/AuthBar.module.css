@@ -1,0 +1,71 @@
+.authBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.loginLink,
+.registerLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 38px;
+  padding: 4px 10px;
+  border-radius: 6px;
+
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background-color var(--transition-default),
+    border-color var(--transition-default),
+    color var(--transition-default);
+}
+
+.loginLink {
+  width: 65px;
+
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
+
+  color: var(--color-mantis-darkest);
+  font-weight: 400;
+}
+
+.loginLink:hover,
+.loginLink:focus-visible {
+  background-color: var(--color-mantis-lighter);
+  border-color: var(--color-mantis-dark);
+}
+
+.registerLink {
+  width: 137px;
+
+  border: 1px solid var(--color-mantis-dark);
+  background-color: var(--color-mantis-dark);
+
+  color: var(--color-white);
+  font-weight: 500;
+}
+
+.registerLink:hover,
+.registerLink:focus-visible {
+  background-color: var(--color-mantis-darker);
+  border-color: var(--color-mantis-darker);
+}
+
+.mobile {
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+}
+
+.mobile .loginLink,
+.mobile .registerLink {
+  width: 100%;
+  max-width: 335px;
+  height: 32px;
+}

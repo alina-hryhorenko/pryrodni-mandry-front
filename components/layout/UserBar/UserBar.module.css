@@ -1,0 +1,81 @@
+.userBar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.publishLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 38px;
+  padding: 4px 10px;
+  border: 1px solid var(--color-mantis-dark);
+  border-radius: 6px;
+  background-color: var(--color-mantis-dark);
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-neutral-lighter);
+  color: var(--color-mantis-darkest);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.userName {
+  color: var(--color-mantis-darkest);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: transparent;
+}
+
+.logoutIcon {
+  width: 18px;
+  height: 19px;
+  fill: var(--color-mantis-darkest);
+}
+
+.mobile {
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+}
+
+.mobile .publishLink {
+  width: 100%;
+  max-width: 335px;
+  height: 32px;
+}
+
+.mobile .userInfo {
+  justify-content: center;
+}
