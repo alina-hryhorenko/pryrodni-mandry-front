@@ -23,9 +23,8 @@
   --color-mantis-dark: #4a9849;
   --color-mantis-darker: #254c24;
   --color-mantis-darkest: #1b391b;
-
-  --color-red: #b00101;
-
+  --opacity-neutral-darkest-15: #;
+  --opacity-neutral-darkest-15: rgba(0, 0, 0, 0.15);
   --text-primary: var(--color-neutral-darkest);
   --text-secondary: var(--color-neutral-dark);
   --text-muted: var(--color-neutral);

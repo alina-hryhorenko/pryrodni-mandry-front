@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './RegistrationForm.module.css';
 
-const schema = Yup.object({
+const Validationschema = Yup.object({
   name: Yup.string().min(2, 'Мінімум 2 символи').required("Ім'я обов'язкове"),
 
   email: Yup.string()
@@ -25,7 +25,7 @@ export default function RegistrationForm() {
 
   const handleSubmit = async (values: object) => {
     setLoading(true);
-    await axios.post('/api/register', values);
+    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, values);
     router.push('/');
     setLoading(false);
   };
@@ -33,7 +33,7 @@ export default function RegistrationForm() {
   return (
     <Formik
       initialValues={{ name: '', email: '', password: '' }}
-      validationSchema={schema}
+      validationSchema={Validationschema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched }) => (

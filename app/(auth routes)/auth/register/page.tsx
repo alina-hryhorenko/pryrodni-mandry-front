@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import css from './Register.module.css';
 import AuthHeader from '@/components/RegisterPage/AuthHeader/AuthHeader';
 import MainAuthNav from '@/components/RegisterPage/MainAuthNav/MainAuthNav';
