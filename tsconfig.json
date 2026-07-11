@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "store/useSavedStoriesStore.js"
+    "store/useSavedStoriesStore.ts"
   ],
   "exclude": ["node_modules"]
 }
