@@ -9,9 +9,17 @@ export const getAllTravellers = async (page = 1, limit = 9) => {
     const { data } = await api.get('/users', {
       params: { page, limit },
     });
+
     console.log('DATA:', data);
+
     return data;
   } catch (error) {
-    console.log('ERROR:', error.response?.data || error.message);
+    if (axios.isAxiosError(error)) {
+      console.log('ERROR:', error.response?.data || error.message);
+    } else {
+      console.log('ERROR:', error);
+    }
+
+    throw error;
   }
 };
