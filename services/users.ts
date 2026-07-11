@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: 'http://localhost:3000/api' });
+const api = axios.create({
+  baseURL: 'https://pryrodni-mandry-back-f2hd.onrender.com/api',
+});
 
-export const getAllTravellers = async (page = 1, limit = 12) => {
+export const getAllTravellers = async (page = 1, limit = 9) => {
   try {
     const { data } = await api.get('/users', {
       params: { page, limit },
