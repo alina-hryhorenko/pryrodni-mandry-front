@@ -10,3 +10,7 @@ export interface Story {
     name: string;
   };
 }
+
+export interface PopularStoriesResponse {
+  data: Story[];
+}
