@@ -4,23 +4,28 @@
   margin-bottom: 32px;
   border-bottom: 1px solid var(--color-scheme-1-border, #e0e0e0);
 }
+
 .tabs {
   padding: 12px 24px;
   text-align: center;
+  text-decoration: none;
+
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
   color: var(--color-scheme-1-text, #1a1a1a);
+
   cursor: pointer;
   flex: 1;
-  text-decoration: none;
 
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
+  transition: border-color 0.2s;
 }
 
 .active {
+  font-weight: 500;
   border-bottom: 2px solid var(--color-scheme-1-text, #1a1a1a);
 }
 

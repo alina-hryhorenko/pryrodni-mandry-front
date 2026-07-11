@@ -24,64 +24,60 @@ export default function RegistrationForm() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (values: object) => {
-    console.log('ФОРМА ВІДПРАВЛЕНА:', values);
     setLoading(true);
-
     await axios.post('/api/register', values);
-
     router.push('/');
-
     setLoading(false);
   };
 
   return (
     <Formik
-      initialValues={{
-        name: '',
-        email: '',
-        password: '',
-      }}
+      initialValues={{ name: '', email: '', password: '' }}
       validationSchema={schema}
       onSubmit={handleSubmit}
     >
-      <Form className={styles.form}>
-        <label className={styles.label}>
-          Ім’я та Прізвище*
-          <Field
-            className={styles.input}
-            name="name"
-            placeholder="Ваше ім'я та прізвище"
-          />
-          <ErrorMessage name="name" component="div" className={styles.error} />
-        </label>
-        <label className={styles.label}>
-          Пошта*
-          <Field
-            className={styles.input}
-            name="email"
-            placeholder="hello@podorozhnyky.ua"
-          />
-          <ErrorMessage name="email" component="div" className={styles.error} />
-        </label>
-        <label className={styles.label}>
-          Пароль*
-          <Field
-            className={styles.input}
-            name="password"
-            type="password"
-            placeholder="********"
-          />
-          <ErrorMessage
-            name="password"
-            component="div"
-            className={styles.error}
-          />
-        </label>
+      {({ errors, touched }) => (
+        <Form className={styles.form}>
+          <label className={styles.label}>
+            Ім’я та Прізвище*
+            <Field
+              className={`${styles.input} ${errors.name && touched.name ? styles.inputError : ''}`}
+              name="name"
+              placeholder="Ваше ім'я та прізвище"
+            />
+            <ErrorMessage name="name" component="p" className={styles.error} />
+          </label>
 
-        <button type="submit" className={styles.button} disabled={loading}>
-          {loading ? 'Завантаження...' : 'Зареєструватись'}
-        </button>
-      </Form>
+          <label className={styles.label}>
+            Пошта*
+            <Field
+              className={`${styles.input} ${errors.email && touched.email ? styles.inputError : ''}`}
+              name="email"
+              placeholder="hello@podorozhnyky.ua"
+            />
+            <ErrorMessage name="email" component="p" className={styles.error} />
+          </label>
+
+          <label className={styles.label}>
+            Пароль*
+            <Field
+              className={`${styles.input} ${errors.password && touched.password ? styles.inputError : ''}`}
+              name="password"
+              type="password"
+              placeholder="********"
+            />
+            <ErrorMessage
+              name="password"
+              component="p"
+              className={styles.error}
+            />
+          </label>
+
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? 'Завантаження...' : 'Зареєструватись'}
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 }
