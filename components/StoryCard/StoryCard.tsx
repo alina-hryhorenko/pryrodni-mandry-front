@@ -48,7 +48,12 @@ export function StoryCard({ story }: { story: Story }) {
       <div className={styles.content}>
         <div className={styles.authorInfo}>
           <span className={styles.authorName}>
-            {story.author?.name ?? 'Невідомий автор'}{' '}
+            <Link
+              href={`/users/${story.author._id}`}
+              className={styles.authorLink}
+            >
+              {story.author?.name ?? 'Невідомий автор'}
+            </Link>
             <span className={styles.separator}>·</span>
           </span>
 
