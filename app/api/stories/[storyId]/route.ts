@@ -1,13 +1,16 @@
 import { NextRequest } from 'next/server';
 
 type Params = {
-  params: {
+  params: Promise<{
     storyId: string;
-  };
+  }>;
 };
 
-export async function GET(req: NextRequest, { params }: Params) {
-  const { storyId } = params;
+export async function GET(
+  req: NextRequest,
+  { params }: Params
+) {
+  const { storyId } = await params;
 
   return Response.json({
     _id: storyId,

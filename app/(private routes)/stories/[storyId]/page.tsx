@@ -14,7 +14,8 @@ export async function generateMetadata({ params }: PageProps) {
   const { storyId } = await params;
 
   const story = await getStoryById(storyId);
-
+  
+  
   if (!story) {
     return { title: 'Історію не знайдено' };
   }
