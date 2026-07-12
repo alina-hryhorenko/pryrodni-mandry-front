@@ -29,7 +29,7 @@ export default function SaveStory({ storyId, isSaved }: SaveStoryProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleClick = async () => {
-    const isAuth = false; 
+    const isAuth = false;
 
     if (!isAuth) {
       setShowModal(true);
@@ -48,7 +48,7 @@ export default function SaveStory({ storyId, isSaved }: SaveStoryProps) {
 
       if (!res.ok) throw new Error();
 
-      setSaved((prev: boolean) => !prev);
+      setSaved((prev) => !prev);
     } catch {
       alert('Помилка при збереженні');
     } finally {
@@ -58,9 +58,11 @@ export default function SaveStory({ storyId, isSaved }: SaveStoryProps) {
 
   return (
     <section className={styles.box}>
-      <h3 className={styles.title}>Збережіть собі історію</h3>
+      <h3 className={styles.boxTitle}>
+        Збережіть собі історію
+      </h3>
 
-      <p className={styles.text}>
+      <p className={styles.boxText}>
         Вона буде доступна у вашому профілі у розділі збережене
       </p>
 

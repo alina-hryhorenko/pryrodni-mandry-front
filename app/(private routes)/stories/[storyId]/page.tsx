@@ -1,37 +1,32 @@
 import { getStoryById } from '@/services/stories';
 import StoryDetails from '@/components/StoryDetails/StoryDetails';
 import SaveStory from '@/components/SaveStory/SaveStory';
-import RecommendedStories from '@/components/RecommendedStories/RecommendedStories';
 import { notFound } from 'next/navigation';
+import styles from './page.module.css';
 
 type PageProps = {
-  params: {
+  params: Promise<{
     storyId: string;
-  };
+  }>;
 };
 
 export async function generateMetadata({ params }: PageProps) {
-  const story = await getStoryById(params.storyId);
+  const { storyId } = await params;
+
+  const story = await getStoryById(storyId);
 
   if (!story) {
-    return {
-      title: 'Історію не знайдено',
-    };
+    return { title: 'Історію не знайдено' };
   }
 
   return {
     title: story.title,
     description: story.description,
-    openGraph: {
-      title: story.title,
-      description: story.description,
-      images: [story.img],
-    },
   };
 }
 
 export default async function Page({ params }: PageProps) {
-  const { storyId } = params;
+  const { storyId } = await params;
 
   const story = await getStoryById(storyId);
 
@@ -40,10 +35,14 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <main>
+    <main className={styles.page}>
       <StoryDetails story={story} />
-      <SaveStory storyId={story._id} isSaved={story.isSaved} />
-      <RecommendedStories currentId={story._id} />
+
+  
+      <SaveStory
+        storyId={story._id}
+        isSaved={story.isSaved}
+      />
     </main>
   );
 }

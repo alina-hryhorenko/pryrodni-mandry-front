@@ -1,17 +1,27 @@
-import api from './api';
-
 export type Story = {
   _id: string;
   title: string;
   description: string;
+  content: string;
   img: string;
+  author: string;
+  date: string;
+  category: string;
   isSaved: boolean;
 };
 
-export const getStoryById = async (storyId: string): Promise<Story | null> => {
+export const getStoryById = async (
+  storyId: string
+): Promise<Story | null> => {
   try {
-    const { data } = await api.get<Story>(`/story/${storyId}`);
-    return data;
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/stories/${storyId}`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) return null;
+
+    return await res.json();
   } catch (error) {
     console.error('Error fetching story:', error);
     return null;

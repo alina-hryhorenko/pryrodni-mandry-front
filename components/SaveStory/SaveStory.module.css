@@ -2,37 +2,34 @@
     background: #def2de;
     border-radius: 24px;
 
-    padding: 32px 16px;
+    padding: 32px 20px;
 
-    width: 100%;
-    max-width: 335px;
-
-    margin: 24px auto;
-
+    
+    margin: 24px 0;
+width: 335px;
+height: 217px;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* TITLE */
-.title {
+
+.boxTitle {
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
     font-size: 18px;
     line-height: 1.4;
-    letter-spacing: -0.01em;
     color: #000;
 }
 
-/* TEXT */
-.text {
-    font-family: "Montserrat", sans-serif;
+.boxText {
     font-size: 16px;
     line-height: 1.5;
+    
+    font-weight: 400;
     color: #000;
 }
 
-/* BUTTON */
 .button {
     display: inline-flex;
     align-items: center;
@@ -45,15 +42,15 @@
     border: 1px solid #4a9849;
 
     padding: 6px 12px;
-
+    height: 48px;
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 16px;
-    line-height: 1.5;
 
     cursor: pointer;
-    transition: 0.3s;
 }
+
+
 
 .button:hover {
     background: #3c7f3c;
@@ -61,10 +58,8 @@
 
 .button:disabled {
     opacity: 0.6;
-    cursor: not-allowed;
 }
 
-/* MODAL */
 .modal {
     position: fixed;
     inset: 0;
@@ -78,15 +73,15 @@
 .modalBox {
     background: #fff;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 24px;
 }
 
-/* ================= TABLET ================= */
-
+/* TABLET */
 @media (min-width: 768px) {
     .box {
-        width: 704px;
         padding: 32px;
+        width: 704px;
+        height: 193px;
     }
 
     .button {
@@ -95,20 +90,18 @@
     }
 }
 
-/* ================= DESKTOP ================= */
-
-@media (min-width: 1280px) {
-    .box {
-        width: 866px;
-    }
-
-    .title {
+/* DESKTOP */
+@media (min-width: 1440px) {
+    .boxTitle {
         font-size: 26px;
     }
 
-    .text {
+    .boxText {
         font-size: 18px;
     }
+.box {
+    width: 866px;
+    height: 207px;}
 
     .button {
         width: 123px;

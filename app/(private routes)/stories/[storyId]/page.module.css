@@ -1,6 +1,5 @@
 .page {
-    /* 📱 mobile */
-    padding: 0 20px 32px;
+    
     background: #eef8ee;
 
     display: flex;
@@ -8,15 +7,13 @@
     align-items: center;
 }
 
-/* 📱➡️ tablet */
 @media (min-width: 768px) {
     .page {
-        padding: 0 32px 32px;
+   
     }
 }
 
-/* 💻 desktop */
-@media (min-width: 1280px) {
+@media (min-width: 1440px) {
     .page {
         padding: 0 64px 48px;
     }
