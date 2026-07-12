@@ -1,0 +1,129 @@
+/* MOBILE */
+.desktop {
+    display: none;
+}
+
+.heading {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-scheme-1-text);
+    margin-top: 40px;
+    margin-bottom: 8px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--opacity-neutral-darkest-60);
+    transition: transform 250ms;
+}
+
+.selectButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    border-radius: 6px;
+    padding: 8px;
+    height: 40px;
+    background: var(--opacity-transparent);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-scheme-2-text);
+}
+
+.selectButton:hover,
+.selectButton:focus {
+    border: 1px solid var(--color-mantis-light);
+}
+
+.dropdown {
+    background: var(--color-scheme-1-background);
+    border-bottom: 1px solid var(--color-mantis-light);
+    border-left: 1px solid var(--color-mantis-light);
+    border-right: 1px solid var(--color-mantis-light);
+    border-radius: 0 0 6px 6px;
+    padding: 12px 8px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.button {
+    color: var(--color-scheme-2-text);
+}
+
+.option {
+    padding: 4px 8px;
+    width: 100%;
+}
+
+.active {
+    background: var(--color-neutral-lightest);
+    border-radius: 4px;
+
+}
+
+.mobileSelect {
+    position: relative;
+    width: 100%;
+}
+
+
+@media (min-width: 768px) {
+    .heading {
+        display: none;
+    }
+
+    .mobileSelect {
+        display: none;
+    }
+
+    .desktop {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button,
+    .active {
+        padding: 6px 12px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .active {
+        background: var(--color-scheme-1-foreground);
+        font-weight: 500;
+    }
+
+
+}
+
+@media (min-width: 1440px) {
+
+    .button,
+    .active {
+        font-size: 18px;
+    }
+
+    .active {
+        font-size: 20px;
+    }
+
+    .desktop {
+        width: 880px;
+        margin: 0 auto;
+    }
+}
