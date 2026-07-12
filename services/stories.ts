@@ -15,7 +15,7 @@ export const getStoryById = async (
 ): Promise<Story | null> => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/stories/${storyId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/story/${storyId}`,
       { cache: 'no-store' }
     );
 
