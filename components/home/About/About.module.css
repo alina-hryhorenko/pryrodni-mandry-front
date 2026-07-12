@@ -121,22 +121,17 @@
 
 .imageWrapper {
   position: relative;
-  width: 100%;
-  aspect-ratio: 335 / 410;
   overflow: hidden;
-  border-radius: 12px;
-}
 
-@media only screen and (min-width: 768px) {
-  .imageWrapper {
-    aspect-ratio: 704 / 410;
-  }
+  width: 100%;
+  height: 410px;
+  border-radius: 12px;
 }
 
 @media only screen and (min-width: 1440px) {
   .imageWrapper {
     width: calc((100% - 24px) / 2);
-    aspect-ratio: 644 / 686;
+    height: 686px;
   }
 }
 
