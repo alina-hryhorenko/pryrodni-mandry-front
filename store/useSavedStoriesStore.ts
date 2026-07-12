@@ -1,46 +1,48 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { saveStory, unsaveStory } from '@/services/stories';
 
-interface SavedStore {
+type SavedStoriesState = {
   savedIds: string[];
-  isSaved: (id: string) => boolean;
-  toggleSaved: (id: string) => Promise<void>;
-}
+  isSaved: (storyId: string) => boolean;
+  toggleSaved: (storyId: string) => Promise<void>;
+};
 
-export const useSavedStoriesStore = create<SavedStore>()(
+export const useSavedStoriesStore = create<SavedStoriesState>()(
   persist(
     (set, get) => ({
       savedIds: [],
 
-      isSaved: (id) => get().savedIds.includes(id),
+      isSaved: (storyId) => get().savedIds.includes(storyId),
 
-      toggleSaved: async (id) => {
-        const isAlreadySaved = get().savedIds.includes(id);
-        set((state) => ({
-          savedIds: isAlreadySaved
-            ? state.savedIds.filter((savedId) => savedId !== id)
-            : [...state.savedIds, id],
-        }));
+      toggleSaved: async (storyId) => {
+        const wasSaved = get().isSaved(storyId);
 
-        try {
-          if (isAlreadySaved) {
-            await unsaveStory(id);
-          } else {
-            await saveStory(id);
-          }
-        } catch (error) {
-          set((state) => ({
-            savedIds: isAlreadySaved
-              ? [...state.savedIds, id]
-              : state.savedIds.filter((savedId) => savedId !== id),
-          }));
-          console.error('Не вдалося змінити статус збереження ', error);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/stories/${storyId}/save`,
+          {
+            method: wasSaved ? 'DELETE' : 'POST',
+            credentials: 'include',
+          },
+        );
+
+        if (!res.ok) {
+          let message = 'Не вдалося зберегти статтю. Спробуйте ще раз.';
+          try {
+            const body = await res.json();
+            if (body?.message) message = body.message;
+          } catch {}
+          throw new Error(message);
         }
+
+        set((state) => ({
+          savedIds: wasSaved
+            ? state.savedIds.filter((id) => id !== storyId)
+            : [...state.savedIds, storyId],
+        }));
       },
     }),
     {
-      name: 'saved_stories',
+      name: 'saved-stories',
     },
   ),
 );
