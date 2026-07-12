@@ -1,7 +1,3 @@
-export default function Page() {
-  return (
-    <main>
-      <h1>Список історій</h1>
-    </main>
-  );
+export default function StoryDetailsPage() {
+  return <h1>Story Details Page</h1>;
 }
