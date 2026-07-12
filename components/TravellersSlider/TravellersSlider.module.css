@@ -1,0 +1,46 @@
+.wrapper {
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slide {
+  height: auto;
+}
+
+.navigation {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.navigationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background-color: transparent;
+
+  cursor: pointer;
+  transition:
+    opacity 250ms ease,
+    background-color 250ms ease;
+}
+
+.navigationButton:hover:not(:disabled),
+.navigationButton:focus-visible:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.navigationButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
