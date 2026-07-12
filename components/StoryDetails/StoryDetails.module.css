@@ -17,13 +17,30 @@
     font-size: 16px;
     text-decoration: none;
     color: #000;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .icon {
     width: 24px;
     height: 22px;
     stroke: #1B391B;
-    fill: none;
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 1px;
+    transition: transform 0.2s ease;
+}
+
+.back:hover {
+    color: #1b391b;
+    transform: translateX(-2px);
+}
+
+.back:hover .icon {
+    transform: translateX(-3px);
 }
 
 /* GRID */
@@ -56,7 +73,7 @@
     color: #1b391b;
 }
 
-/* META */
+
 .meta p {
     font-weight: 700;
     font-size: 16px;
@@ -69,7 +86,7 @@
     color: #1b391b;
 }
 
-/* CATEGORY */
+
 .category {
     display: inline-block;
     background: rgba(0, 0, 0, 0.05);
@@ -80,7 +97,7 @@
     width: fit-content;
 }
 
-/* IMAGE */
+
 .imageWrapper {
     position: relative;
     width: 100%;
@@ -93,7 +110,7 @@
     object-fit: cover;
 }
 
-/* TEXT (ОКРЕМО) */
+
 .text {
     white-space: pre-line;
     font-size: 16px;
@@ -111,7 +128,9 @@
     .title {
         font-size: 48px;
     }
-
+.back {
+    font-size: 16px;
+}
     .imageWrapper {
         height: 468px;
     }
@@ -125,7 +144,9 @@
         margin: 0;
         padding: 0 64px;
     }
-
+ .back {
+     font-size: 20px;
+ }
     .grid {
         justify-content: space-between;
         flex-direction: row;

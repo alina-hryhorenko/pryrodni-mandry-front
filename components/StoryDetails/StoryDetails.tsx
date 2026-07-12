@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './StoryDetails.module.css';
@@ -8,50 +10,84 @@ type Props = {
 };
 
 export default function StoryDetails({ story }: Props) {
+  const {
+    title,
+    author,
+    date,
+    category,
+    content,
+    img,
+  } = story;
+
+  
+  const formattedDate = (() => {
+  if (!date) return 'Дата невідома';
+
+  const parsed = new Date(date);
+
+  if (isNaN(parsed.getTime())) {
+    return date; 
+  }
+
+  return parsed.toLocaleDateString('uk-UA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+})();
+
   return (
     <section className={styles.container}>
-
       <div className={styles.grid}>
 
         {/* LEFT */}
         <div className={styles.left}>
           <Link href="/stories" className={styles.back}>
-            <svg className={styles.icon}>
+            <svg className={styles.icon} aria-hidden="true">
               <use href="/icons/sprite.svg#icon-chevron_left" />
             </svg>
             Всі статті
           </Link>
 
-          <h1 className={styles.title}>{story.title}</h1>
+          <h1 className={styles.title}>
+            {title || 'Без назви'}
+          </h1>
 
           <div className={styles.meta}>
-            <p>Автор статті <span>{story.author}</span></p>
-            <p>Опубліковано <span>{story.date}</span></p>
+            <p>
+              Автор статті{' '}
+              <span>{author || 'Невідомий автор'}</span>
+            </p>
+
+            <p>
+              Опубліковано{' '}
+              <span>{formattedDate}</span>
+            </p>
           </div>
 
-          <span className={styles.category}>{story.category}</span>
+          <p className={styles.category}>
+            {category || 'Без категорії'}
+          </p>
         </div>
 
         {/* RIGHT */}
         <div className={styles.right}>
           <div className={styles.imageWrapper}>
             <Image
-              src={story.img || '/images/carpathians.jpg'}
-              alt={story.title}
+              src={img || '/images/carpathians.jpg'}
+              alt={`Зображення до статті ${title || ''}`}
               fill
               className={styles.image}
               priority
             />
           </div>
         </div>
-
       </div>
 
-      {/* TEXT */}
+      
       <div className={styles.text}>
-        {story.content}
+        {content || 'Опис відсутній'}
       </div>
-
     </section>
   );
 }

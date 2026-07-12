@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
-    <div style={{ padding: 40, textAlign: 'center' }}>
-      Завантаження...
-    </div>
+    <main style={{ padding: '40px', textAlign: 'center' }}>
+      <p>Завантаження...</p>
+    </main>
   );
 }

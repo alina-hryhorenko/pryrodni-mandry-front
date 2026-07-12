@@ -2,39 +2,33 @@
 
 import { useState } from 'react';
 import styles from './SaveStory.module.css';
+import { toast } from 'react-hot-toast';
 
 type SaveStoryProps = {
   storyId: string;
   isSaved: boolean;
+  onOpenAuthModal?: () => void; 
 };
 
-type ModalProps = {
-  onClose: () => void;
-};
-
-function ErrorWhileSavingModal({ onClose }: ModalProps) {
-  return (
-    <div className={styles.modal}>
-      <div className={styles.modalBox}>
-        <p>Потрібно авторизуватись</p>
-        <button onClick={onClose}>Закрити</button>
-      </div>
-    </div>
-  );
-}
-
-export default function SaveStory({ storyId, isSaved }: SaveStoryProps) {
+export default function SaveStory({
+  storyId,
+  isSaved,
+  onOpenAuthModal,
+}: SaveStoryProps) {
   const [saved, setSaved] = useState<boolean>(isSaved);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const isAuth =
+    typeof window !== 'undefined' && !!localStorage.getItem('token');
 
   const handleClick = async () => {
-    const isAuth = false;
-
+    
     if (!isAuth) {
-      setShowModal(true);
+      onOpenAuthModal?.();
       return;
     }
+
+    const token = localStorage.getItem('token');
 
     setLoading(true);
 
@@ -43,14 +37,30 @@ export default function SaveStory({ storyId, isSaved }: SaveStoryProps) {
         `${process.env.NEXT_PUBLIC_API_URL}/stories/${storyId}/save`,
         {
           method: saved ? 'DELETE' : 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message || 'Помилка при збереженні');
+      }
 
       setSaved((prev) => !prev);
-    } catch {
-      alert('Помилка при збереженні');
+
+      toast.success(
+        saved
+          ? 'Історію видалено зі збережених'
+          : 'Історію збережено'
+      );
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('Щось пішло не так');
+      }
     } finally {
       setLoading(false);
     }
@@ -77,10 +87,6 @@ export default function SaveStory({ storyId, isSaved }: SaveStoryProps) {
           ? 'Видалити зі збережених'
           : 'Зберегти'}
       </button>
-
-      {showModal && (
-        <ErrorWhileSavingModal onClose={() => setShowModal(false)} />
-      )}
     </section>
   );
 }

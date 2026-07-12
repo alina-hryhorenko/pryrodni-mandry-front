@@ -1,21 +1,18 @@
 import { getStoryById } from '@/services/stories';
 import StoryDetails from '@/components/StoryDetails/StoryDetails';
 import SaveStory from '@/components/SaveStory/SaveStory';
-import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
 type PageProps = {
-  params: Promise<{
+  params: {
     storyId: string;
-  }>;
+  };
 };
 
-export async function generateMetadata({ params }: PageProps) {
-  const { storyId } = await params;
 
-  const story = await getStoryById(storyId);
-  
-  
+export async function generateMetadata({ params }: PageProps) {
+  const story = await getStoryById(params.storyId);
+
   if (!story) {
     return { title: 'Історію не знайдено' };
   }
@@ -26,24 +23,30 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
+
 export default async function Page({ params }: PageProps) {
-  const { storyId } = await params;
+  const story = await getStoryById(params.storyId);
 
-  const story = await getStoryById(storyId);
-
+  
   if (!story) {
-    notFound();
+    return (
+      <main className={styles.page}>
+        <p>Така історія відсутня</p>
+      </main>
+    );
   }
 
   return (
     <main className={styles.page}>
       <StoryDetails story={story} />
 
-  
+      
       <SaveStory
         storyId={story._id}
         isSaved={story.isSaved}
       />
+
+      
     </main>
   );
 }
