@@ -3,7 +3,6 @@
 import css from './TravellersSection.module.css';
 
 import { useState } from 'react';
-import { getAllTravellers } from '@/services/users';
 import TravellersList from '../TravellersList/TravellersList';
 
 import { Traveller } from '@/types/traveller';
@@ -27,7 +26,8 @@ export default function TravellersSection({
 
       const nextPage = page + 1;
 
-      const data = await getAllTravellers(nextPage, 9);
+      const res = await fetch(`/api/travellers?page=${nextPage}&limit=9`);
+      const data = await res.json();
 
       setUsers((prev) => [...prev, ...data.users]);
       setPage(nextPage);

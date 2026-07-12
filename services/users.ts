@@ -1,8 +1,9 @@
 import axios from 'axios';
+import api from './api';
 
-const api = axios.create({
-  baseURL: 'https://pryrodni-mandry-back-f2hd.onrender.com/api',
-});
+// const api = axios.create({
+//   baseURL: 'https://pryrodni-mandry-back-f2hd.onrender.com/api',
+// });
 
 export const getAllTravellers = async (page = 1, limit = 9) => {
   try {
