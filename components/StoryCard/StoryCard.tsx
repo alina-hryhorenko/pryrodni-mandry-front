@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
-// import { useAuthStore } from '@/store/useAuthStore';
+// import { authStore } from '@/store/authStore';
 // import { ErrorWhileSavingModal } from '@/components/ErrorWhileSavingModal/ErrorWhileSavingModal';
 import styles from './StoryCard.module.css';
 import { Story } from '@/types/story';
@@ -16,7 +16,7 @@ const PLACEHOLDER = '/placeholder.png';
 export function StoryCard({ story }: { story: Story }) {
   const isSaved = useSavedStoriesStore((state) => state.isSaved(story._id));
   const toggleSaved = useSavedStoriesStore((state) => state.toggleSaved);
-  // const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  // const isAuthenticated = authStore((state) => state.isAuthenticated);
 
   // const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
