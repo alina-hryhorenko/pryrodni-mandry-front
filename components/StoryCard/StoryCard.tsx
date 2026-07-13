@@ -10,7 +10,7 @@ import Icon from '../ui/Icon/Icon';
 
 const placeholder = '/placeholder.png';
 
-export function StoryCard({ story }: { story: Story }) {
+export default function StoryCard({ story }: { story: Story }) {
   const isSaved = useSavedStoriesStore((state) => state.isSaved(story._id));
   const toggleSaved = useSavedStoriesStore((state) => state.toggleSaved);
 

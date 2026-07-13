@@ -1,3 +1,9 @@
-export default function StoryDetailsPage() {
-  return <h1>Story Details Page</h1>;
+import TravellerStories from '@/components/TravellersStories/TravellersStories';
+
+export default function StoriesPage() {
+  return (
+    <main>
+      <TravellerStories />
+    </main>
+  );
 }
