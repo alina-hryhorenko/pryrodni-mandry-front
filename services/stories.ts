@@ -1,31 +1,31 @@
+import { isAxiosError } from 'axios';
 import api from './api';
 import { PopularStoriesResponse, Story } from '@/types/story';
 
 export type StoryDetailsData = Story & {
-  description?: string;
-  content?: string;
   date?: string;
   category?: string;
   isSaved?: boolean;
 };
 
-export const getStoryById = async (
-  storyId: string,
-): Promise<StoryDetailsData | null> => {
+interface getStoryByIdResponse {
+  status: number,
+  data: Story
+}
+
+export const getStoryById = async (storyId: string): Promise<StoryDetailsData | null> => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/story/${storyId}`,
-      { cache: 'no-store' },
-    );
+    const res = await api.get<getStoryByIdResponse>(`/api/story/${storyId}`);
 
-    if (!res.ok) return null;
-
-    return await res.json();
+    return res.data.data;
   } catch (error) {
-    console.error('Error fetching story:', error);
-    return null;
+    if (isAxiosError(error) && error.response?.status === 404) {
+      return null;
+    }
+
+    throw new Error('Failed to fetch story');
   }
-};
+}
 
 export const getPopularStories = async (): Promise<Story[]> => {
   const { data: body } = await api.get<PopularStoriesResponse>(

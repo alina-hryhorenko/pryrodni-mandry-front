@@ -1,31 +1,26 @@
-import { NextRequest } from 'next/server';
+import api from '@/services/api';
+import { isAxiosError } from 'axios';
+import { NextRequest, NextResponse } from 'next/server';
+import { logErrorResponse } from '../../_utils/utils';
 
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ storyId: string }> }
 ) {
-  const { storyId } = await params;
+  try {
+    const { storyId } = await params;
+    const res = await api.get(`/api/story/${storyId}`);
 
-  return Response.json({
-    _id: storyId,
-
-    title: 'Карпати для новачків: легкі маршрути вихідного дня',
-
-    description:
-      'Карпати — це ідеальне місце для тих, хто хоче відкрити для себе світ гірських мандрівок. У цій статті ми розглянемо найпростіші маршрути, які підійдуть навіть новачкам.',
-
-    content: `Карпати – це ідеальне місце для тих, хто тільки починає відкривати для себе світ гірських мандрівок. Тут можна знайти безліч маршрутів, які не потребують спеціальної підготовки чи складного спорядження, але водночас дарують неймовірні враження від природи. Легкі стежки пролягають через зелені пагорби, мальовничі полонини та соснові ліси, де кожен крок наповнює подорож спокоєм і свіжим повітрям.
-
-Одним із популярних напрямків є прогулянки до невеликих вершин, з яких відкриваються панорамні краєвиди на гірські хребти та долини. Такі маршрути займають усього кілька годин і підходять навіть для сімей з дітьми. Подорожуючи вихідного дня, ви зможете насолодитися чарівною тишею лісів, відкрити для себе чисті гірські потоки та відчути особливу атмосферу Карпат без перевтоми.
-
-Легкі маршрути – чудовий спосіб розпочати знайомство з горами, відчути ритм природи та зрозуміти, що мандрівка може бути доступною кожному. Карпати надихають і водночас навчають бережно ставитися до довкілля, адже краса цих місць заслуговує на те, щоб залишатися незмінною для наступних поколінь.`,
-
-    img: '/images/carpathians.jpg',
-
-    author: 'Анастасія Олійник',
-    date: '23.07.2025',
-    category: 'Маршрути',
-
-    isSaved: false,
-  });
+    return NextResponse.json(res.data, { status: res.status });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      logErrorResponse(error.response?.data);
+      return NextResponse.json(
+        { error: error.message, response: error.response?.data },
+        { status: error.response?.status ?? 500 }
+      );
+    }
+    logErrorResponse({ message: (error as Error).message });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }

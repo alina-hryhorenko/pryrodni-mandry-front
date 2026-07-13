@@ -49,10 +49,10 @@ export function StoryCard({ story }: { story: Story }) {
         <div className={styles.authorInfo}>
           <span className={styles.authorName}>
             <Link
-              href={`/users/${story.author._id}`}
+              href={`/users/${story.ownerId?._id}`}
               className={styles.authorLink}
             >
-              {story.author?.name ?? 'Невідомий автор'}
+              {story.ownerId?.name ?? 'Невідомий автор'}
             </Link>
             <span className={styles.separator}>·</span>
           </span>

@@ -4,13 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './StoryDetails.module.css';
 import { StoryDetailsData } from '@/services/stories';
+import SaveStory from '../SaveStory/SaveStory';
 
 type Props = {
   story: StoryDetailsData;
 };
 
 export default function StoryDetails({ story }: Props) {
-  const { title, author, date, category, content, img } = story;
+  const { title, ownerId, date, category, img, article } = story;
 
   const formattedDate = (() => {
     if (!date) return 'Дата невідома';
@@ -44,7 +45,7 @@ export default function StoryDetails({ story }: Props) {
 
           <div className={styles.meta}>
             <p>
-              Автор статті <span>{author?.name || 'Невідомий автор'}</span>
+              Автор статті <span>{ownerId?.name || 'Невідомий автор'}</span>
             </p>
 
             <p>
@@ -70,7 +71,10 @@ export default function StoryDetails({ story }: Props) {
         </div>
       </div>
 
-      <div className={styles.text}>{content || 'Опис відсутній'}</div>
+      <div className={styles.bottomSection}>
+        <div className={styles.text}>{article || 'Опис відсутній'}</div>
+        <SaveStory storyId={story._id} isSaved={story.isSaved ?? false} />
+      </div>
     </section>
   );
 }

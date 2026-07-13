@@ -1,6 +1,6 @@
 import { getStoryById } from '@/services/stories';
-import StoryDetails from '@/components/StoryDetails/StoryDetails';
-import SaveStory from '@/components/SaveStory/SaveStory';
+import StoryDetails from '@/components/StoryPage/StoryDetails/StoryDetails';
+import SaveStory from '@/components/StoryPage/SaveStory/SaveStory';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
 
   return {
     title: story.title,
-    description: story.description,
+    article: story.article,
   };
 }
 
@@ -36,7 +36,7 @@ export default async function Page({ params }: Props) {
     <main className={styles.page}>
       <StoryDetails story={story} />
 
-      <SaveStory storyId={story._id} isSaved={story.isSaved ?? false} />
+      {/* <SaveStory storyId={story._id} isSaved={story.isSaved ?? false} /> */}
 
       {/* RecomendedStories буде тут */}
     </main>
