@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const nextServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + '/api',
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -14,7 +14,9 @@ export type LoginRequest = {
 };
 
 export const login = async (data: LoginRequest) => {
-  const res = await nextServer.post('/auth/login', data);
+  const res = await api.post('/auth/login', data);
   console.log('res.data', res.data);
   return res.data;
 };
+
+export default api;
