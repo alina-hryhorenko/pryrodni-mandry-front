@@ -6,7 +6,10 @@ import * as Yup from 'yup';
 import css from './LoginForm.module.css';
 import { useRouter } from 'next/navigation';
 import { login } from '@/services/api';
-import { ApiError } from '@/app/api/api';
+import { useAuthStore } from '@/store/authStore';
+import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
+import { getSavedStoryIds } from '@/services/stories';
+import { AxiosError } from 'axios';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,29 +32,42 @@ const initialValues: LoginFormValues = {
 
 export default function LoginForm() {
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+  const setSavedIds = useSavedStoriesStore((state) => state.setSavedIds);
   const [error, setError] = useState<string | null>(null);
   const fieldId = useId();
+
   const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
+    setError(null);
+
     try {
-      console.log('Order data', values);
-      // Виконуємо запит
-      const res = await login(values);
-      // Виконуємо редірект або відображаємо помилку
-      if (res) {
-        actions.resetForm();
-        router.push('/');
-      } else {
-        setError('Invalid email or password');
+      const user = await login(values.email, values.password);
+      setUser(user);
+
+      try {
+        const savedIds = await getSavedStoryIds();
+        setSavedIds(savedIds);
+      } catch (syncError) {
+        console.warn('Failed to sync saved stories:', syncError);
       }
-    } catch (error) {
-      setError(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          'Oops... some error',
-      );
+
+      actions.resetForm();
+      router.push('/');
+    } catch (err) {
+      const message =
+        err instanceof AxiosError
+          ? err.response?.data?.message ||
+            err.message ||
+            'Invalid email or password'
+          : err instanceof Error
+            ? err.message
+            : 'Invalid email or password';
+      setError(message);
+    } finally {
+      actions.setSubmitting(false);
     }
   };
 
@@ -61,34 +77,41 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       validationSchema={LoginFormSchema}
     >
-      {/* Далі йдуть елементи форми */}
-      <Form className={css.form}>
-        {/* Поля */}
-        <label className={css.label} htmlFor={`${fieldId}-email`}>
-          Пошта*
-        </label>
-        <Field
-          className={css.field}
-          type="email"
-          name="email"
-          id={`${fieldId}-email`}
-        />
-        <ErrorMessage name="email" component="span" className={css.error} />
+      {({ isSubmitting }) => (
+        <Form className={css.form}>
+          <label className={css.label} htmlFor={`${fieldId}-email`}>
+            Пошта*
+          </label>
+          <Field
+            className={css.field}
+            type="email"
+            name="email"
+            id={`${fieldId}-email`}
+          />
+          <ErrorMessage name="email" component="span" className={css.error} />
 
-        <label className={css.label} htmlFor={`${fieldId}-pass`}>
-          Пароль*
-        </label>
-        <Field
-          className={css.field}
-          type="password"
-          name="password"
-          id={`${fieldId}-pass`}
-        />
-        <ErrorMessage name="password" component="span" className={css.error} />
-        <button className={css.btn} type="submit">
-          Увійти
-        </button>
-      </Form>
+          <label className={css.label} htmlFor={`${fieldId}-pass`}>
+            Пароль*
+          </label>
+          <Field
+            className={css.field}
+            type="password"
+            name="password"
+            id={`${fieldId}-pass`}
+          />
+          <ErrorMessage
+            name="password"
+            component="span"
+            className={css.error}
+          />
+
+          {error && <div className={css.errorGlobal}>{error}</div>}
+
+          <button className={css.btn} type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Завантаження...' : 'Увійти'}
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 }
