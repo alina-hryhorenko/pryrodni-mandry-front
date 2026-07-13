@@ -1,3 +1,11 @@
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+
+export function clearAuthCookies(cookieStore: ReadonlyRequestCookies): void {
+  ['accessToken', 'refreshToken', 'sessionId'].forEach((name) => {
+    cookieStore.delete(name);
+  });
+}
+
 export function logErrorResponse(errorObj: unknown): void {
   const green = '\x1b[32m';
   const yellow = '\x1b[33m';

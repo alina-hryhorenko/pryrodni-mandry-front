@@ -25,7 +25,7 @@
 .navigation,
 .desktopActions,
 .tabletAuth,
-.tabletPublish {
+.tabletUser {
   display: none;
 }
 
@@ -35,38 +35,12 @@
   gap: 16px;
 }
 
-.tabletPublish {
-  align-items: center;
-  justify-content: center;
-  width: 196px;
-  height: 32px;
-  padding: 4px 10px;
-  border: 1px solid var(--color-mantis-dark);
-  border-radius: 6px;
-  background-color: var(--color-mantis-dark);
-  color: var(--color-white);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  white-space: nowrap;
-  text-decoration: none;
-  transition:
-    background-color 250ms ease,
-    border-color 250ms ease;
-}
-
-.tabletPublish:hover,
-.tabletPublish:focus {
-  background-color: var(--color-mantis-darker);
-  border-color: var(--color-mantis-darker);
-}
-
 @media screen and (min-width: 768px) {
   .wrapper {
     min-height: 72px;
   }
 
-  .tabletPublish,
+  .tabletUser,
   .tabletAuth {
     display: flex;
   }

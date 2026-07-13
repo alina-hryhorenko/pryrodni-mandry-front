@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useAuthStore } from '@/store/authStore';
 import AuthBar from '../AuthBar/AuthBar';
 import UserBar from '../UserBar/UserBar';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
@@ -22,8 +23,7 @@ export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // TODO: замінити на реальний auth-store
-  const isAuthenticated = false;
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const isAuthPage =
     pathname === '/auth/login' || pathname === '/auth/register';
@@ -101,9 +101,9 @@ export default function Header() {
 
               <div className={styles.tabletActions}>
                 {isAuthenticated ? (
-                  <Link href="/stories/new" className={styles.tabletPublish}>
-                    Опублікувати статтю
-                  </Link>
+                  <div className={styles.tabletUser}>
+                    <UserBar />
+                  </div>
                 ) : (
                   <div className={styles.tabletAuth}>
                     <AuthBar />
