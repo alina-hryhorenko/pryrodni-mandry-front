@@ -8,4 +8,15 @@ const api = axios.create({
   },
 });
 
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+export const login = async (data: LoginRequest) => {
+  const res = await api.post('/auth/login', data);
+  console.log('res.data', res.data);
+  return res.data;
+};
+
 export default api;
