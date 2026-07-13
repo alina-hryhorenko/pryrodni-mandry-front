@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './RegistrationForm.module.css';
-
+import { useAuthStore } from '@/store/authStore';
 const Validationschema = Yup.object({
   name: Yup.string().min(2, 'Мінімум 2 символи').required("Ім'я обов'язкове"),
 
@@ -22,12 +22,23 @@ const Validationschema = Yup.object({
 export default function RegistrationForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
+  const setUser = useAuthStore((state) => state.setUser);
   const handleSubmit = async (values: object) => {
-    setLoading(true);
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, values);
-    router.push('/');
-    setLoading(false);
+    try {
+      setLoading(true);
+
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        values,
+      );
+
+      setUser(response.data);
+      router.push('/');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

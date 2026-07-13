@@ -1,6 +1,11 @@
 // Тимчасово створено для тесту Join секції
 export interface User {
+  _id: string;
+  name: string;
   email: string;
-  username: string;
-  avatar: string;
+  avatarUrl: string;
+  articlesAmount: number;
+  savedArticles: string[];
+  createdAt: string;
+  updatedAt: string;
 }
