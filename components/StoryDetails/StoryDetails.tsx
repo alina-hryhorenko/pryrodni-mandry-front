@@ -3,43 +3,34 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './StoryDetails.module.css';
-import { Story } from '@/services/stories';
+import { StoryDetailsData } from '@/services/stories';
 
 type Props = {
-  story: Story;
+  story: StoryDetailsData;
 };
 
 export default function StoryDetails({ story }: Props) {
-  const {
-    title,
-    author,
-    date,
-    category,
-    content,
-    img,
-  } = story;
+  const { title, author, date, category, content, img } = story;
 
-  
   const formattedDate = (() => {
-  if (!date) return 'Дата невідома';
+    if (!date) return 'Дата невідома';
 
-  const parsed = new Date(date);
+    const parsed = new Date(date);
 
-  if (isNaN(parsed.getTime())) {
-    return date; 
-  }
+    if (isNaN(parsed.getTime())) {
+      return date;
+    }
 
-  return parsed.toLocaleDateString('uk-UA', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-})();
+    return parsed.toLocaleDateString('uk-UA', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  })();
 
   return (
     <section className={styles.container}>
       <div className={styles.grid}>
-
         {/* LEFT */}
         <div className={styles.left}>
           <Link href="/stories" className={styles.back}>
@@ -49,25 +40,19 @@ export default function StoryDetails({ story }: Props) {
             Всі статті
           </Link>
 
-          <h1 className={styles.title}>
-            {title || 'Без назви'}
-          </h1>
+          <h1 className={styles.title}>{title || 'Без назви'}</h1>
 
           <div className={styles.meta}>
             <p>
-              Автор статті{' '}
-              <span>{author || 'Невідомий автор'}</span>
+              Автор статті <span>{author?.name || 'Невідомий автор'}</span>
             </p>
 
             <p>
-              Опубліковано{' '}
-              <span>{formattedDate}</span>
+              Опубліковано <span>{formattedDate}</span>
             </p>
           </div>
 
-          <p className={styles.category}>
-            {category || 'Без категорії'}
-          </p>
+          <p className={styles.category}>{category || 'Без категорії'}</p>
         </div>
 
         {/* RIGHT */}
@@ -77,6 +62,7 @@ export default function StoryDetails({ story }: Props) {
               src={img || '/images/carpathians.jpg'}
               alt={`Зображення до статті ${title || ''}`}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1440px) 80vw, 1200px"
               className={styles.image}
               priority
             />
@@ -84,10 +70,7 @@ export default function StoryDetails({ story }: Props) {
         </div>
       </div>
 
-      
-      <div className={styles.text}>
-        {content || 'Опис відсутній'}
-      </div>
+      <div className={styles.text}>{content || 'Опис відсутній'}</div>
     </section>
   );
 }
