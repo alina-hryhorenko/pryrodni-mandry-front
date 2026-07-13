@@ -47,8 +47,8 @@ export default function About() {
           <div className={css.imageWrapper}>
             <Image
               className={css.image}
-              src="/images/about.webp"
-              alt="Мандрівники серед зеленого лісу"
+              src="/images/About.webp"
+              alt="Зелений ліс з пишними кронами дерев під хмарним небом"
               fill
               sizes="(min-width: 1440px) 50vw, 100vw"
             />
