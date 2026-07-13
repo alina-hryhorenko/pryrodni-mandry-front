@@ -8,33 +8,38 @@ export type StoryDetailsData = Story & {
   isSaved?: boolean;
 };
 
-interface getStoryByIdResponse {
-  status: number,
-  data: Story
+interface GetStoryByIdResponse {
+  status: number;
+  data: Story;
 }
 
-export const getStoryById = async (storyId: string): Promise<StoryDetailsData | null> => {
+export const getStoryById = async (
+  storyId: string,
+): Promise<StoryDetailsData | null> => {
   try {
-    const res = await api.get<getStoryByIdResponse>(`/api/story/${storyId}`);
-
+    const res = await api.get<GetStoryByIdResponse>(`/api/story/${storyId}`);
     return res.data.data;
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
       return null;
     }
-
     throw new Error('Failed to fetch story');
   }
-}
+};
 
 export const getPopularStories = async (): Promise<Story[]> => {
   const { data: body } = await api.get<PopularStoriesResponse>(
     '/api/stories/popular',
   );
-
   return body.data;
 };
 
-export const saveStory = async (storyId: string) => {};
+export const saveStory = async (storyId: string) => {
+  const { data } = await api.post('/api/users/save', { storyId });
+  return data;
+};
 
-export const unsaveStory = async (storyId: string) => {};
+export const unsaveStory = async (storyId: string) => {
+  const { data } = await api.delete(`/api/users/save/${storyId}`);
+  return data;
+};
