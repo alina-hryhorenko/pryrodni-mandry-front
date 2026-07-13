@@ -13,7 +13,7 @@ const navLinks = [
   },
   {
     href: '/travellers',
-    label: 'Еко-мандрівники',
+    label: 'Еко-Мандрівники',
   },
 ];
 
