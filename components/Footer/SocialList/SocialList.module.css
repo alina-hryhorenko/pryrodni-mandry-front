@@ -8,9 +8,8 @@
   margin: 0;
 }
 
-.link:hover,
-.link:focus {
-  color: #4A9849;
+.link {
+  color: #1B391B;
   transform: translateY(-2px);
 }
 
