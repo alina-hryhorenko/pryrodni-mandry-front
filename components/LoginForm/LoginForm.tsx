@@ -1,9 +1,12 @@
 'use client';
 
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import * as Yup from 'yup';
 import css from './LoginForm.module.css';
+import { useRouter } from 'next/navigation';
+import { login } from '@/services/api';
+import { ApiError } from '@/app/api/api';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -25,14 +28,33 @@ const initialValues: LoginFormValues = {
 };
 
 export default function LoginForm() {
-  const handleSubmit = (
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const fieldId = useId();
+  const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
-    console.log('Order data', values);
-    actions.resetForm();
+    try {
+      console.log('Order data', values);
+      // Виконуємо запит
+      const res = await login(values);
+      // Виконуємо редірект або відображаємо помилку
+      if (res) {
+        actions.resetForm();
+        router.push('/');
+      } else {
+        setError('Invalid email or password');
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          'Oops... some error',
+      );
+    }
   };
-  const fieldId = useId();
+
   return (
     <Formik
       initialValues={initialValues}
