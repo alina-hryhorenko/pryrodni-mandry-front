@@ -1,22 +1,11 @@
-export type Story = {
-  _id: string;
-  title: string;
-  description: string;
-  content: string;
-  img: string;
-  author: string;
-  date: string;
-  category: string;
-  isSaved: boolean;
-};
+import api from './api';
+import { PopularStoriesResponse, Story } from '@/types/story';
 
-export const getStoryById = async (
-  storyId: string
-): Promise<Story | null> => {
+export const getStoryById = async (storyId: string): Promise<Story | null> => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/stories/${storyId}`,
-      { cache: 'no-store' }
+      { cache: 'no-store' },
     );
 
     if (!res.ok) return null;
@@ -27,3 +16,15 @@ export const getStoryById = async (
     return null;
   }
 };
+
+export const getPopularStories = async (): Promise<Story[]> => {
+  const { data: body } = await api.get<PopularStoriesResponse>(
+    '/api/stories/popular',
+  );
+
+  return body.data;
+};
+
+export const saveStory = async (storyId: string) => {};
+
+export const unsaveStory = async (storyId: string) => {};
