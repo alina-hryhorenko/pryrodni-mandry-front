@@ -1,14 +1,8 @@
 import { NextRequest } from 'next/server';
 
-type Params = {
-  params: Promise<{
-    storyId: string;
-  }>;
-};
-
 export async function GET(
   req: NextRequest,
-  { params }: Params
+  { params }: { params: Promise<{ storyId: string }> }
 ) {
   const { storyId } = await params;
 

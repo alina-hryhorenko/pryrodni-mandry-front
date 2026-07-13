@@ -3,15 +3,14 @@ import StoryDetails from '@/components/StoryDetails/StoryDetails';
 import SaveStory from '@/components/SaveStory/SaveStory';
 import styles from './page.module.css';
 
-type PageProps = {
-  params: {
-    storyId: string;
-  };
+type Props = {
+  params: Promise<{ storyId: string }>;
 };
 
+export async function generateMetadata({ params }: Props) {
+  const { storyId } = await params;
 
-export async function generateMetadata({ params }: PageProps) {
-  const story = await getStoryById(params.storyId);
+  const story = await getStoryById(storyId);
 
   if (!story) {
     return { title: 'Історію не знайдено' };
@@ -23,30 +22,26 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
+export default async function Page({ params }: Props) {
+  const { storyId } = await params;
 
-export default async function Page({ params }: PageProps) {
-  const story = await getStoryById(params.storyId);
+  const story = await getStoryById(storyId);
 
   
   if (!story) {
-    return (
-      <main className={styles.page}>
-        <p>Така історія відсутня</p>
-      </main>
-    );
+    return <p>Така історія відсутня</p>;
   }
 
   return (
     <main className={styles.page}>
       <StoryDetails story={story} />
 
-      
       <SaveStory
         storyId={story._id}
-        isSaved={story.isSaved}
+        isSaved={story.isSaved ?? false}
       />
 
-      
+      {/* RecomendedStories буде тут */}
     </main>
   );
 }
