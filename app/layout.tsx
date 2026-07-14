@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
-
+import { Toaster } from 'react-hot-toast';
 import AppLayout from '@/components/layout/AppLayout/AppLayout';
 import QueryProvider from '@/components/providers/QueryProvider';
 
@@ -31,6 +31,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={montserrat.className}>
         <QueryProvider>
           <AppLayout>{children}</AppLayout>
+          <Toaster position="top-center" />
         </QueryProvider>
       </body>
     </html>

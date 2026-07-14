@@ -11,7 +11,6 @@ import {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log(body);
 
     const { data, status, headers } = await api.post('/auth/register', body);
 

@@ -14,7 +14,6 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
   // TODO: замінити на реальні дані користувача з auth-store
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
-  console.log('HEADER AUTH:', isAuthenticated, user);
   const userName = user?.name || 'Користувач';
   const avatarLetter = userName[0]?.toUpperCase() || 'U';
 
