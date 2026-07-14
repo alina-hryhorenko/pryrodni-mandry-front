@@ -6,7 +6,8 @@ export interface User {
   _id: string;
   name: string;
   email: string;
-  avatarURL?: string;
+  avatarUrl?: string;
+  articlesAmount?: number;
 }
 
 interface AuthStore {

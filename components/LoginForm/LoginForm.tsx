@@ -42,7 +42,7 @@ export default function LoginForm() {
 
     try {
       const data = await login(values.email, values.password);
-      setUser(data.user);
+      setUser(data);
       actions.resetForm();
       router.push('/');
     } catch (err) {

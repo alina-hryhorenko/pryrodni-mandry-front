@@ -1,81 +1,64 @@
 .userBar {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
 }
 
 .publishLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 240px;
-  height: 38px;
-  padding: 4px 10px;
-  border: 1px solid var(--color-mantis-dark);
+  padding: 8px 16px;
+  background: var(--color-mantis-dark, #2d7a3a);
+  color: white;
   border-radius: 6px;
-  background-color: var(--color-mantis-dark);
-  color: var(--color-white);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
   text-decoration: none;
-  white-space: nowrap;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.publishLink:hover {
+  background: var(--color-mantis-darker, #1f5c2a);
 }
 
 .userInfo {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 8px;
 }
 
 .avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--color-neutral-lighter);
-  color: var(--color-mantis-darkest);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.userName {
-  color: var(--color-mantis-darkest);
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.logoutButton {
+  background: var(--color-mantis-light, #b7d6ac);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  background-color: transparent;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-mantis-dark, #2d7a3a);
+}
+
+.userName {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-scheme-2-text, #1a1a1a);
+}
+
+.logoutButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-scheme-2-text, #1a1a1a);
+  transition: color 0.2s;
+}
+.logoutButton:hover {
+  color: var(--color-mantis-dark, #2d7a3a);
 }
 
 .logoutIcon {
-  width: 18px;
-  height: 19px;
-  fill: var(--color-mantis-darkest);
-}
-
-.mobile {
-  flex-direction: column;
-  width: 100%;
-  gap: 24px;
-}
-
-.mobile .publishLink {
-  width: 100%;
-  max-width: 335px;
-  height: 32px;
-}
-
-.mobile .userInfo {
-  justify-content: center;
+  width: 20px;
+  height: 20px;
 }

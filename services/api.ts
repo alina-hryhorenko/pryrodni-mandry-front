@@ -43,9 +43,21 @@ api.interceptors.response.use(
   },
 );
 
+interface SavedStoryItem {
+  _id: string;
+}
+
 export const login = async (email: string, password: string) => {
   const { data } = await api.post('/auth/login', { email, password });
   return data;
+};
+
+export const logout = async () => {
+  try {
+    await api.post('/auth/logout');
+  } finally {
+    useAuthStore.getState().logout();
+  }
 };
 
 export const register = async (
@@ -57,11 +69,18 @@ export const register = async (
   return data;
 };
 
-export const logout = async () => {
+export const getSavedStoryIds = async (): Promise<string[]> => {
   try {
-    await api.post('/auth/logout');
-  } finally {
-    useAuthStore.getState().logout();
+    const { data } = await api.get<{ data: SavedStoryItem[] }>(
+      '/api/users/me/saved',
+    );
+    if (Array.isArray(data.data)) {
+      return data.data.map((story) => story._id);
+    }
+    return [];
+  } catch (error) {
+    console.warn('Failed to fetch saved stories:', error);
+    return [];
   }
 };
 

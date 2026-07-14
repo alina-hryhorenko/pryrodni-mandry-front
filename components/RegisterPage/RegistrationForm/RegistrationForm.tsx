@@ -2,22 +2,23 @@
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './RegistrationForm.module.css';
-import { useAuthStore } from '@/store/authStore';
 import toast from 'react-hot-toast';
-const Validationschema = Yup.object({
+import { AxiosError } from 'axios';
+import { useAuthStore } from '@/store/authStore';
+import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
+import { register, getSavedStoryIds } from '@/services/api';
+import styles from './RegistrationForm.module.css';
+
+const ValidationSchema = Yup.object({
   name: Yup.string()
     .max(32, 'Максимум 32 символи')
     .required("Ім'я обов'язкове"),
-
   email: Yup.string()
     .email('Невірний формат email')
     .max(64, 'Максимум 64 символи')
     .required('Email обовʼязковий'),
-
   password: Yup.string()
     .min(8, 'Мінімум 8 символів')
     .max(128, 'Максимум 128 символів')
@@ -26,20 +27,40 @@ const Validationschema = Yup.object({
 
 export default function RegistrationForm() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
-  const handleSubmit = async (values: object) => {
+  const setSavedIds = useSavedStoriesStore((state) => state.setSavedIds);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (values: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    setLoading(true);
+
     try {
-      setLoading(true);
+      const user = await register(values.name, values.email, values.password);
+      setUser(user);
 
-      const response = await axios.post('/api/auth/register', values, {
-        withCredentials: true,
-      });
+      try {
+        const savedIds = await getSavedStoryIds();
+        setSavedIds(savedIds);
+      } catch (syncError) {
+        console.warn('Failed to sync saved stories:', syncError);
+      }
 
-      setUser(response.data);
+      toast.success('Реєстрація успішна!');
       router.push('/');
     } catch (error) {
-      toast.error('Не вдалося зареєструватись. Спробуйте ще раз.');
+      let message = 'Не вдалося зареєструватись. Спробуйте ще раз.';
+
+      if (error instanceof AxiosError) {
+        message = error.response?.data?.message || error.message || message;
+      } else if (error instanceof Error) {
+        message = error.message;
+      }
+
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -48,7 +69,7 @@ export default function RegistrationForm() {
   return (
     <Formik
       initialValues={{ name: '', email: '', password: '' }}
-      validationSchema={Validationschema}
+      validationSchema={ValidationSchema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched }) => (
