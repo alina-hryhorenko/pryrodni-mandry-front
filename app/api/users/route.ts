@@ -1,23 +1,23 @@
-import { api } from '../../../api';
 import { isAxiosError } from 'axios';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { logErrorResponse } from '../../../_utils/utils';
+import { api } from '../api';
+import { logErrorResponse } from '../_utils/utils';
 
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: Promise<{ storyId: string }> }
-) {
+export async function GET(req: NextRequest) {
+  const page = Number(req.nextUrl.searchParams.get('page') ?? 1);
+  const limit = Number(req.nextUrl.searchParams.get('limit') ?? 6);
+
   try {
-    const cookieStore = await cookies();
-    const { storyId } = await params;
-    const res = await api.delete(`/api/users/save/${storyId}`, {
-      headers: {
-        Cookie: cookieStore.toString(),
+    const res = await api.get('/api/users', {
+      params: {
+        page,
+        limit,
       },
     });
 
-    return NextResponse.json(res.data, { status: res.status });
+    return NextResponse.json(res.data, {
+      status: res.status,
+    });
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

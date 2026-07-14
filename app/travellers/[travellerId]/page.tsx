@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 
+import TravellerDetailsPageClient from './TravellerDetailsPageClient';
+
 type Props = {
-  params: Promise<{ travellerId: string }>;
+  params: Promise<{
+    travellerId: string;
+  }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -12,6 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function TravellerDetailsPage() {
-  return <h1>Traveller Details Page</h1>;
+export default function TravellerDetailsPage({ params }: Props) {
+  return <TravellerDetailsPageClient params={params} />;
 }
