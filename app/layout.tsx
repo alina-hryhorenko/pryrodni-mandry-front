@@ -3,7 +3,7 @@ import { Montserrat } from 'next/font/google';
 
 import AppLayout from '@/components/layout/AppLayout/AppLayout';
 import QueryProvider from '@/components/providers/QueryProvider';
-
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import './globals.css';
 
 const montserrat = Montserrat({
@@ -30,7 +30,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="uk">
       <body className={montserrat.className}>
         <QueryProvider>
-          <AppLayout>{children}</AppLayout>
+          <AuthProvider>
+            <AppLayout>{children}</AppLayout>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

@@ -7,6 +7,7 @@ import css from './LoginForm.module.css';
 import { useRouter } from 'next/navigation';
 import { login } from '@/services/api';
 import { ApiError } from '@/app/api/api';
+import { useAuthStore } from '@/store/authStore';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,6 +31,8 @@ const initialValues: LoginFormValues = {
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  // Отримуємо метод із стора
+  const setUser = useAuthStore((state) => state.setUser);
   const fieldId = useId();
   const handleSubmit = async (
     values: LoginFormValues,
@@ -41,6 +44,8 @@ export default function LoginForm() {
       const res = await login(values);
       // Виконуємо редірект або відображаємо помилку
       if (res) {
+        // Записуємо користувача у глобальний стан
+        setUser(res);
         actions.resetForm();
         router.push('/');
       } else {
