@@ -2,11 +2,11 @@
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './RegistrationForm.module.css';
 import { useAuthStore } from '@/store/authStore';
+import { register, RegisterRequest } from '@/services/auth';
 import toast from 'react-hot-toast';
 const Validationschema = Yup.object({
   name: Yup.string()
@@ -28,15 +28,13 @@ export default function RegistrationForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
-  const handleSubmit = async (values: object) => {
+  const handleSubmit = async (values: RegisterRequest) => {
     try {
       setLoading(true);
 
-      const response = await axios.post('/api/auth/register', values, {
-        withCredentials: true,
-      });
+      const user = await register(values);
 
-      setUser(response.data);
+      setUser(user);
       router.push('/');
     } catch (error) {
       toast.error('Не вдалося зареєструватись. Спробуйте ще раз.');

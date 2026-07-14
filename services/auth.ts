@@ -33,6 +33,17 @@ export const login = async (data: LoginRequest) => {
   return res.data;
 };
 
+export type RegisterRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export const register = async (data: RegisterRequest) => {
+  const res = await api.post<User>('/auth/register', data);
+  return res.data;
+};
+
 type CheckSessionRequest = {
   success: boolean;
 };
