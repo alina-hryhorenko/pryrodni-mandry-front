@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-
+import { useAuthStore } from '@/store/authStore';
 import Icon from '@/components/ui/Icon/Icon';
 
 import styles from './UserBar.module.css';
@@ -12,7 +12,9 @@ type UserBarProps = {
 
 export default function UserBar({ variant = 'desktop' }: UserBarProps) {
   // TODO: замінити на реальні дані користувача з auth-store
-  const userName = 'Ім’я';
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
+  const userName = user?.name || 'Користувач';
   const avatarLetter = userName[0]?.toUpperCase() || 'U';
 
   const handleLogoutClick = () => {
