@@ -13,6 +13,29 @@ interface getStoryByIdResponse {
   data: Story
 }
 
+type SortBy = 'popular' | 'new';
+
+export interface getAllStoriesProps {
+  page: number;
+  limit?: number;
+  category?: string;
+  sort?: SortBy
+}
+
+interface getAllStoriesResponse {
+  page: number,
+  limit: number,
+  stories: Story[],
+  totalPages: number,
+  totalStories: number
+}
+
+export const getAllStories = async(params: getAllStoriesProps): Promise<getAllStoriesResponse> => {
+  const res = await api.get<getAllStoriesResponse>('/api/stories', { params });
+
+  return res.data
+}
+
 export const getStoryById = async (storyId: string): Promise<StoryDetailsData | null> => {
   try {
     const res = await api.get<getStoryByIdResponse>(`/api/story/${storyId}`);
