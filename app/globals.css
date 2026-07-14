@@ -237,7 +237,7 @@ address {
 
 @media only screen and (min-width: 768px) {
   .container {
-    max-width: 768px;
+    max-width: none;
     padding-right: 32px;
     padding-left: 32px;
   }
