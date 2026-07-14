@@ -19,14 +19,15 @@ const navLinks = [
   { href: '/travellers', label: 'Еко-мандрівники' },
 ];
 
-export default function Header() {
+type HeaderProps = {
+  logoOnly?: boolean;
+};
+
+export default function Header({ logoOnly = false }: HeaderProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-  const isAuthPage =
-    pathname === '/auth/login' || pathname === '/auth/register';
 
   const isActiveLink = (href: string) => {
     if (href === '/') return pathname === '/';
@@ -68,7 +69,7 @@ export default function Header() {
             <Icon name="icon-Logo" className={styles.logoIcon} />
           </Link>
 
-          {!isAuthPage && (
+          {!logoOnly && (
             <>
               <nav className={styles.navigation} aria-label="Основна навігація">
                 {navLinks.map(({ href, label }) => (
@@ -120,7 +121,7 @@ export default function Header() {
         </div>
       </div>
 
-      {!isAuthPage && (
+      {!logoOnly && (
         <MobileMenu
           isOpen={isMenuOpen}
           isAuthenticated={isAuthenticated}

@@ -16,7 +16,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className={css.appWrapper}>
-      {!isAuthPage && <Header />}
+      <Header logoOnly={isAuthPage} />
       <main className={css.main}>{children}</main>
     </div>
   );
