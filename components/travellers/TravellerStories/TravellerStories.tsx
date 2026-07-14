@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { StoryCard } from '@/components/stories/StoryCard/StoryCard';
+import { StoryCard } from '@/components/StoryCard/StoryCard';
 import { Story } from '@/types/story';
 import css from './TravellerStories.module.css';
+import { getTravellerById } from '@/services/users';
 
 interface Props {
   initialStories: Story[];
@@ -23,17 +24,16 @@ export function TravellerStories({
   async function loadMore() {
     try {
       setIsLoading(true);
+
       const nextPage = page + 1;
 
-      const response = await fetch(
-        `/api/users/${userId}?page=${nextPage}&limit=12`,
-      );
-
-      const data = await response.json();
+      const data = await getTravellerById(userId, nextPage, 6);
 
       setStories((prev) => [...prev, ...data.stories]);
 
       setPage(nextPage);
+    } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

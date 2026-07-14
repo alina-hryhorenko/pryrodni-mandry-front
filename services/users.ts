@@ -25,9 +25,11 @@ export const getAllTravellers = async (page = 1, limit = 12) => {
   }
 };
 
-export const getTravellerById = async (id: string) => {
+export const getTravellerById = async (id: string, page = 1, limit = 6) => {
   try {
-    const { data } = await api.get(`/users/${id}`);
+    const { data } = await api.get(`/users/${id}`, {
+      params: { page, limit },
+    });
 
     console.log('DATA:', data);
 

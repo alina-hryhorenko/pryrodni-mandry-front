@@ -5,7 +5,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ftp.goit.study',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ac.goit.global',
       },
     ],
   },

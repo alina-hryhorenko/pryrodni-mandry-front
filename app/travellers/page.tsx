@@ -5,7 +5,7 @@ import { getAllTravellers } from '@/services/users';
 import TravellersSection from '@/components/travellers/TravellersSection/TravellersSection';
 
 export default async function TravellersPage() {
-  const { users, totalPages } = await getAllTravellers(1, 9);
+  const { users, totalPages } = await getAllTravellers(1, 12);
 
   return (
     <main className={css.page}>

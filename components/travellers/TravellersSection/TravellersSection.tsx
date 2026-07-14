@@ -7,7 +7,7 @@ import TravellersList from '../TravellersList/TravellersList';
 
 import { Traveller } from '@/types/traveller';
 
-const USERS_LIMIT = 9;
+const USERS_LIMIT = 12;
 
 interface TravellersSectionProps {
   initialUsers: Traveller[];
