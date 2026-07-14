@@ -1,19 +1,18 @@
+import { User } from "./user";
+
 export interface Story {
   _id: string;
   title: string;
   article: string;
   img: string;
+  category: {
+    id: string;
+    name: string;
+  };
   savedBySize?: number;
   imageURL?: string;
   rate?: number;
-  ownerId: {
-    _id: string;
-    name: string;
-    avatarUrl?: string;
-    articlesAmount?: number;
-    savedArticles?: string[];
-    email?: string;
-  };
+  ownerId: User;
 }
 
 export interface PopularStoriesResponse {

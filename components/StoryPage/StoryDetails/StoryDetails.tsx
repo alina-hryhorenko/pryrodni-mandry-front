@@ -12,6 +12,7 @@ type Props = {
 
 export default function StoryDetails({ story }: Props) {
   const { title, ownerId, date, category, img, article } = story;
+  console.log("storystorystoryaa: ", story);
 
   const formattedDate = (() => {
     if (!date) return 'Дата невідома';
@@ -52,7 +53,7 @@ export default function StoryDetails({ story }: Props) {
             </p>
           </div>
 
-          <p className={styles.category}>{category || 'Без категорії'}</p>
+          <p className={styles.category}>{category?.name || 'Без категорії'}</p>
         </div>
 
        
