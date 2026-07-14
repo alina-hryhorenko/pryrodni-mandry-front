@@ -44,6 +44,10 @@ export const register = async (data: RegisterRequest) => {
   return res.data;
 };
 
+export const logout = async () => {
+  await api.post('/auth/logout');
+};
+
 type CheckSessionRequest = {
   success: boolean;
 };

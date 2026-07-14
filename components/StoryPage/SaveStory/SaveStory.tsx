@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 
 import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
 import { useAuthStore } from '@/store/authStore';
+import { ErrorWhileSavingModal } from '@/components/ErrorWhileSavingModal/ErrorWhileSavingModal';
 
 type SaveStoryProps = {
   storyId: string;
@@ -17,6 +18,7 @@ export default function SaveStory({
   onOpenErrorModal,
 }: SaveStoryProps) {
   const [loading, setLoading] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
   const isAuth = useAuthStore((state) => state.isAuthenticated);
 
@@ -30,7 +32,11 @@ export default function SaveStory({
 
   const handleClick = async () => {
     if (!isAuth) {
-      onOpenErrorModal?.();
+      if (onOpenErrorModal) {
+        onOpenErrorModal();
+      } else {
+        setIsErrorModalOpen(true);
+      }
       return;
     }
 
@@ -72,6 +78,13 @@ export default function SaveStory({
           ? 'Видалити зі збережених'
           : 'Зберегти'}
       </button>
+
+      {!onOpenErrorModal && (
+        <ErrorWhileSavingModal
+          isOpen={isErrorModalOpen}
+          onClose={() => setIsErrorModalOpen(false)}
+        />
+      )}
     </section>
   );
 }
