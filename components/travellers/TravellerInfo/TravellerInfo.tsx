@@ -1,8 +1,7 @@
+import { Traveller } from '@/types/traveller';
 import css from './TravellerInfo.module.css';
 
 import Image from 'next/image';
-
-import type { Traveller } from '@/types/traveller';
 
 interface TravellerInfoProps {
   traveller: Traveller;

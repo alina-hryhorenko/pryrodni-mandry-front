@@ -1,11 +1,15 @@
-.section {
-  margin-top: 48px;
+.section{
+    width: 100%;
+    padding: 32px 20px;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .heading {
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 52px;
+  font-size: 28px;
   line-height: 120%;
   letter-spacing: -0.01em;
   color: var(--color-neutral-darkest);
@@ -19,12 +23,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-@media screen and (min-width: 768px) {
-  .list {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .btn {
@@ -66,7 +64,26 @@
   pointer-events: none;
 }
 
+
+@media screen and (min-width: 768px) {
+  .section{
+      padding: 32px;
+  }
+
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .heading {
+    font-size: 44px;
+  }
+}
+
 @media screen and (min-width: 1440px) {
+  .section{
+      padding: 64px 48px;
+  }
+
   .list {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -74,5 +91,9 @@
   .btn {
     min-width: 160px;
     font-size: 20px;
+  }
+
+  .heading {
+    font-size: 52px;
   }
 }

@@ -1,9 +1,9 @@
+import { Traveller } from '@/types/traveller';
 import css from './TravellerCard.module.css';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Traveller } from '@/types/traveller';
 
 interface TravellerCardProps {
   traveller: Traveller;

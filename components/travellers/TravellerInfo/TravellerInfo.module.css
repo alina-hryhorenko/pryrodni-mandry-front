@@ -1,7 +1,22 @@
-.traveller_info_box {
+.traveller_info_box{
+  width: 100%;
+  padding: 32px 20px 0 20px;
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .traveller_info_box{
+        padding: 32px 32px 0 32px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .traveller_info_box{
+        padding: 64px 48px 0 48px;
+    }
 }
 
 .img {

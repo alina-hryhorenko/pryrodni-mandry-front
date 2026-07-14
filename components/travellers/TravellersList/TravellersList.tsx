@@ -1,8 +1,7 @@
 import css from './TravellersList.module.css';
 
-import type { Traveller } from '@/types/traveller';
-
 import TravellerCard from '../TravellerCard/TravellerCard';
+import { Traveller } from '@/types/traveller';
 
 interface TravellersListProps {
   travellers: Traveller[];

@@ -1,19 +1,19 @@
 import { isAxiosError } from 'axios';
-import { NextRequest, NextResponse } from 'next/server';
-import { api } from '../api';
-import { logErrorResponse } from '../_utils/utils';
+import { NextResponse } from 'next/server';
+import { api } from '../../api';
+import { logErrorResponse } from '../../_utils/utils';
 
-export async function GET(req: NextRequest) {
-  const page = Number(req.nextUrl.searchParams.get('page') ?? 1);
-  const limit = Number(req.nextUrl.searchParams.get('limit') ?? 6);
+interface RouteParams {
+  params: Promise<{
+    travellerId: string;
+  }>;
+}
+
+export async function GET(_request: Request, { params }: RouteParams) {
+  const { travellerId } = await params;
 
   try {
-    const res = await api.get('/api/users', {
-      params: {
-        page,
-        limit,
-      },
-    });
+    const res = await api.get(`/api/users/${travellerId}`);
 
     return NextResponse.json(res.data, {
       status: res.status,
