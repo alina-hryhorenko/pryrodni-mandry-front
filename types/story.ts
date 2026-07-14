@@ -5,6 +5,10 @@ export interface Story {
   title: string;
   article: string;
   img: string;
+  category: {
+    id: string;
+    name: string;
+  };
   savedBySize?: number;
   imageURL?: string;
   rate?: number;

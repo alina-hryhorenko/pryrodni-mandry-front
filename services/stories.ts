@@ -4,7 +4,6 @@ import { PopularStoriesResponse, Story } from '@/types/story';
 
 export type StoryDetailsData = Story & {
   date?: string;
-  category?: string;
   isSaved?: boolean;
 };
 
@@ -16,7 +15,7 @@ interface getStoryByIdResponse {
 type SortBy = 'popular' | 'new';
 
 export interface getAllStoriesProps {
-  page: number;
+  page?: number;
   limit?: number;
   category?: string;
   sort?: SortBy

@@ -1,37 +1,92 @@
 .RecoContainer{
     width: 100%;
     padding: 64px 20px;
-    height: 735px;
     max-width: 1312px;
 
     display: flex;
     flex-direction: column;
     gap: 40px;
+}
 
-    h3{
-        font-family: var(--font-family);
-        font-weight: 700;
-        font-size: 52px;
-        line-height: 120%;
-        letter-spacing: -0.01em;
-        color: var(--color-scheme-1-text);
-    }
+.RecoContainerText{
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    color: var(--color-scheme-1-text);
 }
 
 .recoList{
-    display: grid;
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: center;
     gap: 24px;
     width: 100%;
+}
+
+.recoList > *:nth-child(n + 2) {
+    display: none;
+}
+
+.error {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.retryBtn {
+    padding: 12px;
+    border: 1px solid var(--color-scheme-1-border);
+    border-radius: 8px;
+    background-color: var(--color-mantis-lighter);
+    color: var(--color-scheme-2-text);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        color var(--transition-default),
+        border var(--transition-default),
+        background-color var(--transition-default);
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.retryBtn:hover,
+.retryBtn:focus,
+.retryBtn:active {
+    background-color: var(--color-mantis-light);
+    color: var(--color-white);
+    border: 1px solid var(--color-mantis-light);
 }
 
 @media screen and (min-width: 768px) {
     .RecoContainer {
         padding: 64px 32px;
     }
+
+    .recoList > *:nth-child(n + 2) {
+        display: flex;
+    }
+
+    .RecoContainerText{
+        font-size: 44px;
+    }
 }
 
 @media screen and (min-width: 1440px) {
     .RecoContainer {
-        padding: 64px;
+        padding: 72px 0;
+    }
+
+    .RecoContainerText{
+        font-size: 52px;
     }
 }
