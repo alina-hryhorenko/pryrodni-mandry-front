@@ -46,6 +46,9 @@ export const useSavedStoriesStore = create<SavedStoriesState>()(
 
       reset: () => set({ savedIds: [] }),
     }),
-    { name: 'saved-stories' },
+    {
+      name: 'saved-stories',
+      partialize: (state) => ({ savedIds: state.savedIds }),
+    },
   ),
 );

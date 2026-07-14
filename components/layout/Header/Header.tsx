@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
@@ -9,7 +9,6 @@ import UserBar from '../UserBar/UserBar';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import Icon from '@/components/ui/Icon/Icon';
-
 import styles from './Header.module.css';
 
 const navLinks = [
@@ -22,17 +21,18 @@ export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // TODO: замінити на реальний auth-store
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const user = useAuthStore((state) => state.user);
 
   const isAuthPage =
     pathname === '/auth/login' || pathname === '/auth/register';
 
-  const isActiveLink = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href);
-  };
+  const isActiveLink = useCallback(
+    (href: string) => {
+      if (href === '/') return pathname === '/';
+      return pathname.startsWith(href);
+    },
+    [pathname],
+  );
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -40,7 +40,6 @@ export default function Header() {
 
   useEffect(() => {
     document.documentElement.style.overflow = isMenuOpen ? 'hidden' : '';
-
     return () => {
       document.documentElement.style.overflow = '';
     };
@@ -52,7 +51,6 @@ export default function Header() {
         setIsMenuOpen(false);
       }
     };
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);

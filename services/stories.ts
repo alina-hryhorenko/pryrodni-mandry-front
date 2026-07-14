@@ -48,7 +48,7 @@ export const getStoryById = async (
   storyId: string,
 ): Promise<StoryDetailsData | null> => {
   try {
-    const res = await api.get<GetStoryByIdResponse>(`/api/stories/${storyId}`);
+    const res = await api.get<GetStoryByIdResponse>(`/api/story/${storyId}`);
     return res.data.data;
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 404) {
