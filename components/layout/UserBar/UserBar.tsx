@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-
 import Icon from '@/components/ui/Icon/Icon';
 import ConfirmationModal from '@/components/ui/ConfirmationModal/ConfirmationModal';
 import { useAuthStore } from '@/store/authStore';

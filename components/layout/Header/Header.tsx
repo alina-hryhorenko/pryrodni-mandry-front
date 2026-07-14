@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 import { useAuthStore } from '@/store/authStore';
 import AuthBar from '../AuthBar/AuthBar';
 import UserBar from '../UserBar/UserBar';
