@@ -1,0 +1,91 @@
+.section {
+  padding: 64px 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'title'
+    'slider'
+    'link';
+  row-gap: 48px;
+}
+
+.slider {
+  grid-area: slider;
+  min-width: 0;
+}
+
+.title {
+  grid-area: title;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: var(--color-neutral-darkest);
+}
+
+.link {
+  grid-area: link;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 48px;
+  padding: 6px 12px;
+
+  border-radius: 6px;
+  border: 1px solid var(--color-mantis-dark);
+  background-color: var(--color-mantis-dark);
+
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-white);
+
+  transition:
+    border-color var(--transition-default),
+    background-color var(--transition-default),
+    color var(--transition-default);
+}
+
+@media screen and (min-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'title link'
+      'slider slider';
+    align-items: start;
+  }
+
+  .link {
+    width: auto;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .section {
+    padding: 72px 0;
+  }
+
+  .link {
+    font-size: 20px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover,
+  .link:focus-visible {
+    border-color: var(--color-mantis-dark);
+    background-color: var(--color-mantis-lighter);
+    color: var(--color-mantis-darkest);
+  }
+
+  .link:active {
+    border-color: var(--color-mantis-dark);
+    background-color: var(--color-mantis-dark);
+    color: var(--color-white);
+  }
+}

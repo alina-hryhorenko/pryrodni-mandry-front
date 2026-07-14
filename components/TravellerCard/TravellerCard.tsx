@@ -1,22 +1,35 @@
-import type { User } from '@/types/user';
 import Image from 'next/image';
+import Link from 'next/link';
 
-interface UserCardProps {
+import type { User } from '@/types/user';
+
+import css from './TravellerCard.module.css';
+
+interface TravellerCardProps {
   user: User;
 }
 
-export default function UserCard({ user }: UserCardProps) {
+export default function TravellerCard({ user }: TravellerCardProps) {
   return (
-    <article>
+    <article className={css.card}>
       <Image
+        className={css.cardImage}
         src={user.avatarUrl}
         alt={`Аватар користувача ${user.name}`}
-        width={64}
-        height={64}
+        width={130}
+        height={130}
       />
-      <h3>{user.name}</h3>
-      <p>Статей: {user.articlesAmount}</p>
-      {/* link to profile */}
+
+      <div className={css.cardBody}>
+        <div className={css.cardText}>
+          <h3 className={css.name}>{user.name}</h3>
+          <p className={css.articlesAmount}>Статей: {user.articlesAmount}</p>
+        </div>
+
+        <Link className={css.link} href={`/users/${user._id}`}>
+          Переглянути профіль
+        </Link>
+      </div>
     </article>
   );
 }
