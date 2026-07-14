@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ApiError } from '@/app/api/api';
 import { login } from '@/services/auth';
 import { useAuthStore } from '@/store/authStore';
+import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -33,6 +34,7 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const fieldId = useId();
   const setUser = useAuthStore((state) => state.setUser);
+  const setSavedIds = useSavedStoriesStore((state) => state.setSavedIds);
   const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
@@ -43,6 +45,7 @@ export default function LoginForm() {
       // Виконуємо редірект або відображаємо помилку
       if (res) {
         setUser(res);
+        setSavedIds(res.savedArticles ?? []);
         actions.resetForm();
         router.push('/');
       } else {
