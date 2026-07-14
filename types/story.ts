@@ -3,7 +3,12 @@ import { User } from './user';
 export interface Story {
   _id: string;
   title: string;
+  article: string;
   img?: string;
+  category: {
+    id: string;
+    name: string;
+  };
   imageURL?: string;
   savedBySize?: number;
   rate?: number;
