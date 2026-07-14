@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   const cookieStore = await cookies();
   try {
-    const { data } = await api.get('/auth/me', {
+    const { data } = await api.get('/api/users/me', {
       headers: {
         Cookie: cookieStore.toString(),
       },

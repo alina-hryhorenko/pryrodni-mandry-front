@@ -2,7 +2,7 @@
 
 'use client';
 
-import { checkSession, getMe } from '@/services/api';
+import { checkSession, getMe } from '@/services/auth';
 import { useAuthStore } from '@/store/authStore';
 import { useEffect } from 'react';
 

@@ -20,26 +20,31 @@ export async function GET() {
 
   // Якщо accessToken немає — перевіряємо refreshToken
   if (refreshToken) {
-    // Виконуємо запит до API, передаючи всі cookie у заголовку
-    const apiRes = await api.get('auth/session', {
-      headers: {
-        Cookie: cookieStore.toString(), // перетворюємо cookie у рядок
-      },
-    });
+    try {
+      // Виконуємо запит до API, передаючи всі cookie у заголовку
+      const apiRes = await api.post('auth/refresh', null, {
+        headers: {
+          Cookie: cookieStore.toString(), // перетворюємо cookie у рядок
+        },
+      });
 
-    // Якщо бекенд повернув нові токени — встановлюємо їх
-    const setCookie = apiRes.headers['set-cookie'];
-    if (setCookie) {
-      const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+      // Якщо бекенд повернув нові токени — встановлюємо їх
+      const setCookie = apiRes.headers['set-cookie'];
+      if (setCookie) {
+        const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
 
-      for (const cookieStr of cookieArray) {
-        const parsed = parseSetCookie(cookieStr);
+        for (const cookieStr of cookieArray) {
+          const parsed = parseSetCookie(cookieStr);
 
-        if (parsed.value) {
-          cookieStore.set(parsed.name, parsed.value, parsed);
+          if (parsed.value) {
+            cookieStore.set(parsed.name, parsed.value, parsed);
+          }
         }
+        return NextResponse.json({ success: true });
       }
-      return NextResponse.json({ success: true });
+    } catch {
+      // refreshToken прострочений або невалідний — сесія невалідна
+      return NextResponse.json({ success: false });
     }
   }
 
