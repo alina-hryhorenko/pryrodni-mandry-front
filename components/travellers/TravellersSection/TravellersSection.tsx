@@ -32,7 +32,7 @@ export default function TravellersSection({
         `/api/users?page=${nextPage}&limit=${USERS_LIMIT}`,
       );
       const data = await res.json();
-
+      console.log('LOAD MORE DATA:', data);
       setUsers((prev) => [...prev, ...data.users]);
       setPage(nextPage);
     } finally {

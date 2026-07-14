@@ -1,13 +1,9 @@
 import axios from 'axios';
-import api from './api';
+import backendApi from './backendApi';
 
-// const api = axios.create({
-//   baseURL: 'https://pryrodni-mandry-back-f2hd.onrender.com/api',
-// });
-
-export const getAllTravellers = async (page = 1, limit = 12) => {
+export const getAllTravellers = async (page = 1, limit = 6) => {
   try {
-    const { data } = await api.get('/users', {
+    const { data } = await backendApi.get('/users', {
       params: { page, limit },
     });
 
@@ -27,7 +23,7 @@ export const getAllTravellers = async (page = 1, limit = 12) => {
 
 export const getTravellerById = async (id: string, page = 1, limit = 6) => {
   try {
-    const { data } = await api.get(`/users/${id}`, {
+    const { data } = await backendApi.get(`/users/${id}`, {
       params: { page, limit },
     });
 
