@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
+import { useAuthStore } from '@/store/authStore';
 import AuthBar from '../AuthBar/AuthBar';
 import UserBar from '../UserBar/UserBar';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
@@ -23,7 +23,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // TODO: замінити на реальний auth-store
-  const isAuthenticated = false;
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
 
   const isAuthPage =
     pathname === '/auth/login' || pathname === '/auth/register';

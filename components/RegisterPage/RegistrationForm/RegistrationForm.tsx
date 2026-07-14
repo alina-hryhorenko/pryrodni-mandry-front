@@ -2,32 +2,45 @@
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './RegistrationForm.module.css';
-
+import { useAuthStore } from '@/store/authStore';
+import { register, RegisterRequest } from '@/services/auth';
+import toast from 'react-hot-toast';
 const Validationschema = Yup.object({
-  name: Yup.string().min(2, 'Мінімум 2 символи').required("Ім'я обов'язкове"),
+  name: Yup.string()
+    .max(32, 'Максимум 32 символи')
+    .required("Ім'я обов'язкове"),
 
   email: Yup.string()
     .email('Невірний формат email')
+    .max(64, 'Максимум 64 символи')
     .required('Email обовʼязковий'),
 
   password: Yup.string()
-    .min(6, 'Мінімум 6 символів')
+    .min(8, 'Мінімум 8 символів')
+    .max(128, 'Максимум 128 символів')
     .required('Пароль обовʼязковий'),
 });
 
 export default function RegistrationForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const setUser = useAuthStore((state) => state.setUser);
+  const handleSubmit = async (values: RegisterRequest) => {
+    try {
+      setLoading(true);
 
-  const handleSubmit = async (values: object) => {
-    setLoading(true);
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, values);
-    router.push('/');
-    setLoading(false);
+      const user = await register(values);
+
+      setUser(user);
+      router.push('/');
+    } catch (error) {
+      toast.error('Не вдалося зареєструватись. Спробуйте ще раз.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

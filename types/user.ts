@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+// Тимчасово створено для тесту Join секції
+// export interface User {
+//   email: string;
+//   username: string;
+//   avatar: string;
+// }
+
+>>>>>>> develop
 export interface User {
   _id: string;
   name: string;
@@ -5,6 +15,7 @@ export interface User {
   avatarUrl: string;
   articlesAmount: number;
   savedArticles: string[];
+<<<<<<< HEAD
 }
 
 export interface UsersResponse {
@@ -18,4 +29,9 @@ export interface UsersResponse {
 export interface GetUsersParams {
   page: number;
   limit: number;
+=======
+  createdAt: string;
+  updatedAt: string;
+>>>>>>> develop
 }
+
