@@ -19,6 +19,8 @@ export interface Story {
 }
 
 export interface StoryFormData {
+  // img: string;
+  img: File | null;
   title: string;
   category: string;
   article: string;

@@ -2,21 +2,34 @@
 
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { createStory } from '@/services/stories';
 import { StoryFormData } from '@/types/story';
+import StoryImagePicker from '../StoryImagePicker/StoryImagePicker';
 
 import css from './StoryForm.module.css';
 
 const initialValues: StoryFormData = {
+  img: null,
   title: '',
   category: '',
   article: '',
 };
 
+export const ALLOWED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+];
+
+export const MAX_IMAGE_SIZE = 1024 * 1024;
+
 const validationSchema = Yup.object().shape({
+  img: Yup.mixed<File>().required('Image is required'),
   title: Yup.string()
     .min(2, 'Title must be at least 2 characters')
     .max(40, 'Title must be no more than 40 characters')
@@ -33,7 +46,10 @@ const validationSchema = Yup.object().shape({
     .required('Story is required'),
 });
 
-export default function StoryForm() {
+export function StoryForm() {
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [error, setError] = useState<string>('');
+
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -53,26 +69,62 @@ export default function StoryForm() {
     // actions.resetForm();
   };
 
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+  const handleImageChange = (
+    file: File | null,
+    setFieldValue: (field: string, value: File | null) => void,
+  ) => {
+    setError('');
+    setFieldValue('img', null);
+
+    if (!file) {
+      setImagePreview('');
+      setFieldValue('img', null);
+      return;
+    }
+
+    if (!allowedTypes.includes(file.type) || file.size > 1024 * 1024) {
+      setFieldValue('img', null);
+      setImagePreview('');
+      setError(
+        !allowedTypes.includes(file.type)
+          ? 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.'
+          : 'Max file size 1MB',
+      );
+      return;
+    }
+
+    setFieldValue('img', file);
+    setError('');
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, dirty, isValid }) => (
+      {({ errors, touched, dirty, isValid, setFieldValue, resetForm }) => (
         <Form className={css.form}>
           <div className={css.formContent}>
             <div className={css.formGroup}>
               <label htmlFor="cover" className={css.formLabel}>
                 Обкладинка статті
               </label>
-              <div className={css.formUploadWrapper}>
-                {/* Upload image component */}
-                <div className={css.imagePlaceholder}></div>
-                <button type="button" className={css.uploadButton}>
-                  Завантажити фото
-                </button>
-              </div>
+              <StoryImagePicker
+                imagePreview={imagePreview}
+                handleImageChange={(file) =>
+                  handleImageChange(file, setFieldValue)
+                }
+              />
+              {error && <span className={css.error}>{error}</span>}
             </div>
             <div className={css.formGroup}>
               <label htmlFor="title" className={css.formLabel}>
@@ -149,7 +201,15 @@ export default function StoryForm() {
             >
               Зберегти
             </button>
-            <button type="reset" className={css.cancelButton}>
+            <button
+              type="button"
+              className={css.cancelButton}
+              onClick={() => {
+                resetForm();
+                setImagePreview('');
+                setError('');
+              }}
+            >
               Відмінити
             </button>
           </div>

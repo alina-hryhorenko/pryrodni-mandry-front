@@ -96,46 +96,12 @@
   border: 1px solid var(--color-red);
 }
 
+.error {
+    color: var(--color-red);
+}
+
 .errorMessage {
-  color: var(--color-red);
-}
-
-/* Cover upload */
-
-.imagePlaceholder {
-  height: 200px;
-  background-color: rgb(147, 145, 145);
-  margin-bottom: 24px;
-}
-
-.uploadButton {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--color-mantis-darkest);
-
-  width: 178px;
-  height: 32px;
-  padding: 4px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 6px;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.uploadButton:hover,
-.uploadButton:focus {
-  color: var(--color-white);
-
-  background-color: var(--color-mantis-dark);
-}
-
-@media screen and (min-width: 1440px) {
-  .uploadButton {
-    font-size: 20px;
-
-    width: 217px;
-    height: 38px;
-  }
+    color: var(--color-red);
 }
 
 /* Form actions */
