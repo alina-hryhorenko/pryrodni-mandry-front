@@ -5,8 +5,8 @@ import { useId, useState } from 'react';
 import * as Yup from 'yup';
 import css from './LoginForm.module.css';
 import { useRouter } from 'next/navigation';
-import { login } from '@/services/api';
 import { ApiError } from '@/app/api/api';
+import { login } from '@/services/auth';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
