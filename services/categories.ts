@@ -1,4 +1,4 @@
-import { api } from './../app/api/api';
+import api from './api';
 // Categories API functions
 
 interface getCategoriesResponse {
@@ -7,6 +7,6 @@ interface getCategoriesResponse {
 }
 
 export const getCategories = async(): Promise<getCategoriesResponse> => {
-    const res = await api.get<getCategoriesResponse>('/api/categories');
+    const res = await api.get<getCategoriesResponse>('/categories');
     return res.data;
 }
