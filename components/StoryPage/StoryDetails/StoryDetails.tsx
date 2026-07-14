@@ -32,7 +32,6 @@ export default function StoryDetails({ story }: Props) {
   return (
     <section className={styles.container}>
       <div className={styles.grid}>
-        {/* LEFT */}
         <div className={styles.left}>
           <Link href="/stories" className={styles.back}>
             <svg className={styles.icon} aria-hidden="true">
@@ -56,7 +55,7 @@ export default function StoryDetails({ story }: Props) {
           <p className={styles.category}>{category || 'Без категорії'}</p>
         </div>
 
-        {/* RIGHT */}
+       
         <div className={styles.right}>
           <div className={styles.imageWrapper}>
             <Image
@@ -73,7 +72,7 @@ export default function StoryDetails({ story }: Props) {
 
       <div className={styles.bottomSection}>
         <div className={styles.text}>{article || 'Опис відсутній'}</div>
-        <SaveStory storyId={story._id} isSaved={story.isSaved ?? false} />
+        <SaveStory storyId={story._id} />
       </div>
     </section>
   );
