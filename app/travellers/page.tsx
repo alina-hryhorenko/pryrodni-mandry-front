@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TravellersPage() {
-  const { users, totalPages } = await getAllTravellers(1, 12);
+  const { users, totalPages } = await getAllTravellers(1, 6);
 
   return (
     <main className={css.page}>
