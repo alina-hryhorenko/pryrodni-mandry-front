@@ -85,14 +85,25 @@ export default function Header({ logoOnly = false }: HeaderProps) {
                 ))}
 
                 {isAuthenticated && (
-                  <Link
-                    href="/profile"
-                    className={`${styles.navLink} ${
-                      isActiveLink('/profile') ? styles.activeLink : ''
-                    }`}
-                  >
-                    Мій профіль
-                  </Link>
+                  <>
+                    <Link
+                      href="/profile"
+                      className={`${styles.navLink} ${
+                        isActiveLink('/profile') ? styles.activeLink : ''
+                      }`}
+                    >
+                      Мій профіль
+                    </Link>
+
+                    <Link
+                      href="/stories/new"
+                      className={`${styles.navLink} ${
+                        isActiveLink('/stories/new') ? styles.activeLink : ''
+                      }`}
+                    >
+                      Опублікувати статтю
+                    </Link>
+                  </>
                 )}
               </nav>
 

@@ -45,16 +45,6 @@ export default function MobileMenu({
         </Link>
 
         <div className={styles.topActions}>
-          {isAuthenticated && (
-            <Link
-              href="/stories/new"
-              className={styles.publishLink}
-              onClick={onClose}
-            >
-              Опублікувати статтю
-            </Link>
-          )}
-
           <button
             type="button"
             className={styles.closeButton}
@@ -77,9 +67,14 @@ export default function MobileMenu({
         ))}
 
         {isAuthenticated && (
-          <Link href="/profile" onClick={onClose}>
-            Мій профіль
-          </Link>
+          <>
+            <Link href="/profile" onClick={onClose}>
+              Мій профіль
+            </Link>
+            <Link href="/stories/new" onClick={onClose}>
+              Опублікувати статтю
+            </Link>
+          </>
         )}
       </nav>
 

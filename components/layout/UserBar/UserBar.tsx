@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -45,10 +44,6 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
   return (
     <>
       <div className={`${styles.userBar} ${styles[variant]}`}>
-        <Link href="/stories/new" className={styles.publishLink}>
-          Опублікувати статтю
-        </Link>
-
         <div className={styles.userInfo}>
           {user?.avatar ? (
             <img
