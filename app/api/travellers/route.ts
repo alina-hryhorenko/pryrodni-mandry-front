@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const page = Number(req.nextUrl.searchParams.get('page') ?? 1);
-  const limit = Number(req.nextUrl.searchParams.get('limit') ?? 9);
+  const limit = Number(req.nextUrl.searchParams.get('limit') ?? 12);
 
   try {
     const res = await api.get('/users', {
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     if (axios.isAxiosError(error)) {
       return NextResponse.json(
         error.response?.data ?? { message: error.message },
-        { status: error.response?.status ?? 502 }
+        { status: error.response?.status ?? 502 },
       );
     }
 

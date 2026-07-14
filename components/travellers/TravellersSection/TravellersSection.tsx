@@ -7,6 +7,8 @@ import TravellersList from '../TravellersList/TravellersList';
 
 import { Traveller } from '@/types/traveller';
 
+const USERS_LIMIT = 9;
+
 interface TravellersSectionProps {
   initialUsers: Traveller[];
   totalPages: number;
@@ -26,7 +28,9 @@ export default function TravellersSection({
 
       const nextPage = page + 1;
 
-      const res = await fetch(`/api/travellers?page=${nextPage}&limit=9`);
+      const res = await fetch(
+        `/api/travellers?page=${nextPage}&limit=${USERS_LIMIT}`,
+      );
       const data = await res.json();
 
       setUsers((prev) => [...prev, ...data.users]);
