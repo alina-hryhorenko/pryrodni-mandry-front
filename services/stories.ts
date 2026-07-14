@@ -31,14 +31,14 @@ interface getAllStoriesResponse {
 }
 
 export const getAllStories = async(params: getAllStoriesProps): Promise<getAllStoriesResponse> => {
-  const res = await api.get<getAllStoriesResponse>('/api/stories', { params });
+  const res = await api.get<getAllStoriesResponse>('/stories', { params });
 
   return res.data
 }
 
 export const getStoryById = async (storyId: string): Promise<StoryDetailsData | null> => {
   try {
-    const res = await api.get<getStoryByIdResponse>(`/api/story/${storyId}`);
+    const res = await api.get<getStoryByIdResponse>(`/story/${storyId}`);
 
     return res.data.data;
   } catch (error) {
@@ -52,7 +52,7 @@ export const getStoryById = async (storyId: string): Promise<StoryDetailsData | 
 
 export const getPopularStories = async (): Promise<Story[]> => {
   const { data: body } = await api.get<PopularStoriesResponse>(
-    '/api/stories/popular',
+    '/stories/popular',
   );
 
   return body.data;

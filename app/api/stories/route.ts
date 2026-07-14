@@ -1,4 +1,4 @@
-import api from '@/services/api';
+import { api } from '../api';
 import { isAxiosError } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import { logErrorResponse } from '../_utils/utils';
