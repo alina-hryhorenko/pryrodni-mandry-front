@@ -40,6 +40,16 @@ export const saveStory = async (storyId: string) => {};
 export const unsaveStory = async (storyId: string) => {};
 
 export const createStory = async (newStory: StoryFormData): Promise<Story> => {
-  const { data } = await api.post<Story>('/stories', newStory);
+  const formData = new FormData();
+
+  if (newStory.img) {
+    formData.append('img', newStory.img);
+  }
+
+  formData.append('title', newStory.title);
+  formData.append('category', newStory.category);
+  formData.append('article', newStory.article);
+
+  const { data } = await api.post<Story>('/stories', formData);
   return data;
 };

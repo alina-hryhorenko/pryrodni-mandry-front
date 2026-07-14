@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import { toast } from 'react-hot-toast';
 
 import { createStory } from '@/services/stories';
 import { StoryFormData } from '@/types/story';
@@ -12,6 +13,7 @@ import { storyValidationSchema } from '@/constants/storyValidation';
 
 import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE } from '@/constants/stories';
 import css from './StoryForm.module.css';
+import { AxiosError } from 'axios';
 
 const initialValues: StoryFormData = {
   img: null,
@@ -33,14 +35,26 @@ export function StoryForm() {
       queryClient.invalidateQueries({ queryKey: ['stories'] });
       router.push(`/story/${story._id}`);
     },
+    onError(error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+
+      toast.error(
+        axiosError.response?.data.message ??
+        'Виникла помилка під час створення історії'
+      );
+    },
+    // onError(error) {
+    //   console.log('ERROR:', error);
+    //   toast.error("This didn't work.");
+    // },
   });
 
   const handleSubmit = (
     values: StoryFormData,
     // actions: FormikHelpers<StoryFormData>,
   ) => {
+    console.log('HANDLE SUBMIT');
     mutation.mutate(values);
-    // actions.resetForm();
   };
 
   const handleImageChange = (
