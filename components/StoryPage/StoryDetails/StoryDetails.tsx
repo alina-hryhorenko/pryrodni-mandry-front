@@ -12,6 +12,7 @@ type Props = {
 
 export default function StoryDetails({ story }: Props) {
   const { title, ownerId, date, category, img, article } = story;
+  console.log("storystorystoryaa: ", story);
 
   const formattedDate = (() => {
     if (!date) return 'Дата невідома';

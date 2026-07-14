@@ -1,15 +1,12 @@
-import { api } from '../../api';
+import { api } from '../api';
 import { isAxiosError } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
-import { logErrorResponse } from '../../_utils/utils';
+import { logErrorResponse } from '../_utils/utils';
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ storyId: string }> }
-) {
+export async function GET(_req: NextRequest) {
   try {
-    const { storyId } = await params;
-    const res = await api.get(`/api/story/${storyId}`);
+    const params = Object.fromEntries(_req.nextUrl.searchParams);
+    const res = await api.get(`/api/stories`, { params });
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
