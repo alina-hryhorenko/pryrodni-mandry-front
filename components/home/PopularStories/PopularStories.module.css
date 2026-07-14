@@ -1,0 +1,248 @@
+.section {
+  padding: 64px 0px;
+  background-color: var(--color-mantis-lightest);
+}
+@media screen and (min-width: 1440px) {
+  .section {
+    padding: 72px 0px;
+  }
+}
+
+.container {
+  max-width: 375px;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 64px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  .header {
+    margin-bottom: 24px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .header {
+    margin-bottom: 28px;
+  }
+}
+
+.sectionTitle {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-1-text);
+}
+@media screen and (min-width: 768px) {
+  .sectionTitle {
+    font-size: 44px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .sectionTitle {
+    font-size: 52px;
+  }
+}
+
+.allLink {
+  font-family: var(--font-family);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-default),
+    color var(--transition-default);
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: var(--color-mantis-dark);
+  border: 1px solid var(--color-mantis-dark);
+  color: var(--color-white);
+  border-radius: 6px;
+}
+.allLink:hover,
+.allLink:focus {
+  color: var(--color-scheme-2-text);
+  background-color: var(--color-mantis-lighter);
+}
+
+.allLinkTop {
+  display: none;
+}
+
+.allLinkBottom {
+  display: flex;
+  width: 100%;
+  margin-top: 40px;
+  padding: 6px 12px;
+  height: 48px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+@media screen and (min-width: 768px) {
+  .allLinkTop {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px;
+    width: 101px;
+    height: 48px;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .allLinkBottom {
+    display: none;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .allLinkTop {
+    width: 120px;
+    background-color: var(--color-mantis-dark);
+    padding: 9px 12px;
+    font-size: 20px;
+  }
+}
+
+.sliderWrapper {
+  position: relative;
+}
+
+.swiper {
+  overflow: hidden;
+  padding: 6px;
+}
+
+.navControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.navBtn {
+  color: var(--color-scheme-2-text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-scheme-1-border);
+  border-radius: 8px;
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+  background: var(--color-mantis-lighter);
+  transition:
+    border var(--transition-default),
+    background-color var(--transition-default);
+}
+.navBtn:hover,
+.navBtn:focus {
+  border: 1px solid var(--color-mantis-light);
+  background-color: var(--color-mantis-light);
+}
+.navBtn:active {
+  border: 1px solid var(--color-scheme-1-border);
+  background-color: var(--color-mantis-lighter);
+}
+.navBtn:disabled {
+  background: var(--color-scheme-1-foreground);
+  opacity: 0.4;
+  border: 1px solid var(--color-scheme-1-border);
+  cursor: not-allowed;
+}
+@media screen and (min-width: 768px) {
+  .navBtn {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .navBtn {
+    font-size: 22px;
+  }
+}
+
+.arrowIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.error {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-red);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+@media screen and (min-width: 768px) {
+  .error {
+    font-size: 24px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .error {
+    font-size: 28px;
+  }
+}
+
+.retryBtn {
+  padding: 6px 12px;
+  border: 1px solid var(--color-scheme-1-border);
+  border-radius: 6px;
+  background-color: var(--color-mantis-lighter);
+  color: var(--color-scheme-2-text);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color var(--transition-default),
+    border var(--transition-default),
+    background-color var(--transition-default);
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 768px) {
+  .retryBtn {
+    font-size: 20px;
+    width: 240px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .retryBtn {
+    font-size: 24px;
+    width: 340px;
+  }
+}
+.retryBtn:hover,
+.retryBtn:focus,
+.retryBtn:active {
+  background-color: var(--color-mantis-light);
+  color: var(--color-white);
+  border: 1px solid var(--color-mantis-light);
+}

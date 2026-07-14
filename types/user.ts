@@ -5,17 +5,6 @@ export interface User {
   avatarUrl: string;
   articlesAmount: number;
   savedArticles: string[];
-}
-
-export interface UsersResponse {
-  page: number;
-  limit: number;
-  totalItems: number;
-  totalPages: number;
-  users: User[];
-}
-
-export interface GetUsersParams {
-  page: number;
-  limit: number;
+  createdAt: string;
+  updatedAt: string;
 }

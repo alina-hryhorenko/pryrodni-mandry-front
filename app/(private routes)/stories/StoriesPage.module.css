@@ -1,0 +1,39 @@
+.storiesSection{
+    width: 100%;
+    padding: 32px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.pageTitle{
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 110%;
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+
+.storyList{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 24px;
+}
+
+@media (min-width: 768px) {
+    .storiesSection{
+        padding: 32px;
+    }
+}
+
+/* LAPTOP */
+@media (min-width: 1440px) {
+    .storiesSection{
+        padding: 64px 48px;
+    }
+}
