@@ -1,13 +1,12 @@
 .userBar {
   display: flex;
   align-items: center;
-  gap: 32px;
 }
 
 .userInfo {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 8px;
 }
 
 .avatar {

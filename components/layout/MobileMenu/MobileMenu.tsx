@@ -45,6 +45,19 @@ export default function MobileMenu({
         </Link>
 
         <div className={styles.topActions}>
+          {isAuthenticated ? (
+            <Link
+              href="/stories/new"
+              className={styles.publishButtonTop}
+              onClick={onClose}
+            >
+              <Icon name="icon-pensil-edit" className={styles.publishIcon} />
+              Опублікувати статтю
+            </Link>
+          ) : (
+            <AuthBar variant="tablet" />
+          )}
+
           <button
             type="button"
             className={styles.closeButton}
@@ -67,16 +80,22 @@ export default function MobileMenu({
         ))}
 
         {isAuthenticated && (
-          <>
-            <Link href="/profile" onClick={onClose}>
-              Мій профіль
-            </Link>
-            <Link href="/stories/new" onClick={onClose}>
-              Опублікувати статтю
-            </Link>
-          </>
+          <Link href="/profile" onClick={onClose}>
+            Мій профіль
+          </Link>
         )}
       </nav>
+
+      {isAuthenticated && (
+        <Link
+          href="/stories/new"
+          className={styles.publishButtonMobile}
+          onClick={onClose}
+        >
+          <Icon name="icon-pensil-edit" className={styles.publishIcon} />
+          Опублікувати статтю
+        </Link>
+      )}
 
       <div className={styles.actions}>
         {isAuthenticated ? (

@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 68px;
+  min-height: 72px;
 }
 
 .logo {
@@ -25,30 +25,64 @@
 .navigation,
 .desktopActions,
 .tabletAuth,
-.tabletUser {
+.tabletUser,
+.publishButton {
   display: none;
 }
 
 .tabletActions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 @media screen and (min-width: 768px) {
-  .wrapper {
-    min-height: 72px;
-  }
-
   .tabletUser,
   .tabletAuth {
     display: flex;
   }
+
+  .publishButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: 196px;
+    height: 32px;
+    padding: 4px 10px;
+    border: 1px solid var(--color-mantis-dark);
+    border-radius: 6px;
+
+    background-color: var(--color-mantis-dark);
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+  }
+
+  .publishButton:hover,
+  .publishButton:focus-visible {
+    background-color: var(--color-mantis-darker);
+    border-color: var(--color-mantis-darker);
+  }
+
+  .publishIcon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
 }
 
 @media screen and (min-width: 1440px) {
-  .wrapper {
-    min-height: 72px;
+  .logoIcon {
+    height: 40px;
   }
 
   .navigation {
@@ -77,6 +111,13 @@
   .desktopActions {
     display: flex;
     align-items: center;
+    gap: 16px;
+  }
+
+  .publishButton {
+    width: 240px;
+    height: 38px;
+    font-size: 20px;
   }
 
   .tabletActions {

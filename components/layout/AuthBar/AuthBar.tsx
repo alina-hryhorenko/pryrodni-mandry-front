@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from './AuthBar.module.css';
 
 type AuthBarProps = {
-  variant?: 'desktop' | 'mobile';
+  variant?: 'desktop' | 'mobile' | 'tablet';
 };
 
 export default function AuthBar({ variant = 'desktop' }: AuthBarProps) {

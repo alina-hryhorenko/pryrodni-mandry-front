@@ -69,3 +69,30 @@
   max-width: 335px;
   height: 32px;
 }
+
+.tablet {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .tablet {
+    display: flex;
+  }
+
+  .tablet .loginLink,
+  .tablet .registerLink {
+    width: 114px;
+    height: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .loginLink,
+  .registerLink {
+    font-size: 20px;
+  }
+
+  .loginLink {
+    font-weight: 500;
+  }
+}

@@ -85,37 +85,48 @@ export default function Header({ logoOnly = false }: HeaderProps) {
                 ))}
 
                 {isAuthenticated && (
-                  <>
-                    <Link
-                      href="/profile"
-                      className={`${styles.navLink} ${
-                        isActiveLink('/profile') ? styles.activeLink : ''
-                      }`}
-                    >
-                      Мій профіль
-                    </Link>
-
-                    <Link
-                      href="/stories/new"
-                      className={`${styles.navLink} ${
-                        isActiveLink('/stories/new') ? styles.activeLink : ''
-                      }`}
-                    >
-                      Опублікувати статтю
-                    </Link>
-                  </>
+                  <Link
+                    href="/profile"
+                    className={`${styles.navLink} ${
+                      isActiveLink('/profile') ? styles.activeLink : ''
+                    }`}
+                  >
+                    Мій профіль
+                  </Link>
                 )}
               </nav>
 
               <div className={styles.desktopActions}>
-                {isAuthenticated ? <UserBar /> : <AuthBar />}
+                {isAuthenticated ? (
+                  <>
+                    <Link href="/stories/new" className={styles.publishButton}>
+                      <Icon
+                        name="icon-pensil-edit"
+                        className={styles.publishIcon}
+                      />
+                      Опублікувати статтю
+                    </Link>
+                    <UserBar />
+                  </>
+                ) : (
+                  <AuthBar />
+                )}
               </div>
 
               <div className={styles.tabletActions}>
                 {isAuthenticated ? (
-                  <div className={styles.tabletUser}>
-                    <UserBar />
-                  </div>
+                  <>
+                    <Link href="/stories/new" className={styles.publishButton}>
+                      <Icon
+                        name="icon-pensil-edit"
+                        className={styles.publishIcon}
+                      />
+                      Опублікувати статтю
+                    </Link>
+                    <div className={styles.tabletUser}>
+                      <UserBar />
+                    </div>
+                  </>
                 ) : (
                   <div className={styles.tabletAuth}>
                     <AuthBar />
