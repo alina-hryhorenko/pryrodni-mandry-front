@@ -11,11 +11,11 @@ import { useAuthStore } from '@/store/authStore';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email format')
-    .required('Email is required'),
+    .email('Невірний формат email')
+    .required('Email обовʼязковий'),
   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
+    .min(8, 'Мінімум 8 символів')
+    .required('Пароль обовʼязковий'),
 });
 
 interface LoginFormValues {
@@ -46,7 +46,7 @@ export default function LoginForm() {
         actions.resetForm();
         router.push('/');
       } else {
-        setError('Invalid email or password');
+        setError('Не вірний email або пароль');
       }
     } catch (error) {
       setError(
@@ -74,6 +74,7 @@ export default function LoginForm() {
           type="email"
           name="email"
           id={`${fieldId}-email`}
+          placeholder="hello@podorozhnyky.ua"
         />
         <ErrorMessage name="email" component="span" className={css.error} />
 
@@ -85,6 +86,7 @@ export default function LoginForm() {
           type="password"
           name="password"
           id={`${fieldId}-pass`}
+          placeholder="********"
         />
         <ErrorMessage name="password" component="span" className={css.error} />
         <button className={css.btn} type="submit">
