@@ -1,44 +1,44 @@
-import { getStoryById } from '@/services/stories';
-import StoryDetails from '@/components/StoryPage/StoryDetails/StoryDetails';
-import SaveStory from '@/components/StoryPage/SaveStory/SaveStory';
-import { notFound } from 'next/navigation';
-import styles from './page.module.css';
+import type { Metadata } from 'next';
+import { isAxiosError } from 'axios';
+import { api } from '@/app/api/api';
+import { Story } from '@/types/story';
+import StoryPageClient from './StoryPageClient';
 
 type Props = {
   params: Promise<{ storyId: string }>;
 };
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { storyId } = await params;
 
-  const story = await getStoryById(storyId);
+  try {
+    const res = await api.get<{ status: number; data: Story }>(
+      `/api/story/${storyId}`
+    );
+    const story = res.data.data;
 
-  if (!story) {
-    return { title: 'Історію не знайдено' };
+    const description = story.article
+      ? story.article.slice(0, 160)
+      : undefined;
+
+    return {
+      title: story.title,
+      description,
+      openGraph: {
+        title: story.title,
+        description,
+        images: story.img ? [story.img] : undefined,
+      },
+    };
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.status === 404) {
+      return { title: 'Історію не знайдено' };
+    }
+
+    return { title: 'Історія' };
   }
-
-  return {
-    title: story.title,
-    article: story.article,
-  };
 }
 
-export default async function Page({ params }: Props) {
-  const { storyId } = await params;
-
-  const story = await getStoryById(storyId);
-
-  if (!story) {
-    notFound();
-  }
-
-  return (
-    <main className={styles.page}>
-      <StoryDetails story={story} />
-
-      {/* <SaveStory storyId={story._id} isSaved={story.isSaved ?? false} /> */}
-
-      {/* RecomendedStories буде тут */}
-    </main>
-  );
+export default function StoryPage({ params }: Props) {
+  return <StoryPageClient params={params} />;
 }

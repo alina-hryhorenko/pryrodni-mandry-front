@@ -1,8 +1,14 @@
+import type { Metadata } from 'next';
+
 import css from './TravellersPage.module.css';
 
 import { getAllTravellers } from '@/services/users';
 
 import TravellersSection from '@/components/travellers/TravellersSection/TravellersSection';
+
+export const metadata: Metadata = {
+  title: 'Мандрівники',
+};
 
 export default async function TravellersPage() {
   const { users, totalPages } = await getAllTravellers(1, 12);
