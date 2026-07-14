@@ -7,6 +7,7 @@ import css from './LoginForm.module.css';
 import { useRouter } from 'next/navigation';
 import { ApiError } from '@/app/api/api';
 import { login } from '@/services/auth';
+import { useAuthStore } from '@/store/authStore';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -31,16 +32,17 @@ export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const fieldId = useId();
+  const setUser = useAuthStore((state) => state.setUser);
   const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
     try {
-      console.log('Order data', values);
       // Виконуємо запит
       const res = await login(values);
       // Виконуємо редірект або відображаємо помилку
       if (res) {
+        setUser(res);
         actions.resetForm();
         router.push('/');
       } else {

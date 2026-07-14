@@ -57,6 +57,12 @@ export const getPopularStories = async (): Promise<Story[]> => {
   return body.data;
 };
 
-export const saveStory = async (storyId: string) => {};
+export const saveStory = async (storyId: string) => {
+  const { data } = await api.post('/users/save', { storyId });
+  return data;
+};
 
-export const unsaveStory = async (storyId: string) => {};
+export const unsaveStory = async (storyId: string) => {
+  const { data } = await api.delete(`/users/save/${storyId}`);
+  return data;
+};
