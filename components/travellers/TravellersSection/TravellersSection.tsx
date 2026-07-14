@@ -29,7 +29,7 @@ export default function TravellersSection({
       const nextPage = page + 1;
 
       const res = await fetch(
-        `/api/travellers?page=${nextPage}&limit=${USERS_LIMIT}`,
+        `/api/users?page=${nextPage}&limit=${USERS_LIMIT}`,
       );
       const data = await res.json();
 
