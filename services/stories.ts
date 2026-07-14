@@ -38,7 +38,7 @@ export const getAllStories = async(params: getAllStoriesProps): Promise<getAllSt
 
 export const getStoryById = async (storyId: string): Promise<StoryDetailsData | null> => {
   try {
-    const res = await api.get<getStoryByIdResponse>(`/story/${storyId}`);
+    const res = await api.get<getStoryByIdResponse>(`/stories/${storyId}`);
 
     return res.data.data;
   } catch (error) {
