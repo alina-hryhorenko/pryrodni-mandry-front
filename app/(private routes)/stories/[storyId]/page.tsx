@@ -36,8 +36,6 @@ export default async function Page({ params }: Props) {
     <main className={styles.page}>
       <StoryDetails story={story} />
 
-      {/* <SaveStory storyId={story._id} isSaved={story.isSaved ?? false} /> */}
-
       {/* RecomendedStories буде тут */}
     </main>
   );
