@@ -1,0 +1,144 @@
+/* MOBILE */
+
+.mobileSelect {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.heading {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-scheme-1-text);
+    margin-bottom: 8px;
+}
+
+.selectButton {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    border-radius: 6px;
+    background: transparent;
+    font-size: 16px;
+    color: var(--color-scheme-2-text);
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--opacity-neutral-darkest-60);
+    transition: transform 250ms;
+}
+
+.open {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border: 1px solid var(--color-mantis-light);
+    border-radius: 6px;
+    background: var(--color-scheme-1-background);
+}
+
+.option {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    text-align: left;
+    font-size: 16px;
+    color: var(--color-scheme-2-text);
+    cursor: pointer;
+}
+
+.option:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.categoryList {
+    display: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.categoryElement {
+    cursor: pointer;
+}
+
+.active {
+    background: var(--color-neutral-lightest);
+    border-radius: 8px;
+    color: var(--color-scheme-2-text);
+}
+
+/* TABLET */
+
+@media (min-width: 768px) {
+    .heading {
+        display: none;
+    }
+
+    .mobileSelect {
+        display: none;
+    }
+
+    .categoryList {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 720px;
+    }
+
+    .categoryElement {
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--color-scheme-2-text);
+        transition: background-color 250ms;
+        font-weight: 400;
+    }
+
+    .categoryElement:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .active {
+        background: var(--color-scheme-1-foreground);
+        font-weight: 500;
+    }
+}
+
+/* DESKTOP */
+
+@media (min-width: 1440px) {
+    .categoryList {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .categoryElement {
+        font-size: 18px;
+    }
+
+    .active {
+        font-size: 20px;
+    }
+}
