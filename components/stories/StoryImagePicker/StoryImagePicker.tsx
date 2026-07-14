@@ -1,10 +1,13 @@
 'use client';
 
-import Image from 'next/image';
 import { useRef } from 'react';
-import css from './StoryImagePicker.module.css';
-import placeholder from '/public/images/Placeholder.webp';
+import Image from 'next/image';
 import { useField } from 'formik';
+
+import placeholder from '/public/images/Placeholder.webp';
+import { ALLOWED_IMAGE_TYPES } from '@/constants/stories';
+
+import css from './StoryImagePicker.module.css';
 
 interface StoryImagePickerProps {
   imagePreview: string;
@@ -19,8 +22,6 @@ export default function StoryImagePicker({
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     handleImageChange(file ?? null);
@@ -28,7 +29,7 @@ export default function StoryImagePicker({
     if (!file) return;
 
     if (file){
-      if(!allowedTypes.includes(file.type) || file.size > 1024 * 1024)
+      if(!ALLOWED_IMAGE_TYPES.includes(file.type) || file.size > 1024 * 1024)
           helpers.setTouched(true);
       return handleImageChange(file ?? null);
     }

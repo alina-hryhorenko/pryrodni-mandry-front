@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 
 import { createStory } from '@/services/stories';
 import { StoryFormData } from '@/types/story';
 import StoryImagePicker from '../StoryImagePicker/StoryImagePicker';
+import { storyValidationSchema } from '@/constants/storyValidation';
 
+import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE } from '@/constants/stories';
 import css from './StoryForm.module.css';
 
 const initialValues: StoryFormData = {
@@ -18,33 +19,6 @@ const initialValues: StoryFormData = {
   category: '',
   article: '',
 };
-
-export const ALLOWED_IMAGE_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/webp',
-];
-
-export const MAX_IMAGE_SIZE = 1024 * 1024;
-
-const validationSchema = Yup.object().shape({
-  img: Yup.mixed<File>().required('Image is required'),
-  title: Yup.string()
-    .min(2, 'Title must be at least 2 characters')
-    .max(40, 'Title must be no more than 40 characters')
-    .required('Title is required'),
-  category: Yup.string()
-    .oneOf(
-      ['routes', 'eco-tips', 'nature', 'culture', 'local-products'],
-      'Invalid category',
-    )
-    .required('Category is required'),
-  article: Yup.string()
-    .min(12, 'Story must be at least 12 characters')
-    .max(3000, 'Story must be no more than 3000 characters')
-    .required('Story is required'),
-});
 
 export function StoryForm() {
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -69,8 +43,6 @@ export function StoryForm() {
     // actions.resetForm();
   };
 
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
   const handleImageChange = (
     file: File | null,
     setFieldValue: (field: string, value: File | null) => void,
@@ -84,11 +56,11 @@ export function StoryForm() {
       return;
     }
 
-    if (!allowedTypes.includes(file.type) || file.size > 1024 * 1024) {
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type) || file.size > MAX_IMAGE_SIZE) {
       setFieldValue('img', null);
       setImagePreview('');
       setError(
-        !allowedTypes.includes(file.type)
+        !ALLOWED_IMAGE_TYPES.includes(file.type)
           ? 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.'
           : 'Max file size 1MB',
       );
@@ -108,7 +80,7 @@ export function StoryForm() {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={storyValidationSchema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched, dirty, isValid, setFieldValue, resetForm }) => (
