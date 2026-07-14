@@ -1,7 +1,27 @@
 import { User } from '@/types/user';
 import api from './api';
-
+import { create } from 'zustand';
 // Authentication API functions
+
+
+type AuthStore = {
+  isAuthenticated: boolean;
+  user: User | null;
+  setUser: (user: User) => void;
+  clearIsAuth: () => void;
+};
+
+export const useAuthStore = create<AuthStore>((set) => ({
+  isAuthenticated: false,
+  user: null,
+  setUser: (user: User) => {
+    set(() => ({ user, isAuthenticated: true }));
+  },
+  clearIsAuth: () => {
+    set(() => ({ user: null, isAuthenticated: false }));
+  },
+}));
+
 export type LoginRequest = {
   email: string;
   password: string;
@@ -28,3 +48,4 @@ export const getMe = async () => {
   console.log('getMe', data);
   return data;
 };
+
