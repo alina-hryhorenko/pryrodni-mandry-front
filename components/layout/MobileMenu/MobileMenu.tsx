@@ -45,7 +45,7 @@ export default function MobileMenu({
         </Link>
 
         <div className={styles.topActions}>
-          {isAuthenticated ? (
+          {isAuthenticated && (
             <Link
               href="/stories/new"
               className={styles.publishLink}
@@ -53,10 +53,6 @@ export default function MobileMenu({
             >
               Опублікувати статтю
             </Link>
-          ) : (
-            <div className={styles.tabletAuth}>
-              <AuthBar />
-            </div>
           )}
 
           <button
