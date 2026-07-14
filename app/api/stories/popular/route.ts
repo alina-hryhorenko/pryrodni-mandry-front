@@ -3,13 +3,9 @@ import { isAxiosError } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import { logErrorResponse } from '../../_utils/utils';
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ storyId: string }> }
-) {
+export async function GET(_req: NextRequest) {
   try {
-    const { storyId } = await params;
-    const res = await api.get(`/api/story/${storyId}`);
+    const res = await api.get(`/api/stories/popular`);
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {

@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
 import { useAuthStore } from '@/store/authStore';
-import { normalizeStory, Story } from '@/types/story';
+import { Story } from '@/types/story';
 import { ErrorWhileSavingModal } from '@/components/ErrorWhileSavingModal/ErrorWhileSavingModal';
 import Icon from '../ui/Icon/Icon';
 import styles from './StoryCard.module.css';
@@ -14,18 +14,21 @@ import styles from './StoryCard.module.css';
 const PLACEHOLDER = '/placeholder.png';
 
 export function StoryCard({ story }: { story: Story }) {
-  const normalized = useMemo(() => normalizeStory(story), [story]);
+  const image = story.img || story.imageURL || PLACEHOLDER;
+  const saves = story.savedBySize ?? story.rate ?? 0;
+  const authorName = story.ownerId?.name || 'Невідомий автор';
+  const authorId = story.ownerId?._id;
 
-  const isSaved = useSavedStoriesStore((state) => state.isSaved(normalized.id));
+  const isSaved = useSavedStoriesStore((state) => state.isSaved(story._id));
   const toggleSaved = useSavedStoriesStore((state) => state.toggleSaved);
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const [isSaving, setIsSaving] = useState(false);
-  const [imgSrc, setImgSrc] = useState(normalized.image || PLACEHOLDER);
+  const [imgSrc, setImgSrc] = useState(image);
 
-  const storyUrl = `/stories/${normalized.id}`;
+  const storyUrl = `/stories/${story._id}`;
 
   async function handleSaveClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
@@ -39,7 +42,7 @@ export function StoryCard({ story }: { story: Story }) {
 
     setIsSaving(true);
     try {
-      await toggleSaved(normalized.id);
+      await toggleSaved(story._id);
     } catch (error) {
       const message =
         error instanceof Error
@@ -63,7 +66,7 @@ export function StoryCard({ story }: { story: Story }) {
         >
           <Image
             src={imgSrc}
-            alt={normalized.title}
+            alt={story.title}
             fill
             sizes="(max-width: 768px) 335px, (max-width: 1440px) 340px, 421px"
             className={styles.image}
@@ -74,21 +77,18 @@ export function StoryCard({ story }: { story: Story }) {
         <div className={styles.content}>
           <div className={styles.authorInfo}>
             <span className={styles.authorName}>
-              {normalized.author.name ? (
-                <Link
-                  href={`/users/${normalized.author.id}`}
-                  className={styles.authorLink}
-                >
-                  {normalized.author.name}
+              {authorId ? (
+                <Link href={`/users/${authorId}`} className={styles.authorLink}>
+                  {authorName}
                 </Link>
               ) : (
-                'Невідомий автор'
+                authorName
               )}
               <span className={styles.separator}>·</span>
             </span>
 
             <div className={styles.rating}>
-              <span>{normalized.saves}</span>
+              <span>{saves}</span>
               <span className={styles.ratingbox}>
                 <Icon name="icon-bookmark" className={styles.ratingIcon} />
               </span>
@@ -100,9 +100,9 @@ export function StoryCard({ story }: { story: Story }) {
               href={storyUrl}
               tabIndex={-1}
               aria-hidden="true"
-              title={normalized.title}
+              title={story.title}
             >
-              {normalized.title}
+              {story.title}
             </Link>
           </h3>
 
@@ -110,7 +110,7 @@ export function StoryCard({ story }: { story: Story }) {
             <Link
               href={storyUrl}
               className={styles.viewBtn}
-              aria-label={`Переглянути статтю: ${normalized.title}`}
+              aria-label={`Переглянути статтю: ${story.title}`}
             >
               Переглянути статтю
             </Link>

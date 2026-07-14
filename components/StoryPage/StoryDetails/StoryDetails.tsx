@@ -53,7 +53,7 @@ export default function StoryDetails({ story }: Props) {
             </p>
           </div>
 
-          <p className={styles.category}>{category || 'Без категорії'}</p>
+          <p className={styles.category}>{category?.name || 'Без категорії'}</p>
         </div>
 
         {/* RIGHT */}
