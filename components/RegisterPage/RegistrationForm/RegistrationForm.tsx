@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './RegistrationForm.module.css';
 import { useAuthStore } from '@/store/authStore';
+import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
 import { register, RegisterRequest } from '@/services/auth';
 import toast from 'react-hot-toast';
 const Validationschema = Yup.object({
@@ -28,6 +29,7 @@ export default function RegistrationForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
+  const setSavedIds = useSavedStoriesStore((state) => state.setSavedIds);
   const handleSubmit = async (values: RegisterRequest) => {
     try {
       setLoading(true);
@@ -35,6 +37,7 @@ export default function RegistrationForm() {
       const user = await register(values);
 
       setUser(user);
+      setSavedIds(user.savedArticles ?? []);
       router.push('/');
     } catch (error) {
       toast.error('Не вдалося зареєструватись. Спробуйте ще раз.');
