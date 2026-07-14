@@ -1,7 +1,14 @@
+import type { Metadata } from 'next';
 import css from './Register.module.css';
 import MainAuthNav from '@/components/RegisterPage/MainAuthNav/MainAuthNav';
 import RegistrationForm from '@/components/RegisterPage/RegistrationForm/RegistrationForm';
 import AuthFooter from '@/components/RegisterPage/AuthFooter/AuthFooter';
+
+export const metadata: Metadata = {
+  title: 'Реєстрація',
+  description: 'Приєднуйтесь до спільноти мандрівників Природні Мандри.',
+};
+
 export default function RegisterPage() {
   return (
     <div className={css.page}>
