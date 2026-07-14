@@ -4,22 +4,49 @@ import { useState } from 'react';
 import styles from './SaveStory.module.css';
 import { toast } from 'react-hot-toast';
 
+import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
+import { useAuthStore } from '@/store/authStore';
+
 type SaveStoryProps = {
   storyId: string;
-  isSaved: boolean;
-  onOpenAuthModal?: () => void; 
+  onOpenErrorModal?: () => void;
 };
 
 export default function SaveStory({
   storyId,
-  isSaved,
-  onOpenAuthModal,
+  onOpenErrorModal,
 }: SaveStoryProps) {
-  const [saved, setSaved] = useState<boolean>(isSaved);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+
+  const isAuth = useAuthStore((state) => state.isAuthenticated);
+
+  const isSaved = useSavedStoriesStore((state) =>
+    state.isSaved(storyId)
+  );
+
+  const toggleSaved = useSavedStoriesStore(
+    (state) => state.toggleSaved
+  );
 
   const handleClick = async () => {
-    setLoading(true);
+    if (!isAuth) {
+      onOpenErrorModal?.();
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await toggleSaved(storyId);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Не вдалося зберегти історію';
+
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,11 +62,13 @@ export default function SaveStory({
       <button
         onClick={handleClick}
         disabled={loading}
-        className={styles.button}
+        className={`${styles.button} ${
+          isSaved ? styles.saved : ''
+        }`}
       >
         {loading
           ? 'Завантаження...'
-          : saved
+          : isSaved
           ? 'Видалити зі збережених'
           : 'Зберегти'}
       </button>
