@@ -26,7 +26,7 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
   const [isAvatarPlaceholderBroken, setIsAvatarPlaceholderBroken] =
     useState(false);
 
-  const userName = user?.username || 'Користувач';
+  const userName = user?.name || 'Користувач';
   const avatarLetter = userName[0]?.toUpperCase() || 'U';
 
   const handleLogoutConfirm = async () => {
@@ -45,9 +45,9 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
     <>
       <div className={`${styles.userBar} ${styles[variant]}`}>
         <div className={styles.userInfo}>
-          {user?.avatar ? (
+          {user?.avatarUrl ? (
             <img
-              src={user.avatar}
+              src={user.avatarUrl}
               alt=""
               width={32}
               height={32}
