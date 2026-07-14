@@ -28,8 +28,19 @@ export type LoginRequest = {
 };
 
 export const login = async (data: LoginRequest) => {
-  const res = await api.post('/auth/login', data);
+  const res = await api.post<User>('/auth/login', data);
   console.log('res.data', res.data);
+  return res.data;
+};
+
+export type RegisterRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export const register = async (data: RegisterRequest) => {
+  const res = await api.post<User>('/auth/register', data);
   return res.data;
 };
 

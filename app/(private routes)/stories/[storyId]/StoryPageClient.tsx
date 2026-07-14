@@ -5,6 +5,7 @@ import { getStoryById, StoryDetailsData } from '@/services/stories'; // Імпо
 import StoryDetails from '@/components/StoryPage/StoryDetails/StoryDetails';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
+import RecomendedStories from '@/components/StoryPage/RecomendedStories';
 
 type Props = {
   params: Promise<{ storyId: string }>;
@@ -49,7 +50,7 @@ export default function StoryPageClient({ params }: Props) {
     <main className={styles.page}>
       <StoryDetails story={story} />
 
-      {/* RecomendedStories буде тут */}
+      <RecomendedStories category={story.category.id} />
     </main>
   );
 }

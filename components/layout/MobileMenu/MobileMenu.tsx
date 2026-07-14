@@ -69,7 +69,6 @@ export default function MobileMenu({
           </button>
         </div>
       </div>
-
       <nav
         className={styles.navigation}
         aria-label="Навігація в мобільному меню"
@@ -79,12 +78,6 @@ export default function MobileMenu({
             {label}
           </Link>
         ))}
-
-        {isAuthenticated && (
-          <Link href="/profile" onClick={onClose}>
-            Мій профіль
-          </Link>
-        )}
       </nav>
 
       <div className={styles.actions}>

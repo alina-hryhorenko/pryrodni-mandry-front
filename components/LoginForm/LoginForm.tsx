@@ -7,14 +7,16 @@ import css from './LoginForm.module.css';
 import { useRouter } from 'next/navigation';
 import { ApiError } from '@/app/api/api';
 import { login } from '@/services/auth';
+import { useAuthStore } from '@/store/authStore';
+import toast from 'react-hot-toast';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email format')
-    .required('Email is required'),
+    .email('Невірний формат email')
+    .required('Email обовʼязковий'),
   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
+    .min(8, 'Мінімум 8 символів')
+    .required('Пароль обовʼязковий'),
 });
 
 interface LoginFormValues {
@@ -29,29 +31,36 @@ const initialValues: LoginFormValues = {
 
 export default function LoginForm() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fieldId = useId();
+  const setUser = useAuthStore((state) => state.setUser);
   const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
     try {
-      console.log('Order data', values);
+      setLoading(true);
       // Виконуємо запит
       const res = await login(values);
       // Виконуємо редірект або відображаємо помилку
       if (res) {
+        setUser(res);
         actions.resetForm();
         router.push('/');
       } else {
-        setError('Invalid email or password');
+        setError('Не вірний email або пароль');
       }
     } catch (error) {
+      toast.error('Не вдалося увійти. Спробуйте ще раз.');
+      setLoading(false);
       setError(
         (error as ApiError).response?.data?.error ??
           (error as ApiError).message ??
           'Oops... some error',
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,6 +81,7 @@ export default function LoginForm() {
           type="email"
           name="email"
           id={`${fieldId}-email`}
+          placeholder="hello@podorozhnyky.ua"
         />
         <ErrorMessage name="email" component="span" className={css.error} />
 
@@ -83,10 +93,11 @@ export default function LoginForm() {
           type="password"
           name="password"
           id={`${fieldId}-pass`}
+          placeholder="********"
         />
         <ErrorMessage name="password" component="span" className={css.error} />
-        <button className={css.btn} type="submit">
-          Увійти
+        <button className={css.btn} type="submit" disabled={loading}>
+          {loading ? 'Завантаження...' : 'Увійти'}
         </button>
       </Form>
     </Formik>

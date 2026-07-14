@@ -2,45 +2,50 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { saveStory, unsaveStory } from '@/services/stories';
 
-interface SavedStore {
+type SavedStoriesState = {
   savedIds: string[];
-  isSaved: (id: string) => boolean;
-  toggleSaved: (id: string) => Promise<void>;
-}
+  isSaved: (storyId: string) => boolean;
+  toggleSaved: (storyId: string) => Promise<void>;
+  setSavedIds: (ids: string[]) => void;
+  reset: () => void;
+};
 
-export const useSavedStoriesStore = create<SavedStore>()(
+export const useSavedStoriesStore = create<SavedStoriesState>()(
   persist(
     (set, get) => ({
       savedIds: [],
 
-      isSaved: (id) => get().savedIds.includes(id),
+      isSaved: (storyId) => get().savedIds.includes(storyId),
 
-      toggleSaved: async (id) => {
-        const isAlreadySaved = get().savedIds.includes(id);
+      toggleSaved: async (storyId) => {
+        const wasSaved = get().isSaved(storyId);
+
         set((state) => ({
-          savedIds: isAlreadySaved
-            ? state.savedIds.filter((savedId) => savedId !== id)
-            : [...state.savedIds, id],
+          savedIds: wasSaved
+            ? state.savedIds.filter((id) => id !== storyId)
+            : [...state.savedIds, storyId],
         }));
 
         try {
-          if (isAlreadySaved) {
-            await unsaveStory(id);
+          if (wasSaved) {
+            await unsaveStory(storyId);
           } else {
-            await saveStory(id);
+            await saveStory(storyId);
           }
         } catch (error) {
           set((state) => ({
-            savedIds: isAlreadySaved
-              ? [...state.savedIds, id]
-              : state.savedIds.filter((savedId) => savedId !== id),
+            savedIds: wasSaved
+              ? [...state.savedIds, storyId]
+              : state.savedIds.filter((id) => id !== storyId),
           }));
-          console.error('Не вдалося змінити статус збереження ', error);
+          throw error;
         }
       },
+
+      setSavedIds: (ids) => set({ savedIds: ids }),
+
+      reset: () => set({ savedIds: [] }),
     }),
-    {
-      name: 'saved_stories',
-    },
+    { name: 'saved-stories' },
   ),
 );

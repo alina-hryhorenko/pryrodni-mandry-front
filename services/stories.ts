@@ -4,7 +4,6 @@ import { PopularStoriesResponse, Story } from '@/types/story';
 
 export type StoryDetailsData = Story & {
   date?: string;
-  category?: string;
   isSaved?: boolean;
 };
 
@@ -16,7 +15,7 @@ interface getStoryByIdResponse {
 type SortBy = 'popular' | 'new';
 
 export interface getAllStoriesProps {
-  page: number;
+  page?: number;
   limit?: number;
   category?: string;
   sort?: SortBy
@@ -58,6 +57,12 @@ export const getPopularStories = async (): Promise<Story[]> => {
   return body.data;
 };
 
-export const saveStory = async (storyId: string) => {};
+export const saveStory = async (storyId: string) => {
+  const { data } = await api.post('/users/save', { storyId });
+  return data;
+};
 
-export const unsaveStory = async (storyId: string) => {};
+export const unsaveStory = async (storyId: string) => {
+  const { data } = await api.delete(`/users/save/${storyId}`);
+  return data;
+};
