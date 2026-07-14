@@ -9,12 +9,12 @@ import { useAuthStore } from '@/store/authStore';
 
 type SaveStoryProps = {
   storyId: string;
-  onOpenAuthModal?: () => void;
+  onOpenErrorModal?: () => void;
 };
 
 export default function SaveStory({
   storyId,
-  onOpenAuthModal,
+  onOpenErrorModal,
 }: SaveStoryProps) {
   const [loading, setLoading] = useState(false);
 
@@ -30,9 +30,10 @@ export default function SaveStory({
 
   const handleClick = async () => {
     if (!isAuth) {
-      onOpenAuthModal?.();
+      onOpenErrorModal?.();
       return;
     }
+
     try {
       setLoading(true);
       await toggleSaved(storyId);
@@ -61,7 +62,9 @@ export default function SaveStory({
       <button
         onClick={handleClick}
         disabled={loading}
-        className={styles.button}
+        className={`${styles.button} ${
+          isSaved ? styles.saved : ''
+        }`}
       >
         {loading
           ? 'Завантаження...'

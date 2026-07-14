@@ -25,7 +25,6 @@
 .boxText {
   font-size: 16px;
   line-height: 1.5;
-
   font-weight: 400;
   color: #000;
 }
@@ -43,36 +42,34 @@
 
   padding: 6px 12px;
   height: 48px;
+
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 16px;
 
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .button:hover {
   background: #3c7f3c;
 }
 
+
 .button:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.saved {
+  background: transparent;
+  color: #4a9849;
+  border: 1px solid #4a9849;
 }
 
-.modalBox {
-  background: #fff;
-  padding: 20px;
-  border-radius: 24px;
+.saved:hover {
+  background: rgba(74, 152, 73, 0.1);
 }
 
 /* TABLET */
