@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { isAxiosError } from 'axios';
 import { api } from '@/app/api/api';
-import { Story } from '@/types/story';
+import { StoryDetailsData } from '@/services/stories';
 import StoryPageClient from './StoryPageClient';
 
 type Props = {
@@ -12,14 +12,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { storyId } = await params;
 
   try {
-    const res = await api.get<{ status: number; data: Story }>(
-      `/api/story/${storyId}`
+    const res = await api.get<{ status: number; data: StoryDetailsData }>(
+      `/api/story/${storyId}`,
     );
     const story = res.data.data;
 
-    const description = story.article
-      ? story.article.slice(0, 160)
-      : undefined;
+    const description = story.article ? story.article.slice(0, 160) : undefined;
 
     return {
       title: story.title,
