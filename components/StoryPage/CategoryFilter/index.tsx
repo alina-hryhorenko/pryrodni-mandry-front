@@ -12,9 +12,10 @@ interface CategoryFilterProps {
 const CategoryFilter = ({ activeCategory, onSelectCategory }: CategoryFilterProps) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [error, setError] = useState<string | null>(null);
+    
 
-    const fetchCategories = async() => {
-        try{
+    const fetchCategories = async () => {
+        try {
             const res = await getCategories();
             setCategories(res.data);
         } catch (err) {
@@ -33,24 +34,74 @@ const CategoryFilter = ({ activeCategory, onSelectCategory }: CategoryFilterProp
         },
         ...categories
     ]
+    const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <>
-        {error && <p className={style.error}>{error}</p>}
+    const selectedCategory =
+        categoriesFilter.find(
+            item => item._id === activeCategory
+        )?.category || 'Всі статті';
 
-        <ul className={style.categoryList}>
-            {categoriesFilter.map((category) => (
-                <li
-                    className={`${style.categoryElement} ${activeCategory === category._id ? style.active : ''}`}
-                    key={category._id}
-                    onClick={() => onSelectCategory(category._id)}
+    return (
+        <div className="container">
+            {error && <p className={style.error}>{error}</p>}
+
+            <div className={style.mobileSelect}>
+                <p className={ style.heading}>Категорії</p>
+                <button
+                    type="button"
+                    className={style.selectButton}
+                    onClick={() => setIsOpen(prev => !prev)}
                 >
-                    {category.category}
-                </li>
-            ))}
-        </ul>
-    </>
-  )
+                    <span>{selectedCategory}</span>
+
+                    <svg
+                        className={`${style.icon} ${isOpen ? style.open : ''
+                            }`}
+                    >
+                        <use href="/icons/sprite.svg#icon-arrow_down" />
+                    </svg>
+                </button>
+
+                {isOpen && (
+                    <div className={style.dropdown}>
+                        {categoriesFilter.map(category => (
+                            <button
+                                key={category._id}
+                                type="button"
+                                className={`${style.option} ${activeCategory === category._id
+                                        ? style.active
+                                        : ''
+                                    }`}
+                                onClick={() => {
+                                    onSelectCategory(category._id);
+                                    setIsOpen(false);
+                                }}
+                            >
+                                {category.category}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            <ul className={style.categoryList}>
+                {categoriesFilter.map(category => (
+                    <li
+                        key={category._id}
+                        className={`${style.categoryElement} ${activeCategory === category._id
+                                ? style.active
+                                : ''
+                            }`}
+                        onClick={() =>
+                            onSelectCategory(category._id)
+                        }
+                    >
+                        {category.category}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default CategoryFilter
