@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ApiError } from '@/app/api/api';
 import { login } from '@/services/auth';
 import { useAuthStore } from '@/store/authStore';
-import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
+import toast from 'react-hot-toast';
 
 const LoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -31,32 +31,36 @@ const initialValues: LoginFormValues = {
 
 export default function LoginForm() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fieldId = useId();
   const setUser = useAuthStore((state) => state.setUser);
-  const setSavedIds = useSavedStoriesStore((state) => state.setSavedIds);
   const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
     try {
+      setLoading(true);
       // Виконуємо запит
       const res = await login(values);
       // Виконуємо редірект або відображаємо помилку
       if (res) {
         setUser(res);
-        setSavedIds(res.savedArticles ?? []);
         actions.resetForm();
         router.push('/');
       } else {
         setError('Не вірний email або пароль');
       }
     } catch (error) {
+      toast.error('Не вдалося увійти. Спробуйте ще раз.');
+      setLoading(false);
       setError(
         (error as ApiError).response?.data?.error ??
           (error as ApiError).message ??
           'Oops... some error',
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,8 +96,8 @@ export default function LoginForm() {
           placeholder="********"
         />
         <ErrorMessage name="password" component="span" className={css.error} />
-        <button className={css.btn} type="submit">
-          Увійти
+        <button className={css.btn} type="submit" disabled={loading}>
+          {loading ? 'Завантаження...' : 'Увійти'}
         </button>
       </Form>
     </Formik>
