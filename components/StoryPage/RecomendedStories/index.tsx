@@ -1,5 +1,6 @@
 'use client'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import style from './RecomendedStories.module.css'
 import { Story } from '@/types/story';
 import { StoryCard } from '../../StoryCard/StoryCard';
@@ -16,17 +17,8 @@ const RecomendedStories = ({ category }: RecomendedStoriesProps) => {
     const [recoStories, setRecoStories] = useState<Story[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [limit, setLimit] = useState<number>(3);
-
-    useEffect(() => {
-      const updateLimit = () => {
-        setLimit(window.innerWidth >= DESKTOP_BREAKPOINT ? 3 : 2);
-      };
-
-      updateLimit();
-      window.addEventListener('resize', updateLimit);
-      return () => window.removeEventListener('resize', updateLimit);
-    }, [])
+    const isDesktop = useMediaQuery({ minWidth: DESKTOP_BREAKPOINT });
+    const limit = isDesktop ? 3 : 2;
 
     const getStories = useCallback(async () => {
       setIsLoading(true);
