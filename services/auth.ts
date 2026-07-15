@@ -54,13 +54,11 @@ type CheckSessionRequest = {
 
 export const checkSession = async () => {
   const res = await api.get<CheckSessionRequest>('/auth/session');
-  console.log('checkSession', res.data);
   return res.data.success;
 };
 
 export const getMe = async () => {
   const { data } = await api.get<User>('/auth/me');
-  console.log('getMe', data);
   return data;
 };
 

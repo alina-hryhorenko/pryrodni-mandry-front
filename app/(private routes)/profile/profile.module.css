@@ -1,0 +1,42 @@
+.page {
+  margin: 0 auto;
+}
+/* .storiesSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+} */
+
+.profilePageSection{
+    width: 100%;
+    padding: 32px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 24px;
+}
+
+.error {
+  color: var(--error-color);
+}
+
+@media (min-width: 768px) {
+    .profilePageSection{
+        padding: 32px;
+    }
+}
+
+/* LAPTOP */
+@media (min-width: 1440px) {
+    .profilePageSection{
+        padding: 64px 48px;
+    }
+}

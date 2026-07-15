@@ -70,6 +70,34 @@ export const unsaveStory = async (storyId: string) => {
   return data;
 };
 
+export const getSavedStories = async ({ page = 1, limit = 6 }) => {
+  const { data } = await api.get('/users/saved-stories', {
+    params: {
+      page,
+      limit,
+    },
+  });
+
+  return {
+    stories: data.savedStories ?? data.stories ?? [],
+    totalPages: data.totalPages ?? 1,
+  };
+};
+
+export const getMyStories = async ({ page = 1, limit = 6 }) => {
+  const { data } = await api.get('/users/my-stories', {
+    params: {
+      page,
+      limit,
+    },
+  });
+
+  return {
+    stories: data.myStories ?? data.stories ?? [],
+    totalPages: data.totalPages ?? 1,
+  };
+};
+
 export const createStory = async (newStory: StoryFormData): Promise<Story> => {
   const formData = new FormData();
 
