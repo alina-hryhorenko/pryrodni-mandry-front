@@ -21,6 +21,7 @@ export async function middleware(request: NextRequest) {
     if (refreshToken) {
       const { headers } = await checkSession(
         request.headers.get('cookie') ?? '',
+        request.nextUrl.origin,
       );
       const setCookie = headers['set-cookie'];
 
