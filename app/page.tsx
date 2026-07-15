@@ -10,8 +10,8 @@ export default function HomePage() {
     <>
       <main>
         <Hero />
-        <About />
         <PopularStories />
+        <About />
         <OurTravellers />
         <Join />
       </main>

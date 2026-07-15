@@ -1,15 +1,5 @@
 import api from './api';
 
-export const getUsers = async ({
-  page = 1,
-  limit = 6,
-}: { page?: number; limit?: number } = {}) => {
-  const { data } = await api.get('/users', {
-    params: { page, limit },
-  });
-  return data;
-};
-
 export const getAllTravellers = async (page = 1, limit = 6) => {
   const { data } = await api.get('/users', {
     params: { page, limit },

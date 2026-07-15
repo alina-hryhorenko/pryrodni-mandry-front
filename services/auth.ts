@@ -52,9 +52,11 @@ type CheckSessionRequest = {
   success: boolean;
 };
 
-export const checkSession = async () => {
-  const res = await api.get<CheckSessionRequest>('/auth/session');
-  return res.data.success;
+export const checkSession = async (cookieHeader: string) => {
+  const res = await api.get<CheckSessionRequest>('/auth/session', {
+    headers: { Cookie: cookieHeader },
+  });
+  return res;
 };
 
 export const getMe = async () => {
