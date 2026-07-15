@@ -1,0 +1,30 @@
+.footer {
+  text-align: center;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-scheme-1-text);
+}
+.desktop {
+  display: none;
+}
+
+.mobile {
+  display: inline;
+}
+
+@media (min-width: 1440px) {
+  .footer {
+    margin-top: 0;
+    font-size: 16px;
+  }
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: inline;
+  }
+}

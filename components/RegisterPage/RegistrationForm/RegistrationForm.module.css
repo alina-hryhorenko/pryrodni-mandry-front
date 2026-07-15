@@ -1,0 +1,132 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* margin-bottom: 32px; */
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-scheme-1-text, #1a1a1a);
+}
+
+.input {
+  margin-top: 8px;
+  border: 1px solid var(--opacity-neutral-darkest-15);
+  border-radius: 6px;
+  padding: 8px;
+  width: 100%;
+  height: 43px;
+  transition: 300ms ease-in-out;
+}
+
+.input:hover {
+  border-color: var(--color-mantis);
+}
+
+.input:focus {
+  border-color: var(--color-mantis);
+  outline: none;
+}
+
+.input::placeholder {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.inputError {
+  border-color: var(--color-red, #e5484d) !important;
+}
+.inputSuccess {
+  border-color: var(--color-mantis-dark, #4c9a2a);
+}
+
+.error {
+  margin-top: 4px;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  color: var(--color-error, #e5484d);
+}
+
+/* ===== BUTTON ===== */
+.button {
+  width: 100%;
+  height: 44px;
+
+  border: 1px solid var(--color-mantis-dark, #4c9a2a);
+  border-radius: 6px;
+  background: var(--color-mantis-dark, #4c9a2a);
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: #ffffff;
+
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.button:hover,
+.button:focus {
+  background: var(--color-mantis-lighter, #6bb84a);
+  border-color: var(--color-mantis-lighter, #6bb84a);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== TABLET / DESKTOP: інпут шириною 644px за специфікацією ===== */
+@media (min-width: 768px) {
+  .input,
+  .button {
+    width: 644px;
+    height: 40px;
+  }
+
+  /* .form {
+    margin-bottom: 0;
+  } */
+
+  /* .button {
+    margin-bottom: 146px;
+  } */
+}
+
+@media (min-width: 1440px) {
+  .label {
+    font-size: 18px;
+  }
+
+  .input,
+  .button {
+    width: 644px;
+    height: 43px;
+  }
+
+  .input {
+    font-size: 18px;
+  }
+
+  /* .form {
+    margin-bottom: 0;
+  } */
+
+  /* .button {
+    margin-bottom: 111px;
+  } */
+}

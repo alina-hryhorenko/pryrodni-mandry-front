@@ -1,0 +1,77 @@
+.page {
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContainer {
+  min-height: calc(
+    100vh - 80px
+  ); /* Вираховує чисту висоту від шапки до низу екрана */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Центрує картку входу по вертикалі */
+}
+
+.subtitleAll {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--color-scheme-1-text, #1a1a1a);
+  padding-bottom: 24px;
+}
+
+.subtitle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--color-scheme-1-text, #1a1a1a);
+}
+
+@media (min-width: 768px) {
+  .main {
+    max-width: 704px; /* 768px frame - 32px*2 padding */
+    padding: 0 32px;
+  }
+
+  .authBox {
+    max-width: 644px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    max-width: 1312px; /* 1440px frame - 64px*2 padding */
+    padding: 0 64px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+}
