@@ -55,6 +55,7 @@
   gap: 12px;
   padding: 16px;
   width: 335px;
+  height: 182px;
 }
 @media screen and (min-width: 768px) {
   .content {
@@ -64,6 +65,7 @@
 @media screen and (min-width: 1440px) {
   .content {
     width: 421px;
+    height: 212px;
   }
 }
 
@@ -242,4 +244,19 @@
   opacity: 0.3;
   cursor: not-allowed;
   background-color: var(--opacity-neutral-darkest-5);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

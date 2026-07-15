@@ -25,11 +25,17 @@ export function StoryCard({ story }: { story: Story }) {
   const resetSavedStories = useSavedStoriesStore((state) => state.reset);
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated);
+  const currentUserId = useAuthStore((state) => state.user?._id);
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated,
+  );
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const [isSaving, setIsSaving] = useState(false);
   const [imgSrc, setImgSrc] = useState(image);
+
+  const canEdit =
+    isAuthenticated && !!currentUserId && currentUserId === authorId;
 
   const storyUrl = `/stories/${story._id}`;
 
@@ -62,6 +68,10 @@ export function StoryCard({ story }: { story: Story }) {
       await new Promise((resolve) => setTimeout(resolve, 300));
       setIsSaving(false);
     }
+  }
+
+  function handleEditClick(event: React.MouseEvent<HTMLAnchorElement>) {
+    event.stopPropagation();
   }
 
   return (
@@ -124,23 +134,36 @@ export function StoryCard({ story }: { story: Story }) {
               Переглянути статтю
             </Link>
 
-            <button
-              type="button"
-              className={`${styles.saveBtn} ${isSaved ? styles.saved : ''}`}
-              onClick={handleSaveClick}
-              disabled={isSaving}
-              aria-label={isSaved ? 'Видалити зі збережених' : 'Зберегти'}
-              aria-busy={isSaving}
-            >
-              {isSaving ? (
-                <span className={styles.spinner} aria-hidden="true" />
-              ) : (
-                <Icon
-                  name="icon-bookmark"
-                  className={isSaved ? styles.saveIconFilled : styles.saveIcon}
-                />
-              )}
-            </button>
+            {canEdit ? (
+              <Link
+                href={`/stories/${story._id}/edit`}
+                className={styles.saveBtn}
+                onClick={handleEditClick}
+                aria-label="Редагувати статтю"
+              >
+                <Icon name="icon-pensil-edit" className={styles.saveIcon} />
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className={`${styles.saveBtn} ${isSaved ? styles.saved : ''}`}
+                onClick={handleSaveClick}
+                disabled={isSaving}
+                aria-label={isSaved ? 'Видалити зі збережених' : 'Зберегти'}
+                aria-busy={isSaving}
+              >
+                {isSaving ? (
+                  <span className={styles.spinner} aria-hidden="true" />
+                ) : (
+                  <Icon
+                    name="icon-bookmark"
+                    className={
+                      isSaved ? styles.saveIconFilled : styles.saveIcon
+                    }
+                  />
+                )}
+              </button>
+            )}
           </div>
         </div>
       </article>
