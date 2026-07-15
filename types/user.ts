@@ -8,3 +8,16 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface GetUsersResponse {
+  page: number;
+  limit: number;
+  totalItems: number;
+  totalPages: number;
+  users: User[];
+}
+
+export interface GetUsersParams {
+  page: number;
+  limit: number;
+}
