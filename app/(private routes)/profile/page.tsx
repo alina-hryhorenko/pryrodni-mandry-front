@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import ProfilePageClient from './ProfilePageClient';
 
 export const metadata: Metadata = {
-  title: 'Профіль',
+  title: 'Збережені історії',
+  description: 'Збережені історії мандрівника на платформі Природні Мандри.',
 };
 
 export default function ProfilePage() {
-  return <h1>Profile Page</h1>;
+  return <ProfilePageClient />
 }
