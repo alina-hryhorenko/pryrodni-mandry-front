@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "app/(private routes)/profile/my-stories/page.tsx"
   ],
   "exclude": ["node_modules"]
 }

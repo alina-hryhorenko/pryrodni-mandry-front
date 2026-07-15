@@ -1,15 +1,15 @@
-import { getMyStories } from '@/services/users';
+import { getMyStoriesServer } from '@/services/serverUsers';
 
 import { TravellerStories } from '@/components/travellers/TravellerStories/TravellerStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
 
 export default async function MyStoriesPage() {
-  const { stories } = await getMyStories({
+  const { stories, totalPages } = await getMyStoriesServer({
     page: 1,
     limit: 6,
   });
 
-  if (!stories || stories.length === 0) {
+  if (stories.length === 0) {
     return (
       <MessageNoStories
         text="Ви ще нічого не публікували, поділіться своєю першою історією!"
@@ -19,5 +19,11 @@ export default async function MyStoriesPage() {
     );
   }
 
-  return <TravellerStories stories={stories} />;
+  return (
+    <TravellerStories
+      initialStories={stories}
+      userId=""
+      totalPages={totalPages}
+    />
+  );
 }

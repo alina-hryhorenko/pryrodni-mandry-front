@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { getMe } from '@/services/users';
+
+import { getMeServer } from '@/services/serverUsers';
 
 import { TravellerInfo } from '@/components/travellers/TravellerInfo/TravellerInfo';
 import ProfileTabs from '@/components/ProfilePage/ProfileTabs/ProfileTabs';
@@ -11,7 +12,7 @@ export default async function ProfileLayout({
 }: {
   children: ReactNode;
 }) {
-  const user = await getMe();
+  const user = await getMeServer();
 
   return (
     <main className={styles.page}>

@@ -1,10 +1,13 @@
-import { getSavedStories } from '@/services/users';
+import { getSavedStoriesServer } from '@/services/serverUsers';
 
 import { TravellerStories } from '@/components/travellers/TravellerStories/TravellerStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
+import { getMeServer } from '@/services/serverUsers';
 
 export default async function ProfilePage() {
-  const { stories } = await getSavedStories({
+  const user = await getMeServer();
+
+  const { stories, totalPages } = await getSavedStoriesServer({
     page: 1,
     limit: 6,
   });
@@ -19,5 +22,11 @@ export default async function ProfilePage() {
     );
   }
 
-  return <TravellerStories stories={stories} />;
+  return (
+    <TravellerStories
+      initialStories={stories}
+      userId={user._id}
+      totalPages={totalPages}
+    />
+  );
 }

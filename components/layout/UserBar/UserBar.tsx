@@ -8,6 +8,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useSavedStoriesStore } from '@/store/useSavedStoriesStore';
 import { logout } from '@/services/auth';
 import Icon from '@/components/ui/Icon/Icon';
+import Avatar from '@/components/ui/Avatar/Avatar';
 import ConfirmModal from '@/components/ConfirmModal/ConfirmModal';
 
 import styles from './UserBar.module.css';
@@ -21,10 +22,11 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
   const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
-  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated);
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated,
+  );
   const resetSavedStories = useSavedStoriesStore((state) => state.reset);
   const userName = user?.name || 'Користувач';
-  const avatarLetter = userName[0]?.toUpperCase() || 'U';
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
@@ -51,9 +53,11 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
       </Link>
 
       <div className={styles.userInfo}>
-        <div className={styles.avatar} aria-label="Аватар користувача">
-          {avatarLetter}
-        </div>
+        <Avatar
+          src={user?.avatarUrl}
+          alt={`Аватар користувача ${userName}`}
+          size={32}
+        />
 
         <span className={styles.userName}>{userName}</span>
 
