@@ -14,7 +14,13 @@ import styles from './StoryCard.module.css';
 
 const PLACEHOLDER = '/placeholder.png';
 
-export function StoryCard({ story }: { story: Story }) {
+export function StoryCard({
+  story,
+  onUnsave,
+}: {
+  story: Story;
+  onUnsave?: (storyId: string) => void;
+}) {
   const image = story.img || story.imageURL || PLACEHOLDER;
   const saves = story.savedBySize ?? story.rate ?? 0;
   const authorName = story.ownerId?.name || 'Невідомий автор';
@@ -49,9 +55,15 @@ export function StoryCard({ story }: { story: Story }) {
 
     if (isSaving) return;
 
+    const wasSaved = isSaved;
+
     setIsSaving(true);
     try {
       await toggleSaved(story._id);
+
+      if (wasSaved) {
+        onUnsave?.(story._id);
+      }
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         clearIsAuthenticated();

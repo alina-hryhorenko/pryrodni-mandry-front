@@ -24,7 +24,7 @@ export default function ProfilePageClient() {
       try {
         const res = await getSavedStories({ page: 1, limit: 6 });
         setStories(res.stories ?? []);
-        console.log("resresdStrySaved: ", res);
+
         setTotalPages(res.totalPages ?? 1);
         setPage(1);
       } catch (err) {
@@ -59,6 +59,10 @@ export default function ProfilePageClient() {
     }
   };
 
+  function handleCardUnsave(storyId: string) {
+    setStories((prev) => prev.filter((story) => story._id !== storyId));
+  }
+
   if (isLoading) {
     return <Loader />;
   }
@@ -80,7 +84,7 @@ export default function ProfilePageClient() {
       <ul className={css.list}>
         {stories.map((story) => (
           <li key={story._id}>
-            <StoryCard story={story} />
+            <StoryCard story={story} onUnsave={handleCardUnsave} />
           </li>
         ))}
       </ul>
