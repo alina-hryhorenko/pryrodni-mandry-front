@@ -170,6 +170,27 @@
     background-color var(--transition-default),
     color var(--transition-default);
 }
+@media (min-width: 768px) and  (max-width: 1024px) {
+  .card{
+    max-width: 219px;
+    max-height: 317px;
+  }
+  .link {
+    white-space: normal;
+    text-align: center;
+    max-width: 171px;
+    max-height: 48px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .link {
+    white-space: normal;
+    text-align: center;
+  }
+}
 
 @media (hover: hover) and (pointer: fine) {
   .link:hover,

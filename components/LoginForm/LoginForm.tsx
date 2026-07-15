@@ -57,10 +57,15 @@ export default function LoginForm() {
     } catch (error) {
       toast.error('Не вдалося увійти. Спробуйте ще раз.');
       setLoading(false);
+      const backendError = (error as ApiError).response?.data?.error;
+      const normalizedError =
+        backendError === 'Request failed with status code 401'
+          ? 'Неправильний email або пароль'
+          : backendError;
       setError(
-        (error as ApiError).response?.data?.error ??
+        normalizedError ??
           (error as ApiError).message ??
-          'Oops... some error',
+          'Неправильний email або пароль',
       );
     } finally {
       setLoading(false);
@@ -102,6 +107,7 @@ export default function LoginForm() {
         <button className={css.btn} type="submit" disabled={loading}>
           {loading ? 'Завантаження...' : 'Увійти'}
         </button>
+        {error && <p className={css.error}>{error}</p>}
       </Form>
     </Formik>
   );

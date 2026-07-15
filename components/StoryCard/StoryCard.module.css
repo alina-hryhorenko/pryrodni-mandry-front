@@ -138,6 +138,7 @@
   -webkit-box-orient: vertical;
   overflow-wrap: break-word;
 }
+
 @media screen and (min-width: 1440px) {
   .cardTitle {
     font-size: 26px;
