@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   title: 'Нова історія',
 };
 
-// StoryDetailsPage??
 export default function AddStoryPage() {
   return (
     <div className="container">

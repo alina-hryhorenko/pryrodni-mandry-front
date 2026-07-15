@@ -3,8 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
 import { createStory } from '@/services/stories';
 import { StoryFormData } from '@/types/story';
@@ -13,7 +14,6 @@ import { storyValidationSchema } from '@/constants/storyValidation';
 
 import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE } from '@/constants/stories';
 import css from './StoryForm.module.css';
-import { AxiosError } from 'axios';
 
 const initialValues: StoryFormData = {
   img: null,
@@ -43,10 +43,6 @@ export function StoryForm() {
         'Виникла помилка під час створення історії'
       );
     },
-    // onError(error) {
-    //   console.log('ERROR:', error);
-    //   toast.error("This didn't work.");
-    // },
   });
 
   const handleSubmit = (
