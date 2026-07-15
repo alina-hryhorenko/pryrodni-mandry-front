@@ -4,7 +4,6 @@
 // import Image from 'next/image';
 // import Link from 'next/link';
 
-
 // interface TravellerCardProps {
 //   traveller: Traveller;
 // }
@@ -54,10 +53,12 @@ export default function TravellerCard({ traveller }: TravellerCardProps) {
       <div className={css.cardBody}>
         <div className={css.cardText}>
           <h3 className={css.name}>{traveller.name}</h3>
-          <p className={css.articlesAmount}>Статей: {traveller.articlesAmount}</p>
+          <p className={css.articlesAmount}>
+            Статей: {traveller.articlesAmount}
+          </p>
         </div>
 
-        <Link className={css.link} href={`/users/${traveller._id}`}>
+        <Link className={css.link} href={`/travellers/${traveller._id}`}>
           Переглянути профіль
         </Link>
       </div>
