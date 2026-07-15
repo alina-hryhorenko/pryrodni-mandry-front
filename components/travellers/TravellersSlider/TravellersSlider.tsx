@@ -8,14 +8,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/grid';
 
-import type { User } from '@/types/user';
-
-import TravellerCard from '../TravellerCard/TravellerCard';
-import Icon from '../ui/Icon/Icon';
 import css from './TravellersSlider.module.css';
+import TravellerCard from '../TravellerCard/TravellerCard';
+import Icon from '@/components/ui/Icon/Icon';
+import { Traveller } from '@/types/traveller';
 
 interface TravellersSliderProps {
-  users: User[];
+  users: Traveller[];
 }
 
 type SliderLayout = 'mobile' | 'tablet' | 'desktop';
@@ -107,7 +106,7 @@ export default function TravellersSlider({ users }: TravellersSliderProps) {
       >
         {users.map((user) => (
           <SwiperSlide key={user._id} className={css.slide}>
-            <TravellerCard user={user} />
+            <TravellerCard traveller={user} />
           </SwiperSlide>
         ))}
       </Swiper>

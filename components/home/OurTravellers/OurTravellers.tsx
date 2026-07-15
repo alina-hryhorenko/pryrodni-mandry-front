@@ -1,14 +1,33 @@
+'use client'
 import Link from 'next/link';
-import TravellersSlider from '@/components/TravellersSlider/TravellersSlider';
-import { api } from '@/app/api/api';
 import css from './OurTravellers.module.css';
+import TravellersSlider from '@/components/travellers/TravellersSlider/TravellersSlider';
+import { useEffect, useState } from 'react';
+import { getAllTravellers } from '@/services/users';
+import { Traveller } from '@/types/traveller';
+import Loader from '@/components/ui/Loader/Loader';
 
-export default async function OurTravellers() {
-  const { data: response } = await api.get('/api/users', {
-    params: { page: 1, limit: 6 },
-  });
-  const users = response.users;
+const USERS_LIMIT = 6;
 
+export default function OurTravellers() {
+  const [users, setUsers] = useState<Traveller[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTravellers = async () => {
+      try {
+        const data = await getAllTravellers(1, USERS_LIMIT);
+        setUsers(data.users);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTravellers();
+  }, []);
+
+  if(isLoading) return <Loader />
+  
   return (
     <section className={css.section}>
       <div className="container">

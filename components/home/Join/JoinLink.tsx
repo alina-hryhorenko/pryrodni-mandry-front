@@ -9,7 +9,7 @@ export default function JoinLink() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const link = isAuthenticated
-    ? { href: '/auth/profile', label: 'Збережені статті' }
+    ? { href: '/profile', label: 'Збережені статті' }
     : { href: '/auth/register', label: 'Зареєструватися' };
 
   return (

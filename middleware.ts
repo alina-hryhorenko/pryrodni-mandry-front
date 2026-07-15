@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { parseSetCookie } from 'cookie';
-import { checkServerSession } from './services/serverApi';
+import { checkSession } from './services/auth';
 
 const privateRoutes = ['/profile', '/stories/new'];
 const publicRoutes = ['/auth/login', '/auth/register'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
-  const refreshToken = cookieStore.get('refreshToken')?.value;
+  const accessToken = request.cookies.get('accessToken')?.value;
+  const refreshToken = request.cookies.get('refreshToken')?.value;
 
   const isPublicRoute = publicRoutes.some((route) =>
     pathname.startsWith(route),
@@ -21,26 +19,23 @@ export async function middleware(request: NextRequest) {
 
   if (!accessToken) {
     if (refreshToken) {
-      const data = await checkServerSession();
-      const setCookie = data.headers['set-cookie'];
+      const { headers } = await checkSession(
+        request.headers.get('cookie') ?? '',
+      );
+      const setCookie = headers['set-cookie'];
 
       if (setCookie) {
+        const response = isPublicRoute
+          ? NextResponse.redirect(new URL('/', request.url))
+          : NextResponse.next();
+
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
           const parsed = parseSetCookie(cookieStr);
-          if (parsed.value) cookieStore.set(parsed.name, parsed.value, parsed);
+          if (parsed.value) response.cookies.set(parsed.name, parsed.value, parsed);
         }
 
-        if (isPublicRoute) {
-          return NextResponse.redirect(new URL('/', request.url), {
-            headers: { Cookie: cookieStore.toString() },
-          });
-        }
-        if (isPrivateRoute) {
-          return NextResponse.next({
-            headers: { Cookie: cookieStore.toString() },
-          });
-        }
+        if (isPublicRoute || isPrivateRoute) return response;
       }
     }
 
