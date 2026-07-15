@@ -5,6 +5,7 @@
   width: 335px;
   height: 48px;
   background: var(--color-scheme-2-foreground);
+  margin-bottom: 40px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -15,12 +16,13 @@
 
 .tabs {
   display: flex;
-  padding: 4px;
   width: 100%;
   width: 335px;
   border: 1px solid var(--opacity-transparent);
   border-radius: 10px;
   background: var(--color-scheme-2-foreground);
+  align-items: center;
+  justify-content: center;
 }
 
 .tab {
@@ -30,12 +32,12 @@
   border-radius: 8px;
   font-weight: 400;
   font-size: 16px;
+  padding: 4px 12px;
   line-height: 150%;
   color: var(--color-scheme-2-text);
   cursor: pointer;
   border: 1px solid var(--opacity-transparent);
   border-radius: 8px;
-  padding: 4px 12px;
   width: 163px;
   height: 40px;
   transition:
@@ -50,4 +52,16 @@
   background: var(--color-scheme-2-background);
   font-weight: 500;
   color: var(--color-scheme-2-text);
+}
+
+@media only screen and (min-width: 768px) {
+  .tab {
+    width: 207px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tabs {
+    width: 412px;
+  }
 }

@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
   try {
-    const { data } = await api.get('/users/saved-stories', {
+    const { data } = await api.get('/api/users/saved-stories', {
       headers: {
         Cookie: cookieStore.toString(),
       },

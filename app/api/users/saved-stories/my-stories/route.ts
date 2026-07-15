@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const limit = req.nextUrl.searchParams.get('limit');
 
   try {
-    const { data } = await api.get('/users/my-stories', {
+    const { data } = await api.get('/api/users/my-stories', {
       headers: {
         Cookie: cookieStore.toString(),
       },
