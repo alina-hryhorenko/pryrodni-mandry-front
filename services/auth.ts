@@ -52,8 +52,9 @@ type CheckSessionRequest = {
   success: boolean;
 };
 
-export const checkSession = async (cookieHeader: string) => {
+export const checkSession = async (cookieHeader: string, origin: string) => {
   const res = await api.get<CheckSessionRequest>('/auth/session', {
+    baseURL: `${origin}/api`,
     headers: { Cookie: cookieHeader },
   });
   return res;

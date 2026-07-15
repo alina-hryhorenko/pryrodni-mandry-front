@@ -24,6 +24,7 @@ export default function ProfilePageClient() {
       try {
         const res = await getSavedStories({ page: 1, limit: 6 });
         setStories(res.stories ?? []);
+        console.log("resresdStrySaved: ", res);
         setTotalPages(res.totalPages ?? 1);
         setPage(1);
       } catch (err) {
