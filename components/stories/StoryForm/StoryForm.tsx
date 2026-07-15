@@ -1,13 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import { createStory } from '@/services/stories';
+import { getCategories } from '@/services/categories';
 import { StoryFormData } from '@/types/story';
 import StoryImagePicker from '../StoryImagePicker/StoryImagePicker';
 import { storyValidationSchema } from '@/constants/storyValidation';
@@ -27,14 +27,15 @@ export function StoryForm() {
   const [error, setError] = useState<string>('');
 
   const queryClient = useQueryClient();
-  const router = useRouter();
+
+  const { data: categoriesRes } = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  });
+  const categories = categoriesRes?.data ?? [];
 
   const mutation = useMutation({
     mutationFn: createStory,
-    onSuccess(story) {
-      queryClient.invalidateQueries({ queryKey: ['stories'] });
-      router.push(`/story/${story._id}`);
-    },
     onError(error) {
       const axiosError = error as AxiosError<{ message: string }>;
 
@@ -47,10 +48,17 @@ export function StoryForm() {
 
   const handleSubmit = (
     values: StoryFormData,
-    // actions: FormikHelpers<StoryFormData>,
+    actions: FormikHelpers<StoryFormData>,
   ) => {
-    console.log('HANDLE SUBMIT');
-    mutation.mutate(values);
+    mutation.mutate(values, {
+      onSuccess() {
+        queryClient.invalidateQueries({ queryKey: ['stories'] });
+        toast.success('Історію успішно додано!');
+        actions.resetForm();
+        setImagePreview('');
+        setError('');
+      },
+    });
   };
 
   const handleImageChange = (
@@ -142,11 +150,11 @@ export function StoryForm() {
                 <option value="" disabled>
                   Категорія
                 </option>
-                <option value="routes">Маршрути</option>
-                <option value="eco-tips">Еко-поради</option>
-                <option value="nature">Природа</option>
-                <option value="culture">Культура</option>
-                <option value="local-products">Локальні продукти</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.category}
+                  </option>
+                ))}
               </Field>
               <ErrorMessage
                 name="category"

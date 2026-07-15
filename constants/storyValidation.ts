@@ -6,12 +6,7 @@ export const storyValidationSchema = Yup.object().shape({
     .min(2, 'Title must be at least 2 characters')
     .max(40, 'Title must be no more than 40 characters')
     .required('Title is required'),
-  category: Yup.string()
-    .oneOf(
-      ['routes', 'eco-tips', 'nature', 'culture', 'local-products'],
-      'Invalid category',
-    )
-    .required('Category is required'),
+  category: Yup.string().required('Category is required'),
   article: Yup.string()
     .min(12, 'Story must be at least 12 characters')
     .max(3000, 'Story must be no more than 3000 characters')
