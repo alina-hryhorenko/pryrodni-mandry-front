@@ -1,0 +1,195 @@
+/* Form layout */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 64px;
+}
+
+@media screen and (min-width: 1440px) {
+  .form {
+    width: 1091px;
+  }
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Form fields */
+
+.formLabel {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-mantis-darkest);
+}
+
+@media screen and (min-width: 1440px) {
+  .formLabel {
+    font-size: 18px;
+  }
+}
+
+.formField {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-mantis-darkest);
+
+  height: 40px;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  background-color: transparent;
+  outline: none;
+}
+
+.formField:not(.errorField):focus {
+  border: 1px solid var(--color-mantis);
+}
+
+@media screen and (min-width: 1440px) {
+  .formField {
+    font-size: 18px;
+    height: 43px;
+  }
+}
+
+.formTextarea {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-mantis-darkest);
+
+  min-height: 180px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  background-color: transparent;
+  outline: none;
+
+  resize: vertical;
+  overflow: hidden;
+}
+
+.formTextarea:not(.errorField):focus {
+  border: 1px solid var(--color-mantis);
+}
+
+@media screen and (min-width: 1440px) {
+  .formTextarea {
+    font-size: 18px;
+  }
+}
+
+/* Errors */
+
+.errorField {
+  color: var(--color-red);
+  border: 1px solid var(--color-red);
+}
+
+.error {
+    color: var(--color-red);
+}
+
+.errorMessage {
+    color: var(--color-red);
+}
+
+/* Form actions */
+
+.actions {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+@media only screen and (min-width: 768px) {
+  .actions {
+    flex-direction: row;
+    margin-right: auto;
+  }
+}
+
+.submitButton {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-white);
+
+  height: 48px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-mantis-dark);
+  border-radius: 6px;
+  background-color: var(--color-mantis-dark);
+}
+
+.submitButton:hover,
+.submitButton:focus {
+  color: var(--color-mantis-darkest);
+
+  border: 1px solid var(--color-mantis-dark);
+  background-color: var(--color-mantis-lighter);
+}
+
+.submitButton:active {
+  background-color: var(--color-mantis-darker);
+}
+
+.submitButton:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .submitButton {
+    width: 203px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .submitButton {
+    font-size: 18px;
+  }
+}
+
+.cancelButton {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-mantis-darkest);
+
+  height: 48px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cancelButton:hover,
+.cancelButton:focus {
+  color: var(--color-white);
+
+  background-color: var(--color-mantis-dark);
+}
+
+@media only screen and (min-width: 768px) {
+  .cancelButton {
+    width: 203px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .cancelButton {
+    font-size: 18px;
+  }
+}

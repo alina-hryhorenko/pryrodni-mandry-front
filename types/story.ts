@@ -18,3 +18,10 @@ export interface Story {
 export interface PopularStoriesResponse {
   data: Story[];
 }
+
+export interface StoryFormData {
+  img: File | null;
+  title: string;
+  category: string;
+  article: string;
+}

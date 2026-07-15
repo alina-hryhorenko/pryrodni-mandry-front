@@ -1,6 +1,8 @@
 import { isAxiosError } from 'axios';
 import { api } from '@/app/api/api';
 import { PopularStoriesResponse, Story } from '@/types/story';
+// import api from './api';
+// import { PopularStoriesResponse, Story, StoryFormData } from '@/types/story';
 
 export type StoryDetailsData = Story & {
   date?: string;
@@ -67,5 +69,20 @@ export const saveStory = async (storyId: string) => {
 
 export const unsaveStory = async (storyId: string) => {
   const { data } = await api.delete(`/users/save/${storyId}`);
+  return data;
+};
+
+export const createStory = async (newStory: StoryFormData): Promise<Story> => {
+  const formData = new FormData();
+
+  if (newStory.img) {
+    formData.append('img', newStory.img);
+  }
+
+  formData.append('title', newStory.title);
+  formData.append('category', newStory.category);
+  formData.append('article', newStory.article);
+
+  const { data } = await api.post<Story>('/stories', formData);
   return data;
 };
