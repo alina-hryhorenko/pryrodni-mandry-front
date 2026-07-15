@@ -1,0 +1,45 @@
+.btn {
+  display: block;
+  margin: 24px auto 0;
+  cursor: pointer;
+
+  border: 1px solid var(--color-mantis-dark);
+  border-radius: 6px;
+  padding: 6px 12px;
+  min-width: 133px;
+  height: 48px;
+  background: var(--color-mantis-dark);
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-white);
+
+  transition:
+    background-color var(--transition-default),
+    color var(--transition-default),
+    border-color var(--transition-default);
+}
+.btn:hover,
+.btn:focus {
+  background: var(--color-mantis-lighter);
+  color: var(--color-mantis-darkest);
+}
+.btn:active {
+  border: 1px solid var(--color-mantis-dark);
+  background: var(--color-mantis-dark);
+  color: var(--color-white);
+}
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 1440px) {
+  .btn {
+    min-width: 160px;
+    font-size: 20px;
+  }
+}
