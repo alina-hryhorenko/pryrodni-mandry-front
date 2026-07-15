@@ -1,12 +1,19 @@
 .header {
   background-color: var(--background-secondary);
+  width: 100%;
+
+
 }
 
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 68px;
+  /* min-height: 68px; */
+
+  width: 100%;
+  padding: 16px 20px;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -63,7 +70,8 @@
 
 @media screen and (min-width: 768px) {
   .wrapper {
-    min-height: 72px;
+    /* min-height: 72px; */
+    padding: 16px 32px;
   }
 
   .tabletPublish,
@@ -74,7 +82,8 @@
 
 @media screen and (min-width: 1440px) {
   .wrapper {
-    min-height: 72px;
+    /* min-height: 72px; */
+    padding: 16px 64px;
   }
 
   .navigation {
