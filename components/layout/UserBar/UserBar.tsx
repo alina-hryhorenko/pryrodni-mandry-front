@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 import Icon from '@/components/ui/Icon/Icon';
+import Avatar from '@/components/ui/Avatar/Avatar';
 
 import styles from './UserBar.module.css';
 
@@ -15,7 +16,6 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
   const userName = user?.name || 'Користувач';
-  const avatarLetter = userName[0]?.toUpperCase() || 'U';
 
   const handleLogoutClick = () => {
     // TODO: відкрити ConfirmationModal для виходу
@@ -28,9 +28,11 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
       </Link>
 
       <div className={styles.userInfo}>
-        <div className={styles.avatar} aria-label="Аватар користувача">
-          {avatarLetter}
-        </div>
+        <Avatar
+          src={user?.avatarUrl}
+          alt={`Аватар користувача ${userName}`}
+          size={32}
+        />
 
         <span className={styles.userName}>{userName}</span>
 

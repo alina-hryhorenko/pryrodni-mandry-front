@@ -111,7 +111,8 @@
   }
 
   .actions {
-    display: none;
+    justify-content: flex-start;
+    margin-top: 32px;
   }
 }
 

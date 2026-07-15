@@ -28,19 +28,6 @@
   gap: 3px;
 }
 
-.avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--color-neutral-lighter);
-  color: var(--color-mantis-darkest);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1;
-}
 
 .userName {
   color: var(--color-mantis-darkest);
@@ -78,4 +65,19 @@
 
 .mobile .userInfo {
   justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .mobile .publishLink {
+    display: none;
+  }
+
+  .mobile .userInfo {
+    justify-content: flex-start;
+  }
 }

@@ -15,7 +15,7 @@ import styles from './Header.module.css';
 const navLinks = [
   { href: '/', label: 'Головна' },
   { href: '/stories', label: 'Статті' },
-  { href: '/travellers', label: 'Еко-мандрівники' },
+  { href: '/travellers', label: 'Еко-Мандрівники' },
 ];
 
 export default function Header() {
