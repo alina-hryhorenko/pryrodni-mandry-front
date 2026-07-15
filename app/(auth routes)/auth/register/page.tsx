@@ -16,22 +16,24 @@ export default function RegisterPage() {
       <div className="container">
         <AuthHeader />
 
-        <main className={css.main}>
-          <div className={css.container}>
-            <div className={css.authBox}>
-              <MainAuthNav />
-              <div className={css.subtitleAll}>
-                <h1 className={css.title}>Реєстрація</h1>
+        <div className={css.mainContainer}>
+          <main className={css.main}>
+            <div className={css.container}>
+              <div className={css.authBox}>
+                <MainAuthNav />
+                <div className={css.subtitleAll}>
+                  <h1 className={css.title}>Реєстрація</h1>
 
-                <p className={css.subtitle}>
-                  Раді вас бачити у спільноті мандрівників!
-                </p>
+                  <p className={css.subtitle}>
+                    Раді вас бачити у спільноті мандрівників!
+                  </p>
+                </div>
+                <RegistrationForm />
               </div>
-              <RegistrationForm />
-              <AuthFooter />
             </div>
-          </div>
-        </main>
+          </main>
+          <AuthFooter />
+        </div>
       </div>
     </div>
   );

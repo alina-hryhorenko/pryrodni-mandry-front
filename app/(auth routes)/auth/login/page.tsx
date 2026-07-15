@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import css from '../register/Register.module.css';
+import css from './LoginPage.module.css';
 import LoginForm from '@/components/LoginForm/LoginForm';
 import MainAuthNav from '@/components/RegisterPage/MainAuthNav/MainAuthNav';
 import AuthHeader from '@/components/RegisterPage/AuthHeader/AuthHeader';
@@ -16,23 +16,25 @@ export default function LoginPage() {
       <div className="container">
         <AuthHeader />
 
-        <main className={css.main}>
-          <div className={css.container}>
-            <div className={css.authBox}>
-              <MainAuthNav />
-              <div className={css.subtitleAll}>
-                <h1 className={css.title}>Вхід</h1>
+        <div className={css.mainContainer}>
+          <main className={css.main}>
+            <div className={css.container}>
+              <div className={css.authBox}>
+                <MainAuthNav />
+                <div className={css.subtitleAll}>
+                  <h1 className={css.title}>Вхід</h1>
 
-                <p className={css.subtitle}>
-                  Вітаємо знову у спільноту мандрівників!
-                </p>
+                  <p className={css.subtitle}>
+                    Вітаємо знову у спільноту мандрівників!
+                  </p>
+                </div>
+                <LoginForm />
               </div>
-              <LoginForm />
             </div>
-          </div>
-        </main>
+          </main>
 
-        <AuthFooter />
+          <AuthFooter />
+        </div>
       </div>
     </div>
   );

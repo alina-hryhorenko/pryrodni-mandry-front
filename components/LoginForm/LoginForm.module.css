@@ -110,14 +110,6 @@
     width: 644px;
     height: 40px;
   }
-
-  .form {
-    margin-bottom: 0;
-  }
-
-  .btn {
-    margin-bottom: 146px;
-  }
 }
 
 @media (min-width: 1440px) {
@@ -133,13 +125,5 @@
 
   .field {
     font-size: 18px;
-  }
-
-  .form {
-    margin-bottom: 0;
-  }
-
-  .btn {
-    margin-bottom: 111px;
   }
 }
