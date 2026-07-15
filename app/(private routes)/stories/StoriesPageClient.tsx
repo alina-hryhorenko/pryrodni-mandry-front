@@ -6,36 +6,57 @@ import style from './StoriesPage.module.css'
 import { StoryCard } from "@/components/StoryCard/StoryCard";
 import Loader from "@/components/ui/Loader/Loader";
 import CategoryFilter, { ALL_CATEGORIES } from "@/components/StoryPage/CategoryFilter";
+import LoadMoreButton from "@/components/ui/LoadMoreButton/LoadMoreButton";
 
 export default function StoriesPageClient() {
   const [stories, setStories] = useState<Story[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES);
 
-  const getStories = async() => {
-    setIsLoading(true);
-    setError(null);
-    try{
+  useEffect(() => {
+    const fetchStories = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const res = await getAllStories({
+          page: 1,
+          category: activeCategory === ALL_CATEGORIES ? undefined : activeCategory
+        });
+        setStories(res.stories);
+        setTotalPages(res.totalPages);
+        setPage(1);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Не вдалося завантажити статті');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, [activeCategory]);
+
+  const handleLoadMore = async () => {
+    setIsLoadingMore(true);
+    try {
+      const nextPage = page + 1;
       const res = await getAllStories({
-        page: page,
+        page: nextPage,
         category: activeCategory === ALL_CATEGORIES ? undefined : activeCategory
-      })
-      setStories(res.stories);
+      });
+      setStories((prev) => [...prev, ...res.stories]);
+      setPage(nextPage);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Не вдалося завантажити статті');
     } finally {
-      setIsLoading(false);
+      setIsLoadingMore(false);
     }
   }
 
-  useEffect(() => {
-    getStories();
-  }, [page, activeCategory]);
-
   const handleSelectCategory = (category: string) => {
-    setPage(1);
     setActiveCategory(category);
   }
 
@@ -52,6 +73,10 @@ export default function StoriesPageClient() {
         {stories.length > 0 &&
           stories.map((story) => <StoryCard key={story._id} story={story} />)}
       </div>
+
+      {page < totalPages && (
+        <LoadMoreButton onClick={handleLoadMore} isLoading={isLoadingMore} />
+      )}
     </section>
   )
 }

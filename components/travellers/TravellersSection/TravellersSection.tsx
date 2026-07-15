@@ -1,12 +1,11 @@
 'use client';
 
-import css from './TravellersSection.module.css';
-
 import { useEffect, useState } from 'react';
 import TravellersList from '../TravellersList/TravellersList';
 import { Traveller } from '@/types/traveller';
 import { getAllTravellers } from '@/services/users';
 import Loader from '@/components/ui/Loader/Loader';
+import LoadMoreButton from '@/components/ui/LoadMoreButton/LoadMoreButton';
 
 const USERS_LIMIT = 6;
 
@@ -55,13 +54,7 @@ export default function TravellersSection() {
       <TravellersList travellers={users} />
 
       {page < totalPages && (
-        <button
-          className={css.btn}
-          onClick={handleLoadMore}
-          disabled={isLoadingMore}
-        >
-          {isLoadingMore ? 'Завантаження...' : 'Показати ще'}
-        </button>
+        <LoadMoreButton onClick={handleLoadMore} isLoading={isLoadingMore} />
       )}
     </>
   );
