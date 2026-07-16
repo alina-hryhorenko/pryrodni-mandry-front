@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 
 import Header from '../Header/Header';
+import Footer from '@/components/Footer/Footer';
 import css from './AppLayout.module.css';
 
 type AppLayoutProps = {
@@ -18,6 +19,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
     <div className={css.appWrapper}>
       {!isAuthPage && <Header />}
       <main className={css.main}>{children}</main>
+      <Footer />
     </div>
   );
 }

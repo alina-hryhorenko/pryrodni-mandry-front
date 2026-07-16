@@ -46,7 +46,7 @@ export function TravellerStories({
 
       {stories.length === 0 ? (
         <MessageNoStories
-          text="У цього мандрівника ще немає статей"
+          text="Цей користувач ще не публікував історій"
           buttonText="До мандрівників"
           linkTo="/travellers"
         />
