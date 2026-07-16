@@ -53,13 +53,15 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
       </Link>
 
       <div className={styles.userInfo}>
-        <Avatar
-          src={user?.avatarUrl}
-          alt={`Аватар користувача ${userName}`}
-          size={32}
-        />
+        <Link href="/profile" className={styles.profileLink}>
+          <Avatar
+            src={user?.avatarUrl}
+            alt={`Аватар користувача ${userName}`}
+            size={32}
+          />
 
-        <span className={styles.userName}>{userName}</span>
+          <span className={styles.userName}>{userName}</span>
+        </Link>
 
         <button
           type="button"

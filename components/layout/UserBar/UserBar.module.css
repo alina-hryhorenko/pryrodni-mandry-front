@@ -28,6 +28,12 @@
   gap: 3px;
 }
 
+.profileLink {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+}
 
 .userName {
   color: var(--color-mantis-darkest);
