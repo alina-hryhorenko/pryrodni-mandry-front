@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { toast } from 'react-hot-toast';
+import CustomSelect from '@/components/stories/CustomSelect/CustomSelect';
 
 import { ApiError } from '@/app/api/api';
 import Loading from '@/app/loading';
@@ -146,7 +147,16 @@ export function StoryForm() {
       validationSchema={storyValidationSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, dirty, isValid, setFieldValue, resetForm }) => (
+      {({
+        errors,
+        touched,
+        dirty,
+        isValid,
+        setFieldValue,
+        setFieldTouched,
+        resetForm,
+        values,
+      }) => (
         <div className={css.formWrapper}>
           {mutation.isPending && (
             <div className={css.loaderOverlay}>
@@ -194,23 +204,18 @@ export function StoryForm() {
                 <label htmlFor="category" className={css.formLabel}>
                   Категорія
                 </label>
-                <Field
+                <CustomSelect
                   id="category"
-                  name="category"
-                  as="select"
-                  className={`${css.formField} ${
-                    touched.category && errors.category ? css.errorField : ''
-                  }`}
-                >
-                  <option value="" disabled>
-                    Категорія
-                  </option>
-                  {categories.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.category}
-                    </option>
-                  ))}
-                </Field>
+                  options={categories.map((category) => ({
+                    value: category._id,
+                    label: category.category,
+                  }))}
+                  value={values.category}
+                  onChange={(value: string) => setFieldValue('category', value)}
+                  onBlur={() => setFieldTouched('category', true)}
+                  placeholder="Категорія"
+                  hasError={Boolean(touched.category && errors.category)}
+                />
                 <ErrorMessage
                   name="category"
                   component="span"
