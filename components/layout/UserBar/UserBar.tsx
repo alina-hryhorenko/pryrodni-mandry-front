@@ -75,6 +75,7 @@ export default function UserBar({ variant = 'desktop' }: UserBarProps) {
         isOpen={isLogoutModalOpen}
         onClose={() => setIsLogoutModalOpen(false)}
         onConfirm={handleLogoutConfirm}
+        confirmText="Вийти"
       />
     </div>
   );
