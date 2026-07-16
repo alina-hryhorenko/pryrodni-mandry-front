@@ -44,6 +44,11 @@ export function StoryForm() {
     onError(error) {
       const apiError = error as ApiError;
 
+      // 1. Дістаємо помилку з бекенду (і приводимо до потрібного типу)
+      const backendError = (apiError.response?.data as { error?: string })
+        ?.error;
+
+      // 2. Додаємо явне перетворення типу, щоб switch працював без помилок
       const status = apiError.response?.status;
 
       switch (status) {
@@ -64,9 +69,9 @@ export function StoryForm() {
           break;
 
         default:
+          // 3. Використовуємо змінну тут! Якщо є backendError — виводимо її, інакше старий текст
           toast.error(
-            apiError.response?.data.error ??
-            'Виникла помилка під час створення історії'
+            backendError ?? 'Виникла помилка під час створення історії',
           );
       }
     },
@@ -111,7 +116,10 @@ export function StoryForm() {
       return;
     }
 
-    if (!ALLOWED_IMAGE_TYPES.includes(file.type) || file.size > MAX_IMAGE_SIZE) {
+    if (
+      !ALLOWED_IMAGE_TYPES.includes(file.type) ||
+      file.size > MAX_IMAGE_SIZE
+    ) {
       setFieldValue('img', null);
       setImagePreview('');
       setError(
@@ -145,112 +153,113 @@ export function StoryForm() {
               <Loading />
             </div>
           )}
-        <Form className={`${css.form} ${
-          mutation.isPending ? css.formLoading : ''
-        }`}
-        >
-          <div className={css.formContent}>
-            <div className={css.formGroup}>
-              <label htmlFor="cover" className={css.formLabel}>
-                Обкладинка статті
-              </label>
-              <StoryImagePicker
-                imagePreview={imagePreview}
-                handleImageChange={(file) =>
-                  handleImageChange(file, setFieldValue)
-                }
-              />
-              {error && <span className={css.error}>{error}</span>}
-            </div>
-            <div className={css.formGroup}>
-              <label htmlFor="title" className={css.formLabel}>
-                Заголовок
-              </label>
-              <Field
-                id="title"
-                name="title"
-                type="text"
-                placeholder="Введіть заголовок історії"
-                className={`${css.formField} ${
-                  touched.title && errors.title ? css.errorField : ''
-                }`}
-              />
-              <ErrorMessage
-                name="title"
-                component="span"
-                className={css.errorMessage}
-              />
-            </div>
-            <div className={css.formGroup}>
-              <label htmlFor="category" className={css.formLabel}>
-                Категорія
-              </label>
-              <Field
-                id="category"
-                name="category"
-                as="select"
-                className={`${css.formField} ${
-                  touched.category && errors.category ? css.errorField : ''
-                }`}
-              >
-                <option value="" disabled>
+          <Form
+            className={`${css.form} ${
+              mutation.isPending ? css.formLoading : ''
+            }`}
+          >
+            <div className={css.formContent}>
+              <div className={css.formGroup}>
+                <label htmlFor="cover" className={css.formLabel}>
+                  Обкладинка статті
+                </label>
+                <StoryImagePicker
+                  imagePreview={imagePreview}
+                  handleImageChange={(file) =>
+                    handleImageChange(file, setFieldValue)
+                  }
+                />
+                {error && <span className={css.error}>{error}</span>}
+              </div>
+              <div className={css.formGroup}>
+                <label htmlFor="title" className={css.formLabel}>
+                  Заголовок
+                </label>
+                <Field
+                  id="title"
+                  name="title"
+                  type="text"
+                  placeholder="Введіть заголовок історії"
+                  className={`${css.formField} ${
+                    touched.title && errors.title ? css.errorField : ''
+                  }`}
+                />
+                <ErrorMessage
+                  name="title"
+                  component="span"
+                  className={css.errorMessage}
+                />
+              </div>
+              <div className={css.formGroup}>
+                <label htmlFor="category" className={css.formLabel}>
                   Категорія
-                </option>
-                {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.category}
+                </label>
+                <Field
+                  id="category"
+                  name="category"
+                  as="select"
+                  className={`${css.formField} ${
+                    touched.category && errors.category ? css.errorField : ''
+                  }`}
+                >
+                  <option value="" disabled>
+                    Категорія
                   </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="category"
-                component="span"
-                className={css.errorMessage}
-              />
+                  {categories.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.category}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="category"
+                  component="span"
+                  className={css.errorMessage}
+                />
+              </div>
+              <div className={css.formGroup}>
+                <label htmlFor="article" className={css.formLabel}>
+                  Текст історії
+                </label>
+                <Field
+                  id="article"
+                  name="article"
+                  as="textarea"
+                  placeholder="Ваша історія тут"
+                  rows={8}
+                  className={`${css.formTextarea} ${
+                    touched.article && errors.article ? css.errorField : ''
+                  }`}
+                />
+                <ErrorMessage
+                  name="article"
+                  component="span"
+                  className={css.errorMessage}
+                />
+              </div>
             </div>
-            <div className={css.formGroup}>
-              <label htmlFor="article" className={css.formLabel}>
-                Текст історії
-              </label>
-              <Field
-                id="article"
-                name="article"
-                as="textarea"
-                placeholder="Ваша історія тут"
-                rows={8}
-                className={`${css.formTextarea} ${
-                  touched.article && errors.article ? css.errorField : ''
-                }`}
-              />
-              <ErrorMessage
-                name="article"
-                component="span"
-                className={css.errorMessage}
-              />
+            <div className={css.actions}>
+              <button
+                type="submit"
+                className={css.submitButton}
+                disabled={!dirty || !isValid}
+              >
+                Зберегти
+              </button>
+              <button
+                type="button"
+                className={css.cancelButton}
+                onClick={() => {
+                  resetForm();
+                  setImagePreview('');
+                  setError('');
+                }}
+              >
+                Відмінити
+              </button>
             </div>
-          </div>
-          <div className={css.actions}>
-            <button
-              type="submit"
-              className={css.submitButton}
-              disabled={!dirty || !isValid}
-            >
-              Зберегти
-            </button>
-            <button
-              type="button"
-              className={css.cancelButton}
-              onClick={() => {
-                resetForm();
-                setImagePreview('');
-                setError('');
-              }}
-            >
-              Відмінити
-            </button>
-          </div>
-        </Form>
-          </div>
+          </Form>
+        </div>
       )}
     </Formik>
   );
