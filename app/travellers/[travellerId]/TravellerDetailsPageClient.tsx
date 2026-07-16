@@ -1,7 +1,8 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { isAxiosError } from 'axios';
 
 import { TravellerInfo } from '@/components/travellers/TravellerInfo/TravellerInfo';
 import { TravellerStories } from '@/components/travellers/TravellerStories/TravellerStories';
@@ -9,6 +10,7 @@ import { getTravellerById } from '@/services/users';
 import { Traveller } from '@/types/traveller';
 import Loader from '@/components/ui/Loader/Loader';
 import css from './travellerId.module.css';
+import errorStyles from '@/app/error-pages.module.css';
 
 type Props = {
   params: Promise<{
@@ -25,13 +27,15 @@ export default function TravellerDetailsPageClient({ params }: Props) {
 
   const [traveller, setTraveller] = useState<TravellerDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     const isValidId =
       typeof travellerId === 'string' && travellerId.length === 24;
 
     if (!isValidId) {
-      notFound();
+      setIsNotFound(true);
+      setIsLoading(false);
       return;
     }
 
@@ -40,15 +44,16 @@ export default function TravellerDetailsPageClient({ params }: Props) {
         const data = await getTravellerById(travellerId);
 
         if (!data) {
-          notFound();
+          setIsNotFound(true);
           return;
         }
 
         setTraveller(data);
       } catch (error) {
-        console.error('Помилка при завантаженні мандрівника:', error);
-        notFound();
-        return;
+        if (!isAxiosError(error) || error.response?.status !== 404) {
+          console.error('Помилка при завантаженні мандрівника:', error);
+        }
+        setIsNotFound(true);
       } finally {
         setIsLoading(false);
       }
@@ -61,8 +66,20 @@ export default function TravellerDetailsPageClient({ params }: Props) {
     return <Loader />;
   }
 
-  if (!traveller) {
-    return null;
+  if (isNotFound || !traveller) {
+    return (
+      <main className={errorStyles.wrapper}>
+        <div className={errorStyles.content}>
+          <h1 className={errorStyles.title}>Такий користувач відсутній</h1>
+
+          <div className={errorStyles.actions}>
+            <Link href="/travellers" className={errorStyles.button}>
+              До мандрівників
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (
