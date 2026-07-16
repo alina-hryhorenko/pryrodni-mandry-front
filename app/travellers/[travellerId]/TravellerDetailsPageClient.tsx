@@ -8,7 +8,7 @@ import { TravellerStories } from '@/components/travellers/TravellerStories/Trave
 import { getTravellerById } from '@/services/users';
 import { Traveller } from '@/types/traveller';
 import Loader from '@/components/ui/Loader/Loader';
-import css from './travellerId.module.css'
+import css from './travellerId.module.css';
 
 type Props = {
   params: Promise<{
@@ -27,18 +27,28 @@ export default function TravellerDetailsPageClient({ params }: Props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const isValidId =
+      typeof travellerId === 'string' && travellerId.length === 24;
+
+    if (!isValidId) {
+      notFound();
+      return;
+    }
+
     const fetchTraveller = async () => {
       try {
         const data = await getTravellerById(travellerId);
 
         if (!data) {
           notFound();
-        } else {
-          setTraveller(data);
+          return;
         }
+
+        setTraveller(data);
       } catch (error) {
         console.error('Помилка при завантаженні мандрівника:', error);
         notFound();
+        return;
       } finally {
         setIsLoading(false);
       }
@@ -57,9 +67,9 @@ export default function TravellerDetailsPageClient({ params }: Props) {
 
   return (
     <main>
-        <TravellerInfo traveller={traveller.user} />
+      <TravellerInfo traveller={traveller.user} />
 
-        <TravellerStories userId={travellerId} />
+      <TravellerStories userId={travellerId} />
     </main>
   );
 }

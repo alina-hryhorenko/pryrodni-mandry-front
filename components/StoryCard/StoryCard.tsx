@@ -109,7 +109,10 @@ export function StoryCard({
           <div className={styles.authorInfo}>
             <span className={styles.authorName}>
               {authorId ? (
-                <Link href={`/travellers/${authorId}`} className={styles.authorLink}>
+                <Link
+                  href={`/travellers/${authorId}`}
+                  className={styles.authorLink}
+                >
                   {authorName}
                 </Link>
               ) : (
