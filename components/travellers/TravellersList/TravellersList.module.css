@@ -2,6 +2,11 @@
     display: grid;
     gap: 24px;
     grid-template-columns: 1fr;
+    width: 100%;
+}
+
+.list > li {
+    min-width: 0;
 }
 
 @media screen and (min-width: 768px){
