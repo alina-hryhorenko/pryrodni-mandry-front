@@ -64,7 +64,7 @@ export function TravellerStories({ userId }: Props) {
       {stories.length === 0 && !isLoading ? (
         <MessageNoStories
           text="Цей користувач ще не публікував історій"
-          buttonText="До мандрівників"
+          buttonText="Назад до історій"
           linkTo="/travellers"
         />
       ) : (
