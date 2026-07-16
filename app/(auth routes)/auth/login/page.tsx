@@ -25,7 +25,7 @@ export default function LoginPage() {
                   <h1 className={css.title}>Вхід</h1>
 
                   <p className={css.subtitle}>
-                    Вітаємо знову у спільноту мандрівників!
+                    Вітаємо знову у спільноті мандрівників!
                   </p>
                 </div>
                 <LoginForm />
