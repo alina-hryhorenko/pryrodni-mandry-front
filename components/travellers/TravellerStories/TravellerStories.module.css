@@ -17,11 +17,11 @@
 }
 
 .list {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
   gap: 24px;
-  grid-template-columns: 1fr;
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
