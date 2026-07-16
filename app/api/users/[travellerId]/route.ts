@@ -1,5 +1,5 @@
 import { isAxiosError } from 'axios';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../../api';
 import { logErrorResponse } from '../../_utils/utils';
 
@@ -9,11 +9,18 @@ interface RouteParams {
   }>;
 }
 
-export async function GET(_request: Request, { params }: RouteParams) {
+export async function GET(request: NextRequest, { params }: RouteParams) {
   const { travellerId } = await params;
+  const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
+  const limit = Number(request.nextUrl.searchParams.get('limit') ?? 6);
 
   try {
-    const res = await api.get(`/api/users/${travellerId}`);
+    const res = await api.get(`/api/users/${travellerId}`, {
+      params: {
+        page,
+        limit,
+      },
+    });
 
     return NextResponse.json(res.data, {
       status: res.status,

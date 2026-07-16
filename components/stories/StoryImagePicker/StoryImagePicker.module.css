@@ -35,9 +35,9 @@
   width: 178px;
   height: 32px;
   padding: 4px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--opacity-neutral-darkest-15);
   border-radius: 6px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--opacity-neutral-darkest-5);
 }
 
 .uploadButton:hover,

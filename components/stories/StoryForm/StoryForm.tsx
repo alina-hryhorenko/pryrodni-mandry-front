@@ -1,16 +1,20 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { toast } from 'react-hot-toast';
-import { AxiosError } from 'axios';
+
+import { ApiError } from '@/app/api/api';
+import Loading from '@/app/loading';
 
 import { createStory } from '@/services/stories';
 import { getCategories } from '@/services/categories';
 import { StoryFormData } from '@/types/story';
 import StoryImagePicker from '../StoryImagePicker/StoryImagePicker';
 import { storyValidationSchema } from '@/constants/storyValidation';
+import { useAuthStore } from '@/store/authStore';
 
 import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_SIZE } from '@/constants/stories';
 import css from './StoryForm.module.css';
@@ -27,6 +31,7 @@ export function StoryForm() {
   const [error, setError] = useState<string>('');
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { data: categoriesRes } = useQuery({
     queryKey: ['categories'],
@@ -37,12 +42,33 @@ export function StoryForm() {
   const mutation = useMutation({
     mutationFn: createStory,
     onError(error) {
-      const axiosError = error as AxiosError<{ message: string }>;
+      const apiError = error as ApiError;
 
-      toast.error(
-        axiosError.response?.data.message ??
-        'Виникла помилка під час створення історії'
-      );
+      const status = apiError.response?.status;
+
+      switch (status) {
+        case 400:
+          toast.error('Введені дані некоректні');
+          break;
+
+        case 401:
+          toast.error('Увійдіть у свій акаунт, щоб продовжити.');
+          break;
+
+        case 404:
+          toast.error('Запит не знайдено (404)');
+          break;
+
+        case 500:
+          toast.error('Помилка сервера. Спробуйте пізніше');
+          break;
+
+        default:
+          toast.error(
+            apiError.response?.data.error ??
+            'Виникла помилка під час створення історії'
+          );
+      }
     },
   });
 
@@ -51,12 +77,23 @@ export function StoryForm() {
     actions: FormikHelpers<StoryFormData>,
   ) => {
     mutation.mutate(values, {
-      onSuccess() {
+      onSuccess(story) {
         queryClient.invalidateQueries({ queryKey: ['stories'] });
+
+        const currentUser = useAuthStore.getState().user;
+        if (currentUser) {
+          useAuthStore.getState().setUser({
+            ...currentUser,
+            articlesAmount: currentUser.articlesAmount + 1,
+          });
+        }
+
         toast.success('Історію успішно додано!');
         actions.resetForm();
         setImagePreview('');
         setError('');
+
+        router.push(`/stories/${story._id}`);
       },
     });
   };
@@ -102,7 +139,16 @@ export function StoryForm() {
       onSubmit={handleSubmit}
     >
       {({ errors, touched, dirty, isValid, setFieldValue, resetForm }) => (
-        <Form className={css.form}>
+        <div className={css.formWrapper}>
+          {mutation.isPending && (
+            <div className={css.loaderOverlay}>
+              <Loading />
+            </div>
+          )}
+        <Form className={`${css.form} ${
+          mutation.isPending ? css.formLoading : ''
+        }`}
+        >
           <div className={css.formContent}>
             <div className={css.formGroup}>
               <label htmlFor="cover" className={css.formLabel}>
@@ -204,6 +250,7 @@ export function StoryForm() {
             </button>
           </div>
         </Form>
+          </div>
       )}
     </Formik>
   );

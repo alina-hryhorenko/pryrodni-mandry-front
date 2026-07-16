@@ -7,7 +7,6 @@ import { TravellerInfo } from '@/components/travellers/TravellerInfo/TravellerIn
 import { TravellerStories } from '@/components/travellers/TravellerStories/TravellerStories';
 import { getTravellerById } from '@/services/users';
 import { Traveller } from '@/types/traveller';
-import { Story } from '@/types/story';
 import Loader from '@/components/ui/Loader/Loader';
 import css from './travellerId.module.css';
 
@@ -19,8 +18,6 @@ type Props = {
 
 type TravellerDetails = {
   user: Traveller;
-  stories: Story[];
-  totalPages: number;
 };
 
 export default function TravellerDetailsPageClient({ params }: Props) {
@@ -72,11 +69,7 @@ export default function TravellerDetailsPageClient({ params }: Props) {
     <main>
       <TravellerInfo traveller={traveller.user} />
 
-      <TravellerStories
-        initialStories={traveller.stories}
-        userId={travellerId}
-        totalPages={traveller.totalPages}
-      />
+      <TravellerStories userId={travellerId} />
     </main>
   );
 }
