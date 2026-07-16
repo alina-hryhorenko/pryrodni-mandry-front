@@ -31,7 +31,9 @@ export function TravellerStories({ userId }: Props) {
         setTotalPages(data.totalPages);
         setPage(1);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Не вдалося завантажити статті');
+        setError(
+          err instanceof Error ? err.message : 'Не вдалося завантажити статті',
+        );
       } finally {
         setIsLoading(false);
       }
@@ -48,7 +50,9 @@ export function TravellerStories({ userId }: Props) {
       setStories((prev) => [...prev, ...data.stories]);
       setPage(nextPage);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Не вдалося завантажити статті');
+      setError(
+        err instanceof Error ? err.message : 'Не вдалося завантажити статті',
+      );
     } finally {
       setIsLoadingMore(false);
     }
@@ -65,7 +69,7 @@ export function TravellerStories({ userId }: Props) {
         <MessageNoStories
           text="Цей користувач ще не публікував історій"
           buttonText="Назад до історій"
-          linkTo="/travellers"
+          linkTo="/stories"
         />
       ) : (
         <>
