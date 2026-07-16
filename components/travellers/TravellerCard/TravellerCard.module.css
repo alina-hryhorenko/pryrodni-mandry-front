@@ -171,8 +171,8 @@
     background-color var(--transition-default),
     color var(--transition-default);
 }
-@media (min-width: 768px) and  (max-width: 1024px) {
-  .card{
+/* @media (min-width: 768px) and (max-width: 1024px) {
+  .card {
     max-width: 219px;
     max-height: 317px;
   }
@@ -184,7 +184,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-}
+} */
 
 @media (max-width: 1024px) {
   .link {
