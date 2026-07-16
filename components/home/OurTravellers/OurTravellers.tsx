@@ -7,7 +7,7 @@ import { getAllTravellers } from '@/services/users';
 import { Traveller } from '@/types/traveller';
 import Loader from '@/components/ui/Loader/Loader';
 
-const USERS_LIMIT = 6;
+const USERS_LIMIT = 12;
 
 export default function OurTravellers() {
   const [users, setUsers] = useState<Traveller[]>([]);
