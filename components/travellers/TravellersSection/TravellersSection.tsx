@@ -7,7 +7,7 @@ import { getAllTravellers } from '@/services/users';
 import Loader from '@/components/ui/Loader/Loader';
 import LoadMoreButton from '@/components/ui/LoadMoreButton/LoadMoreButton';
 
-const USERS_LIMIT = 6;
+const USERS_LIMIT = 12;
 
 export default function TravellersSection() {
   const [users, setUsers] = useState<Traveller[]>([]);
