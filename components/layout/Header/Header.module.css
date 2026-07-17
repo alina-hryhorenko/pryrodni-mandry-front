@@ -12,7 +12,7 @@
   /* min-height: 68px; */
 
   width: 100%;
-  padding: 16px 20px;
+  padding: 16px 0;
   box-sizing: border-box;
 }
 
@@ -71,7 +71,7 @@
 @media screen and (min-width: 768px) {
   .wrapper {
     /* min-height: 72px; */
-    padding: 16px 32px;
+    padding: 16px 0;
   }
 
   .tabletPublish,
@@ -83,7 +83,7 @@
 @media screen and (min-width: 1440px) {
   .wrapper {
     /* min-height: 72px; */
-    padding: 16px 64px;
+    padding: 16px 0;
   }
 
   .navigation {

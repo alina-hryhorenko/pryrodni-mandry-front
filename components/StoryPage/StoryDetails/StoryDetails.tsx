@@ -31,7 +31,7 @@ export default function StoryDetails({ story }: Props) {
   })();
 
   return (
-    <section className={styles.container}>
+    <section className={`container ${styles.container}`}>
       <div className={styles.grid}>
         <div className={styles.left}>
           <Link href="/stories" className={styles.back}>

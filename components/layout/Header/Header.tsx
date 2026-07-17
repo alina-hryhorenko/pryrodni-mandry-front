@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      {/* <div className="container"> */}
+      <div className="container">
         <div className={styles.wrapper}>
           <Link
             href="/"
@@ -119,7 +119,7 @@ export default function Header() {
             </>
           )}
         </div>
-      {/* </div> */}
+      </div>
 
       {!isAuthPage && (
         <MobileMenu
