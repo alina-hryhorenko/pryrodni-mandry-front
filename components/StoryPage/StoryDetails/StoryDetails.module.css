@@ -1,8 +1,4 @@
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-
     display: flex;
     flex-direction: column;
 }
@@ -127,10 +123,6 @@
 
 /* ===== TABLET ===== */
 @media (min-width: 768px) {
-    .container {
-        padding: 0 32px;
-    }
-
     .title {
         font-size: 48px;
     }
@@ -151,11 +143,6 @@
 
 /* ===== DESKTOP ===== */
 @media (min-width: 1440px) {
-    .container {
-        max-width: none;
-        padding: 0 64px;
-    }
-
     .back {
         font-size: 20px;
     }
