@@ -9,7 +9,8 @@
 
 .profilePageSection{
     width: 100%;
-    padding: 32px 20px;
+    padding-top: 32px;
+    padding-bottom: 32px;
 
     display: flex;
     flex-direction: column;
@@ -20,7 +21,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 24px;
 }
 
@@ -28,15 +29,10 @@
   color: var(--error-color);
 }
 
-@media (min-width: 768px) {
-    .profilePageSection{
-        padding: 32px;
-    }
-}
-
 /* LAPTOP */
 @media (min-width: 1440px) {
     .profilePageSection{
-        padding: 64px 48px;
+        padding-top: 64px;
+        padding-bottom: 64px;
     }
 }

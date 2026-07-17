@@ -9,7 +9,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
     <main className={styles.page}>
       <ProfileHeader />
 
-      <section className={styles.profilePageSection}>
+      <section className={`container ${styles.profilePageSection}`}>
         <ProfileTabs />
         {children}
       </section>
